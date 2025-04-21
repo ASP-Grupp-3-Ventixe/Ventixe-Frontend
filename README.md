@@ -21,8 +21,9 @@ cd Ventixe-Frontend
 npm install
 npm run dev
 ```
-```bash
+
 ## 🌿 Arbeta med egna delsystem
+```bash
 # 2. Skapa en ny branch för din feature:
 git checkout -b bookings-frontend
 
