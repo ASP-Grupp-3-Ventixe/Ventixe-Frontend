@@ -12,9 +12,10 @@
 - ****npm install****
 - ****npm run dev****
 
-2. ****Skapa en ny branch för varje delsystem/feature:****
+2. ****Skapa en ny branch för varje delsystem/feature:
+- ****git checkout -b bookings-frontend****
 
-3. ****När du är klar:****
+4. ****När du är klar:****
 - **Testa lokalt**
 - **git push origin <din-branch>**
 - **Skapa en Pull Request till main**
