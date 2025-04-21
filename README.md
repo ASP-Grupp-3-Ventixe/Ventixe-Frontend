@@ -24,5 +24,36 @@ git checkout -b bookings-frontend
 git push origin bookings-frontend
 # Skapa en Pull Request till main
 ```
+---
+## 📚 Branch Naming Policy
+
+För att hålla strukturen tydlig och professionell, gäller följande branch-namnstandard i både frontend- och backend-repositorierna.
+
+---
+
+### 🖥️ Frontend-branches:
+
+```bash
+auth-frontend
+booking-frontend
+event-frontend
+admin-frontend
+```
+### 🗄️ Backend-branches:
+```
+auth-backend
+booking-backend
+event-backend
+admin-backend
+```
+### 🧪 Exempel
+```bash
+# Skapa en ny branch för att jobba med autentisering i frontend
+git checkout -b auth-frontend
+
+# Efter färdigutveckling:
+git push origin auth-frontend
+# Gå till GitHub och skapa en Pull Request till main
+```
 
 
