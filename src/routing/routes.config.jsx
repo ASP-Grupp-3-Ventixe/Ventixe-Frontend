@@ -9,10 +9,10 @@ const NotFound = lazy(() => import("../partials/pages/NotFound"))
 const SignUp = lazy(() => import("../partials/pages/auth/SignUp"));
 const SignIn = lazy(() => import("../partials/pages/auth/SignIn"));
 
-const UserDashboard = lazy(() => import("../partials/pages/user/dashboard"))
+const UserDashboard = lazy(() => import("../partials/pages/user/Dashboard"))
 const UserBookings = lazy(() => import("../partials/pages/user/Bookings"))
 
-const AdminDashboard = lazy(() => import("../partials/pages/admin/dashboard"))
+const AdminDashboard = lazy(() => import("../partials/pages/admin/Dashboard"))
 const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"))
 
 
