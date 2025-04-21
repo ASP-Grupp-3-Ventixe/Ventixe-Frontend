@@ -63,9 +63,7 @@ git push origin auth-frontend
  Här samlar vi alla publicerade backend-länkar så att vi lätt hittar till varandras API:er och kan testa systemet som helhet.
 
 ## 🛠️ Backend-länkar (Azure App Services)
-```bash
 
-```
 > Dessa används av frontend för att fetcha data.  
 > T.ex. om du bygger Dashboard och vill visa bokningar, behöver du BookingsBackend-URL:en.
 > > Lägg in din länk när du har deployat.
@@ -79,14 +77,14 @@ git push origin auth-frontend
 │ [Fyll i namn] │ EventsBackend        │ [klistra in din länk här]                                    │
 │ [Fyll i namn] │ AdminBackend         │ [klistra in din länk här]                                    │
 └───────────────┴──────────────────────┴──────────────────────────────────────────────────────────────┘
-```
+
 
 ## 🌐 Frontend-länkar (Azure Static Web Apps)
 > Här samlar vi alla publicerade frontend-länkar.  
 > Dessa visar hur varje delsystems användargränssnitt ser ut live.  
 > Lägg in din länk när du har deployat.
 
-```
+
 ┌───────────────┬──────────────────────┬──────────────────────────────────────────────────────────────┐
 │ Namn          │ Delsystem            │ Azure-länk                                                   │
 ├───────────────┼──────────────────────┼──────────────────────────────────────────────────────────────┤
