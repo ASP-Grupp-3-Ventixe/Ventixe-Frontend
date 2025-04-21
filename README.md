@@ -70,5 +70,8 @@ git push origin auth-frontend
 │ [Fyll i namn] │ Ventixe Frontend     │ Frontend │ [klistra in länk här]                                        │
 │ [Fyll i namn] │ BookingsBackend      │ Backend  │ [klistra in länk här]                                        │
 │ [Fyll i namn] │ BookingsFrontend     │ Frontend │ [klistra in länk här]                                        │
-│ [Fyll i namn] │ DashboardFrontend    │ Frontend │ [klistra in länk här]                                        │
+│ [Fyll i namn] │ DashboardFrontend    │ Frontend │ [klistra in länk här]
+  [Fyll i namn] │ DashboardFrontend    │ Frontend │ [klistra in länk här]
+  [Fyll i namn] │ DashboardFrontend    │ Frontend │ [klistra in länk här]
+  [Fyll i namn] │ DashboardFrontend    │ Frontend │ [klistra in länk här]                                       │
 └───────────────┴──────────────────────┴──────────┴──────────────────────────────────────────────────────────────┘
