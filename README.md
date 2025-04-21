@@ -66,12 +66,9 @@ git push origin auth-frontend
 ┌───────────────┬──────────────────────┬──────────┬──────────────────────────────────────────────────────────────┐
 │ Namn          │ Delsystem            │ Typ      │ Azure-länk                                                   │
 ├───────────────┼──────────────────────┼──────────┼──────────────────────────────────────────────────────────────┤
-│ Daniel Nweze  │ AuthBackend          │ Backend  │ https://ventixe-auth.azurewebsites.net                       │
-│ Daniel Nweze  │ Ventixe Frontend     │ Frontend │ https://white-moss-09fda2c0e.3.azurestaticapps.net           │
-│ [Fyll i namn] │ BookingsBackend      │ Backend  │ [klistra in här]                                             │
-│ [Fyll i namn] │ BookingsFrontend     │ Frontend │ [klistra in här]                                             │
-│ [Fyll i namn] │ DashboardFrontend    │ Frontend │ [klistra in här]                                             │
+│ [Fyll i namn] │ AuthBackend          │ Backend  │ [klistra in länk här]                                        │
+│ [Fyll i namn] │ Ventixe Frontend     │ Frontend │ [klistra in länk här]                                        │
+│ [Fyll i namn] │ BookingsBackend      │ Backend  │ [klistra in länk här]                                        │
+│ [Fyll i namn] │ BookingsFrontend     │ Frontend │ [klistra in länk här]                                        │
+│ [Fyll i namn] │ DashboardFrontend    │ Frontend │ [klistra in länk här]                                        │
 └───────────────┴──────────────────────┴──────────┴──────────────────────────────────────────────────────────────┘
-
-
-
