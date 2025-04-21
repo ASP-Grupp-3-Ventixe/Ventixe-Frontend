@@ -16,15 +16,15 @@ cd Ventixe-Frontend
 npm install
 npm run dev
 
--------------------------------------------------------------------------------------------
-🌿 Arbeta med egna delsystem
+## 🌿 Arbeta med egna delsystem
+
 ```bash
-2. Skapa en ny branch för din feature:
+# 2. Skapa en ny branch för din feature:
 git checkout -b bookings-frontend
--------------------------------------------------------------------------------------------
-3. **När du är klar:**
-- **Testa lokalt**
-- **git push origin <din-branch>**
-- **Skapa en Pull Request till main**
--------------------------------------------------------------------------------------------
+
+# 3. När du är klar:
+# Testa lokalt
+git push origin bookings-frontend
+# Skapa en Pull Request till main
+
 
