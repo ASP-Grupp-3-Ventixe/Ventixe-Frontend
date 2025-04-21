@@ -60,7 +60,7 @@ git push origin auth-frontend
 ---
 ## 🌐 Delsystem & Azure-länkar
 
-> Här samlar vi alla publicerade backend-länkar så att vi lätt hittar till varandras API:er och kan testa systemet som helhet.
+ Här samlar vi alla publicerade backend-länkar så att vi lätt hittar till varandras API:er och kan testa systemet som helhet.
 
 ```bash
 ```
