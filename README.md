@@ -1,12 +1,60 @@
-# React + Vite
+## 🚀 Live Preview (Officiell deployment):👉 ***https://ambitious-tree-05976ac03.6.azurestaticapps.net***
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+---
+## 🚀 Deployment
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Varje push till `main` branch deployas automatiskt till Azure Static Web Apps.
 
-## Expanding the ESLint configuration
+---
+## 🧪 Kom igång lokalt
+```bash
+git clone https://github.com/ASP-Grupp-3-Ventixe/Ventixe-Frontend.git
+cd Ventixe-Frontend
+npm install
+npm run dev
+```
+## 🌿 Arbeta med egna delsystem
+```bash
+# 2. Skapa en ny branch för din feature:
+git checkout -b bookings-frontend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 3. När du är klar:
+# Testa lokalt
+git push origin bookings-frontend
+# Skapa en Pull Request till main
+```
+---
+## 📚 Branch Naming Policy
+
+För att hålla strukturen tydlig och professionell, gäller följande branch-namnstandard i både frontend- och backend-repositorierna.
+
+---
+
+### 🖥️ Frontend-branches:
+
+```bash
+auth-frontend
+booking-frontend
+event-frontend
+admin-frontend
+```
+### 🗄️ Backend-branches:
+```
+auth-backend
+booking-backend
+event-backend
+admin-backend
+```
+### 🧪 Exempel
+```bash
+# Skapa en ny branch för att jobba med autentisering i frontend
+git checkout -b auth-frontend
+
+# Efter färdigutveckling:
+git push origin auth-frontend
+# Gå till GitHub och skapa en Pull Request till main
+```
+
+
