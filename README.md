@@ -68,7 +68,7 @@ git push origin auth-frontend
 > T.ex. om du bygger Dashboard och vill visa bokningar, behöver du BookingsBackend-URL:en.
 > > Lägg in din länk när du har deployat.
 
-```bash
+
 ┌───────────────┬──────────────────────┬──────────────────────────────────────────────────────────────┐
 │ Namn          │ Delsystem            │ Azure-länk                                                   │
 ├───────────────┼──────────────────────┼──────────────────────────────────────────────────────────────┤
@@ -93,4 +93,4 @@ git push origin auth-frontend
 │ [Fyll i namn] │ DashboardFrontend    │ [klistra in din länk här]                                    │
 │ [Fyll i namn] │ AdminFrontend        │ [klistra in din länk här]                                    │
 └───────────────┴──────────────────────┴──────────────────────────────────────────────────────────────┘
-```
+
