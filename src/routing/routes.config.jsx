@@ -15,9 +15,6 @@ const UserBookings = lazy(() => import("../partials/pages/user/Bookings"))
 const AdminDashboard = lazy(() => import("../partials/pages/admin/Dashboard"))
 const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"))
 
-
-
-
 export const routes = [
   {
     children: [
