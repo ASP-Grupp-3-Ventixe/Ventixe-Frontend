@@ -2,15 +2,20 @@
 
 
 
+## 🚀 Deployment
 
+Varje push till `main` branch deployas automatiskt till Azure Static Web Apps.
 
-**Varje push till main branch deployas automatiskt till Azure Static Web Apps.**
--------------------------------------------------------------------------------------------
-**Kom igång lokalt**
-1. ****git clone https://github.com/ASP-Grupp-3-Ventixe/Ventixe-Frontend.git****
-- ****cd Ventixe-Frontend****
-- ****npm install****
-- ****npm run dev****
+---
+
+## 🧪 Kom igång lokalt
+
+```bash
+git clone https://github.com/ASP-Grupp-3-Ventixe/Ventixe-Frontend.git
+cd Ventixe-Frontend
+npm install
+npm run dev
+
 -------------------------------------------------------------------------------------------
 2. **Skapa en ny branch för varje delsystem/feature:**
 - **git checkout -b bookings-frontend**
