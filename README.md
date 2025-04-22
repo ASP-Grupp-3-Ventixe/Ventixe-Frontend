@@ -60,21 +60,23 @@ git push origin auth-frontend
 ---
 ## 🌐 Delsystem & Azure-länkar
 
-## 🛠️ Backend-länkar (Azure App Services)
- Här samlar vi alla publicerade backend-länkar så att vi lätt hittar till varandras API:er och kan testa systemet som helhet.
-> Dessa används av frontend för att fetcha data.  
-> T.ex. om du bygger Dashboard och vill visa bokningar, behöver du BookingsBackend-URL:en.
-> > Lägg in din länk när du har deployat.
+## 🔧 Backend-länkar (Azure App Services)
+
+Här samlar vi alla publicerade backend-länkar så att vi lätt hittar till varandras API:er och kan testa systemet som helhet.
+
+Dessa används av frontend för att fetcha data.  
+T.ex. om du bygger Dashboard och vill visa bokningar, behöver du BookingsBackend-URL:en.
+
+> 🔁 Lägg in din länk när du har deployat ditt backend!
 
 ```bash
-┌───────────────┬──────────────────────┬──────────────────────────────────────────────────────────────┐
-│ Namn          │ Delsystem            │ Azure-länk                                                   │
-├───────────────┼──────────────────────┼──────────────────────────────────────────────────────────────┤
-│ [Fyll i namn] │ AuthBackend          │ [klistra in din länk här]                                    │
-│ [Fyll i namn] │ BookingsBackend      │ [klistra in din länk här]                                    │
-│ [Fyll i namn] │ EventsBackend        │ [klistra in din länk här]                                    │
-│ [Fyll i namn] │ AdminBackend         │ [klistra in din länk här]                                    │
-└───────────────┴──────────────────────┴──────────────────────────────────────────────────────────────┘
+| Namn          | Delsystem        | Azure-länk                                | GitHub-repo-länk                                |
+|---------------|------------------|--------------------------------------------|--------------------------------------------------|
+| [Fyll i namn] | AuthBackend      | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
+| [Fyll i namn] | BookingsBackend  | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
+| [Fyll i namn] | EventsBackend    | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
+| [Fyll i namn] | AdminBackend     | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
+
 
 
 ```
