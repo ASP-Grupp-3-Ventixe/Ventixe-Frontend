@@ -1,0 +1,32 @@
+.booking-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 600px;
+  margin-top: 2rem;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.time-button {
+  background-color: #f0f4ff;
+  border: none;
+  color: #4f46e5;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bookings-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
