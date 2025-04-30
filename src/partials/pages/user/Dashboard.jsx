@@ -1,14 +1,14 @@
 import React from 'react'
 
+import '../../../styles/Dashboard.css'
+import '../../../styles/media-queries.css'
+
 const Dashboard = () => {
   return (
-    <div className='dashboard-wrapper'>
-      <h1>Dashboard</h1>
-      <div className='dashboard-grid'>
 
-      </div>
-    </div>
+    <main className="dashboard">
+        {/* TODO: Lägg till Dashboard-komponenter här */}
+    </main>
   )
 }
-
 export default Dashboard
