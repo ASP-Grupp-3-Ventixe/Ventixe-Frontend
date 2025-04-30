@@ -3,9 +3,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
-const port = process.env.PORT || 8080;
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = process.env.PORT || 8080; // 👈 detta MÅSTE vara med
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("*", (req, res) => {
