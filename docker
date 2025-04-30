@@ -1,0 +1,21 @@
+# Start from Node.js LTS image
+FROM node:18
+
+# Create app directory
+WORKDIR /app
+
+# Copy everything
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Build the frontend
+RUN npm run build
+
+# Start server
+CMD ["node", "server.js"]
+
+
+# Tell Cloud Run which port to expose
+EXPOSE 8080
