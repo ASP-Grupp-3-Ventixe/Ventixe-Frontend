@@ -20,7 +20,7 @@ const RouteRenderer = () => {
                         <Route key={path} path={path} element={element} />
                     )
                 }
-                console.log("📦 [RouteRenderer] Current config:", config)
+                // console.log("📦 [RouteRenderer] Current config:", config)
 
                 return (
                     <Route key={index} element={<Wrapper> <LayoutComponent />  </Wrapper>}>
