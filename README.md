@@ -1,11 +1,11 @@
-## 🚀 Live Preview (Officiell deployment):👉 ***https://ambitious-tree-05976ac03.6.azurestaticapps.net***
+## 🚀 Live Preview (Officiell deployment):👉 ***https://ventixe-cave.netlify.app/***
 ---
 
 
 ---
 ## 🚀 Deployment
 
-Varje push till `main` branch deployas automatiskt till Azure Static Web Apps.
+Varje push till `main` branch deployas automatiskt till netlify live länken.
 
 ---
 ### 🧪 Kom igång lokalt
