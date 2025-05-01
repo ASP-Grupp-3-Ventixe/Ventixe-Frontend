@@ -327,6 +327,9 @@ footer {
 .hamburger {
   display: none; 
 }
+.h1{
+  color:var(--blue);
+}
 
 
 /* Cards */

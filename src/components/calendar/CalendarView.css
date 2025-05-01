@@ -1,0 +1,194 @@
+/* === Kalenderwrapper: Typografi & basstil === */
+.calendar-wrapper {
+    font-family: var(--font-standard);
+    font-weight: var(--font-weight-regular);
+    font-size: 14px;
+    color: #1f2937;
+  }
+  
+  /* === Toolbar högst upp (navigering & vyval) === */
+  .rbc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background-size: 15px;
+  }
+  
+  /* === Knappar (Month, Week, Day, etc.) === */
+  .rbc-btn-group {
+    display: flex;
+    gap: 0.5rem;
+    border-radius: (--border-radius);
+  }
+  
+  .rbc-btn-group button {
+    background-color: var(--pink);
+    color: var(--grey-10);
+    border: none;
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    font-family: var(--font-standard);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none;
+  }
+  
+  .rbc-btn-group button.rbc-active {
+    background-color: var(--blue-light) !important;
+    color: var(--blue) !important;
+    font-weight: var(--font-weight-semibold);
+    box-shadow: none !important;
+  }
+  
+  .rbc-btn-group button:hover {
+    background-color: var(--pink);
+    color: var(--grey-10);
+    box-shadow: none !important;
+  }
+  
+  /* === Övergripande vy: månad, vecka, dag === */
+  .rbc-month-view,
+  .rbc-time-view {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+  }
+  
+  /* === Datumceller i månadsvy === */
+  .rbc-date-cell {
+    padding: 0.5rem;
+    font-weight: var(--font-weight-medium);
+    font-size: 0.9rem;
+    font-family: var(--font-standard);
+  }
+  
+  /* === Rubriker för veckodagar === */
+  .rbc-header {
+    background-color: #fafafa;
+    padding: 0.5rem 0;
+    font-weight: var(--font-weight-semibold);
+    font-size: 0.95rem;
+    border-bottom: 1px solid #e5e7eb;
+    font-family: var(--font-standard);
+  }
+  
+  /* === Bakgrundsrutnät för dagar === */
+  .rbc-day-bg {
+    border: 1px solid #f1f1f1;
+  }
+  
+  /* === Event-badges i kalendern === */
+  .rbc-event {
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 0.85rem;
+    background-color: #6366f1;
+    color: white;
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-standard);
+    border: none;
+  }
+.rbc-month-header{
+    background-color: #6366f1;
+
+  }
+  .view-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .view-dropdown {
+    appearance: none;
+    background-color: var(--blue-light);
+    color:var(--blue);
+    border: none;
+    border-radius: 30px;
+    height:36px;
+    padding: 0.4rem 2.5rem 0.4rem 1rem; /* extra space right for icon */
+    font-family: var(--font-standard);
+    font-weight: var(--font-weight-medium);
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;         /* tar bort den svarta/blå ramen */
+  box-shadow: none;      /* extra säkerhet för vissa browsers */
+  padding: 0.4rem 2.5rem 0.4rem 2.5rem; /* ← temporärt: höger & vänster */
+  }
+  
+  /* Ikonens placering */
+  .dropdown-arrow-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--blue);
+    font-size: 16px;
+  }
+  .rbc-toolbar .nav-btn {
+    padding: 0 !important;
+    background: var(--blue-light);
+    border: none;
+    border-radius: 30px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .side-arrow{
+   color: var(--blue);
+   font-size: 16px;
+  }
+  .rbc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* avstånd mellan knappar och datum */
+    color: var(--blue);
+  }
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--blue);
+  }
+  .rbc-toolbar .agenda-btn {
+    border: none !important;
+    border-radius: 30px !important;
+    background-color: var(--pink) !important;
+    color: var(--grey-10) !important;
+    padding: 0.4rem 1rem;
+    font-family: var(--font-standard);
+    font-weight: var(--font-weight-semibold);
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    height: 36px;
+  }
+  .agenda-btn {
+    background-color: var(--pink) !important;
+    color: var(--grey-10) !important;
+  }
+  .dropdown-left-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--blue);
+    font-size: 16px;
+  }
+  

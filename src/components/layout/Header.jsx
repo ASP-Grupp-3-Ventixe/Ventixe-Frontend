@@ -1,8 +1,19 @@
 import React from 'react';
 import { FiBell, FiSettings, FiMenu } from 'react-icons/fi';
 import { VscAccount } from 'react-icons/vsc';
+import { useLocation } from 'react-router-dom';
 
 const Header = ({ onToggleSidebar }) => {
+    const location = useLocation();
+
+    const getTitle = () => {
+        const path = location.pathname.split('/')[1];
+        if (!path) return 'Dashboard';
+        return path.charAt(0).toUpperCase() + path.slice(1);
+    };
+
+    const isDashboard = location.pathname === '/' || location.pathname === '/dashboard';
+
     return (
         <header>
             <button className="hamburger" onClick={onToggleSidebar}>
@@ -10,8 +21,8 @@ const Header = ({ onToggleSidebar }) => {
             </button>
 
             <div className="dashboard-title">
-                <h2>Dashboard</h2>
-                <p>Hello Orlando, welcome back!</p>
+                <h2>{getTitle()}</h2>
+                {isDashboard && <p>Hello Orlando, welcome back!</p>}
             </div>
 
             <div className="header-actions">

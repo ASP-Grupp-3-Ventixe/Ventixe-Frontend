@@ -11,9 +11,12 @@ const SignIn = lazy(() => import("../partials/pages/auth/SignIn"));
 
 const UserDashboard = lazy(() => import("../partials/pages/user/Dashboard"))
 const UserBookings = lazy(() => import("../partials/pages/user/Bookings"))
+const UserCalendar = lazy(() => import("../partials/pages/user/Calendar"))
 
 const AdminDashboard = lazy(() => import("../partials/pages/admin/Dashboard"))
 const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"))
+const AdminCalendar = lazy(() => import("../partials/pages/admin/Calendar"));
+
 
 export const routes = [
   {
@@ -35,6 +38,7 @@ export const routes = [
     children: [
       { path: '/dashboard', element: <UserDashboard /> },
       { path: '/bookings', element: <UserBookings /> },
+      { path: '/calendar', element: <UserCalendar /> },
     ]
   },
   {
@@ -44,6 +48,8 @@ export const routes = [
     children: [
       { path: 'admin/dashboard', element: <AdminDashboard /> },
       { path: 'admin/bookings', element: <AdminBookings /> },
+      { path: 'admin/calendar', element: <AdminCalendar /> },
+
     ]
   },
   {
