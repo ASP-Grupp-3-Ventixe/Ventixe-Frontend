@@ -1,10 +1,16 @@
 /* === Kalenderwrapper: Typografi & basstil === */
 .calendar-wrapper {
-    font-family: var(--font-standard);
-    font-weight: var(--font-weight-regular);
-    font-size: 14px;
-    color: #1f2937;
-  }
+  font-family: var(--font-standard);
+  font-weight: var(--font-weight-regular);
+  font-size: 14px;
+  color: #1f2937;
+  border-radius: 16px;         /* <- rundade hörn */
+  overflow: hidden;            /* <- stoppar innehåll från att sticka ut */
+  background-color: white;
+  position: relative;
+  height: 700px;  
+}
+
   
   /* === Toolbar högst upp (navigering & vyval) === */
   .rbc-toolbar {
@@ -50,12 +56,13 @@
   }
   
   /* === Övergripande vy: månad, vecka, dag === */
-  .rbc-month-view,
-  .rbc-time-view {
-    border-radius: 12px;
-    overflow: hidden;
-    background-color: white;
-  }
+  /* === Övergripande vy: månad, vecka, dag === */
+.rbc-month-view,
+.rbc-time-view {
+  border-radius: 16px;
+  overflow: hidden;      /* ✅ krävs för att klippa hörn */
+  background-color: white;
+}
   
   /* === Datumceller i månadsvy === */
   .rbc-date-cell {
@@ -82,14 +89,10 @@
   
   /* === Event-badges i kalendern === */
   .rbc-event {
-    border-radius: 6px;
-    padding: 2px 6px;
-    font-size: 0.85rem;
-    background-color: #6366f1;
-    color: white;
-    font-weight: var(--font-weight-medium);
-    font-family: var(--font-standard);
-    border: none;
+    background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
   }
 .rbc-month-header{
     background-color: #6366f1;
@@ -148,6 +151,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
   }
   
   .nav-left {
@@ -191,4 +195,67 @@
     color: var(--blue);
     font-size: 16px;
   }
+  .custom-event {
+    background-color: var(--primary-50);
+    font-size: 10px;          /* mindre text */
+   padding: 2px 4px;         /* tunnare boxar */
+   margin-bottom: 2px;       /* mindre mellanrum */
+   border-radius: 4px;
+    color: var(--grey-100);
+    margin-bottom: 8px;
+    margin-left: 6px;
+  margin-right: 6px;
+  }
+  
+  .event-time {
+    font-weight: bold;
+  }
+  
+  .event-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;           /* Medium */
+  line-height: 1.3;           /* 130% */
+  letter-spacing: 0;
+  margin-bottom: 2px;
+  }
+  .event-title {
+    font-weight: 600; /* Fet text */
+    margin-bottom: 2px;
+  }
+  
+  .event-time {
+    font-weight: 400; /* Normal/lättare text */
+    font-size: 11px;
+    color: #555;
+  }
+  /* Begränsa höjden per veckorad (för att tvinga popup) */
+.rbc-month-row {
+  height: 90px !important;
+}
+
+.rbc-row-content {
+  overflow: visible !important;
+  position: relative;
+  max-height: none !important;
+}
+.rbc-day-slot {
+  padding-bottom: 6px; /* Luft under sista eventet */
+}
+
+.rbc-date-cell,
+.rbc-date-cell > a,
+.rbc-date-cell > div {
+  font-family: var(--font-standard) !important;
+  font-weight: 5000 !important;
+  font-size: 13px !important;
+  color: var(--blue);
+}
+.rbc-calendar * {
+  box-sizing: border-box;
+}
+  
   

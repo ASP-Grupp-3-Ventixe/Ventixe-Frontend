@@ -10,6 +10,7 @@ import PlusIcon from '../icons/PlusIcon';
 import '../button/Button.css';
 import { FiChevronDown, FiCalendar } from 'react-icons/fi';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';
 
 const locales = {
   'en-US': enUS,
@@ -25,15 +26,19 @@ const localizer = dateFnsLocalizer({
 
 const events = [
   {
-    title: 'Testevent i april',
+    title: 'Team brainstorm for marketing',
     start: new Date(2025, 3, 1, 10, 0),
     end: new Date(2025, 3, 1, 11, 0),
-    description: "HEJ"
   },
   {
-    title: 'Event i maj',
-    start: new Date(2025, 4, 15, 12, 0),
-    end: new Date(2025, 4, 15, 13, 0),
+    title: 'Testevent i april',
+    start: new Date(2025, 3, 1, 11, 30),
+    end: new Date(2025, 3, 1, 12, 30),
+  },
+  {
+    title: 'Testevent i april',
+    start: new Date(2025, 3, 2, 11, 30),
+    end: new Date(2025, 3, 2, 12, 30),
   },
 ];
 
@@ -48,6 +53,20 @@ const CalendarView = () => {
   const handleNavigate = useCallback((newDate) => {
     setDate(newDate);
   }, []);
+
+  const CustomEvent = ({ event }) => {
+    const startTime = new Date(event.start).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  
+    return (
+      <div className="custom-event">
+        <div className="event-title">{event.title}</div>
+        <div className="event-time">{startTime}</div>
+      </div>
+    );
+  };
 
   const CustomToolbar = ({ label, onNavigate, onView, view }) => {
     return (
@@ -70,7 +89,6 @@ const CalendarView = () => {
               value={view !== 'agenda' ? view : ''}
               onChange={(e) => onView(e.target.value)}
             >
-              <option value="">Select view</option>
               <option value="month">Month</option>
               <option value="week">Week</option>
               <option value="day">Day</option>
@@ -79,7 +97,7 @@ const CalendarView = () => {
           </div>
 
           <button className="agenda-btn" onClick={() => onView('agenda')}>
-          <PlusIcon />
+          <FiPlus size={18} />
   Agenda
   
 </button>
@@ -89,18 +107,22 @@ const CalendarView = () => {
   };
 
   return (
-    <div className="calendar-wrapper" style={{ height: '68vh' }}>
+    <div className="calendar-wrapper">
       <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        view={view}
-        date={date}
-        onView={handleViewChange}
-        onNavigate={handleNavigate}
-        components={{ toolbar: CustomToolbar }}
-        style={{ height: '100%' }}
+         localizer={localizer}
+         events={events}
+         startAccessor="start"
+         endAccessor="end"
+         view={view}
+         date={date}
+         onView={handleViewChange}
+         onNavigate={handleNavigate}
+         components={{ 
+           toolbar: CustomToolbar, 
+           event: CustomEvent 
+         }}
+         popup
+         style={{ height: '100%' }}
       />
     </div>
   );
