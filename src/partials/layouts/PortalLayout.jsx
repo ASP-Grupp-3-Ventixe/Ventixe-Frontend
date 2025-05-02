@@ -12,11 +12,12 @@ const PortalLayout = () => {
       {isSidebarOpen && (
         <div className="sidebar-overlay show" onClick={() => setSidebarOpen(false)}></div>
       )}
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      <Header onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
-      <Outlet />
-      <Footer />
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Header onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
+        <main>
+            <Outlet />
+        </main>
+        <Footer />
     </div>
   );
 };

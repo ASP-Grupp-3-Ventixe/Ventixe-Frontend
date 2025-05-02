@@ -3,11 +3,10 @@ import { useAuth } from '../../../contexts/AuthContext'
 
 const SignUp = () => {
 
-try{
-  const {signUp} = useAuth()
- 
+  try{
+    const { signUp } = useAuth()
   }
-  catch{ }
+  catch { }
   
   return (
       <div>Sign Up</div>
