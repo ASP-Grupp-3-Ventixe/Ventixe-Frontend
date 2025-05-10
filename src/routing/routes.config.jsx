@@ -15,8 +15,6 @@ const UserBookings = lazy(() => import("../partials/pages/user/Bookings"));
 const AdminDashboard = lazy(() => import("../partials/pages/admin/Dashboard"));
 const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"));
 
-const Cards = lazy(() => import("../partials/pages/user/Cards"));
-
 export const routes = [
   {
     children: [{ path: "/", element: <Navigate to="/dashboard" replace /> }],
@@ -27,7 +25,6 @@ export const routes = [
       { path: "/signup", element: <SignUp /> },
       { path: "/login", element: <SignIn /> },
       { path: "/denied", element: <Unauthorized /> },
-      { path: "/cards-demo", element: <Cards /> },
     ],
   },
   {
@@ -36,7 +33,6 @@ export const routes = [
     children: [
       { path: "/dashboard", element: <UserDashboard /> },
       { path: "/bookings", element: <UserBookings /> },
-      { path: "/cards-demo", element: <Cards /> },
     ],
   },
   {
