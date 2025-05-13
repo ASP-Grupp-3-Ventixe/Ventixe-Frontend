@@ -19,8 +19,11 @@ const Inbox = () => {
     const showDetail = selectedMailId !== null;
 
     return (
-        <>
-            {/* Sidebar-modal for mobile */}
+        <div className={`inbox-layout${showDetail ? ' show-detail' : ''}`}>
+            <aside className="inbox-sidebar">
+                <InboxSidebar />
+            </aside>
+            {/* show sidebar as a modal on mobile view */}
             {showSidebarModal && (
                 <div className="sidebar-modal-backdrop" onClick={() => setShowSidebarModal(false)}>
                     <div className="sidebar-modal" onClick={e => e.stopPropagation()}>
@@ -28,39 +31,32 @@ const Inbox = () => {
                     </div>
                 </div>
             )}
-        
-            <div className={`inbox-layout${showDetail ? ' show-detail' : ''}`}>
-                <aside className="inbox-sidebar">
-                    <InboxSidebar />
-                </aside>
-    
-                <div className="inbox-main-content">
-                    
-                    <div className="inbox-left">
-                        {/* InboxHeader */}
-                        <div className="inbox-header-container">
-                            <InboxHeader onToggleSidebar={() => setShowSidebarModal(true)}/>
-                        </div>
-    
-                        {/* InboxList */}
-                        <div className="inbox-list-container">
-                            <InboxList onSelectMail={setSelectedMailId} selectedMailId={selectedMailId} />
-                        </div>
+
+            <div className="inbox-main-content">
+
+                <div className="inbox-left">
+                    {/* InboxHeader */}
+                    <div className="inbox-header-container">
+                        <InboxHeader onToggleSidebar={() => setShowSidebarModal(true)}/>
                     </div>
-    
-                    <div className="inbox-right">
-                        {/* InboxDetail */}
-                        <aside className="inbox-detail-container">
-                            <InboxDetail
-                                mailId={selectedMailId}
-                                onBack={() => setSelectedMailId(null)}
-                            />
-                        </aside>
+
+                    {/* InboxList */}
+                    <div className="inbox-list-container">
+                        <InboxList onSelectMail={setSelectedMailId} selectedMailId={selectedMailId} />
                     </div>
                 </div>
-                
+
+                <div className="inbox-right">
+                    {/* InboxDetail */}
+                    <aside className="inbox-detail-container">
+                        <InboxDetail
+                            mailId={selectedMailId}
+                            onBack={() => setSelectedMailId(null)}
+                        />
+                    </aside>
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 

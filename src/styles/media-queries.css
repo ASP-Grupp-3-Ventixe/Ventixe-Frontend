@@ -7,11 +7,11 @@
 
 		& .inbox-left {
 			border-radius: var(--border-radius) var(--border-radius) 0 var(--border-radius) !important;
+			/*min-width: 30rem !important;*/
 		}
 
 		& .inbox-right {
 			border-radius: var(--border-radius) var(--border-radius) var(--border-radius) 0 !important;
-
 		}
 	}
 }
@@ -146,10 +146,11 @@
 		}
 	}
 	
-	/* Inbox */
+
+	/*.inbox-sidebar {*/
 	/* hide sidebar & show as a modal, when toggle hamburger-menu */
 	.inbox-sidebar {
-		display: none;
+		display: none !important;
 	}
 	
 	.sidebar-modal-backdrop {
@@ -162,12 +163,7 @@
 		align-items: flex-start;
 	}
 	.sidebar-modal {
-		margin: 2rem auto;
-		background: #fff;
-		border-radius: 24px;
-		box-shadow: 0 4px 32px rgba(0,0,0,0.10);
-		width: 90vw;
-		max-width: 350px;
+		margin: 9rem 8rem auto;
 		animation: sidebarIn 0.2s;
 	}
 	@keyframes sidebarIn {
@@ -357,7 +353,10 @@
 
 	/* Inbox-layout */
 	.inbox-sidebar {
-		display: none;
+		display: none !important;
+	}
+	.sidebar-modal {
+		margin: 5.5rem 1rem auto;
 	}
 	
 	.inbox-main-content {

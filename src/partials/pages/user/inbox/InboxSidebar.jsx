@@ -22,7 +22,7 @@ const InboxSidebar = () => {
 
     return (
         /* sidebar cards */
-        <div className="inbox-sidebar">
+        <div >
             
             {/*Nav Card */}
             <div className="inbox-card">

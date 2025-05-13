@@ -14,11 +14,11 @@ import Trash from "../../../../images/icons/Trash.svg";
 const InboxDetail = ({ mailId, onBack }) => {
     const mail = mailsMockData.find(m => m.id === mailId);
     if (!mail) {
-        return <div className="inbox-detail-empty">
-            <div>
-                <img src={icons.EnvelopeClosed} alt={'EnvelopeClosed'} />
+        return (
+            <div className="inbox-detail-empty">
+                    <img src={icons.EnvelopeClosed} alt={'EnvelopeClosed'} />
             </div>
-        </div>;
+        );
     }
 
     return (

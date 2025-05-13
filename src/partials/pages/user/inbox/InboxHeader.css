@@ -11,7 +11,6 @@
         display: flex;
         flex: 1 1 10rem;
         min-width: 8rem;
-        /*max-width: 30rem;*/
         align-items: center;
         background-color: var(--grey-10);
         border-radius: 2rem;
@@ -41,7 +40,7 @@
         height: 2.5rem;
         border: none;
         outline: none;
-        background: #36437D;
+        background-color: var(--secondary-100);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -49,8 +48,22 @@
         transition: background 0.15s;
         cursor: pointer;
         
+        &:hover {
+            background: var(--secondary-90);
+        }
+        &:active {
+            background: var(--secondary-100);
+        }   
+        
         &:last-child {
             background: var(--primary-100);
+            
+            &:hover {
+                background: var(--primary-90);
+            }
+            &:active {
+                background: var(--primary-100);
+            }
         }
    
         & img {

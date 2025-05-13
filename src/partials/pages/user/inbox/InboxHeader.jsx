@@ -29,6 +29,7 @@ const InboxHeader = ({ search, onSearch, onToggleSidebar }) => (
         <button className="inbox-header-btn" title="Add">
                 <img src={icons.Plus} alt={'Plus'} />
         </button>
+        
     </div>
 );
 

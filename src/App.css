@@ -99,6 +99,7 @@
 
 	/* Links */
 	
+	/* Breadcrumbs */
 	--breadcrumb-title-color: var(--tertiary-text);
 	--breadcrumb-parent-color: var(--primary-100);
 	--breadcrumb-devider-color: var(--grey-50);
@@ -251,7 +252,6 @@ footer {
 	& .header-actions {
 		display: flex;
 		align-items: center;
-		/*flex: 1 1 0;*/
 		gap: 0.75rem;
 	}
 
@@ -327,7 +327,7 @@ footer {
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	background-color: var(--blue);
+	background-color: var(--secondary-100);
 	color: var(--grey-10);
 	display: flex;
 	align-items: center;
@@ -336,7 +336,10 @@ footer {
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: var(--tertiary-hover);
+		background-color: var(--secondary-90);
+	}
+	&:active {
+		background-color: var(--secondary-100);
 	}
 
 	& svg {
