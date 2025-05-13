@@ -97,9 +97,9 @@ const InboxDetail = ({ mailId, onBack }) => {
 
             {/* Action Buttons */}
             <div className="inbox-detail-action">
-                <img src={icons.ArrowBendUpLeft} alt={'ArrowBendUpLeft'} />
+                <img src={icons.ArrowBendUpLeft} alt={'Reply'} />
                 <span className="reply">Reply</span>
-                <img src={icons.ArrowBendUpright} alt={'ArrowBendUpright'} />
+                <img src={icons.ArrowBendUpRight} alt={'Forward'} />
                 <span className="forward">Forward</span>
             </div>
             

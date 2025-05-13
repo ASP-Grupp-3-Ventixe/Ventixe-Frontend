@@ -1,6 +1,6 @@
 import ArchiveTray from './ArchiveTray.svg';
 import ArrowBendUpLeft from './ArrowBendUpLeft.svg';
-import ArrowBendUpright from './ArrowBendUpright.svg';
+import ArrowBendUpRight from './ArrowBendUpRight.svg';
 import ArrowDown from './ArrowDown.svg';
 import ArrowLeft from './ArrowLeft.svg';
 import ArrowRight from './ArrowRight.svg';
@@ -41,23 +41,23 @@ import XLogo from './XLogo.svg';
 import YoutubeLogo from './YoutubeLogo.svg';
 
 const icons = {
-    ArchiveTray, //
+    ArchiveTray, 
     ArrowBendUpLeft,
-    ArrowBendUpright,
+    ArrowBendUpRight,
     ArrowDown,
     ArrowLeft,
     ArrowRight,
     ArrowUp,
-    ArrowsOutSimple, // 
+    ArrowsOutSimple,  
     CalendarDots,
     Cards,
     CaretDown,
-    CaretLeft, // 
-    CaretRight, // 
+    CaretLeft,  
+    CaretRight,  
     CaretUp,
     CheckSquare,
     CurrencyCircleDollar,
-    DotsThreeVertical, //
+    DotsThreeVertical, 
     EnvelopeClosed,
     EnvelopeOpen,
     FacebookLogo,
@@ -70,14 +70,14 @@ const icons = {
     MagnifyingGlass,
     PaperPlaneRight,
     Plus,
-    Printer, //
+    Printer, 
     Receipt,
     SignOut,
     SquaresFour,
-    Star, //
+    Star, 
     TelegramLogo,
     Ticket,
-    Trash, //
+    Trash, 
     WarningOctagon,
     X,
     XLogo,
