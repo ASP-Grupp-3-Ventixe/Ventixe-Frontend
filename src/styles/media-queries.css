@@ -1,17 +1,74 @@
-@media screen and (width >= 1400px) {
-}
+/* Desktop larger */
+@media screen and (width >= 1301px) {
+	
+	/* Inbox-main */
+	.inbox-main-content {
+		display: flex;
 
-@media screen and (width <= 1200px) {
-}
+		& .inbox-left {
+			border-radius: var(--border-radius) var(--border-radius) 0 var(--border-radius) !important;
+		}
 
-@media screen and (width <= 1000px) {
-	.header-actions {
-		.search-bar {
-			display: none;
+		& .inbox-right {
+			border-radius: var(--border-radius) var(--border-radius) var(--border-radius) 0 !important;
+
+		}
+	}
+}
+/* Desktop */
+@media screen and (width <= 1300px) {
+	.header {
+		& .search-bar {
+			width: min(100%, 30rem);
+			min-width: 10rem;
+			max-width: 30rem;
+		}
+	}
+	
+	/* Inbox-layout */
+	.inbox-layout .inbox-right {
+		display: none !important;
+	}
+	.inbox-layout.show-detail .inbox-left {
+		display: none !important;
+	}
+	.inbox-layout.show-detail .inbox-right {
+		display: block !important;
+		width: 100%;
+	}
+
+	/* Inbox-main */
+	.inbox-main-content {
+		
+		& .inbox-header-container {
+			border-radius: var(--border-radius) !important;
+		}
+
+		& .inbox-detail-container {
+			padding: 0.75rem !important;
+			border-radius: var(--border-radius) !important;
 		}
 	}
 
+	/* InboxDetail */
+	.inbox-detail {
+		padding: 0.75rem !important;
+	}
+}
+
+
+/* Tablet */
+@media screen and (width <= 1000px) {
+	/* auth */
+	
+	/* Header */
 	.header {
+		.header-actions {
+			.search-bar {
+				display: none;
+			}
+		}
+
 		.header-actions {
 			flex: 0 1 17.5rem;
 		}
@@ -27,10 +84,12 @@
 
 	.link-logotype {
 		margin-top: 1rem;
+
 		& span {
 			display: none;
 		}
 	}
+
 	.nav-links {
 		& span {
 			display: none;
@@ -47,6 +106,7 @@
 			padding: 0.4rem;
 		}
 	}
+
 	.sidebar-footer {
 		& span {
 			display: none;
@@ -56,11 +116,13 @@
 			padding: 0 1rem;
 		}
 	}
+	
 }
 
-@media screen and (width <= 800px) {
+/*tablet*/
+@media screen and (width <= 799px) {
 	/* auth */
-
+	
 	/* Header */
 	.header {
 		display: flex;
@@ -83,16 +145,75 @@
 			padding-right: 0;
 		}
 	}
+	
+	/* Inbox */
+	/* hide sidebar & show as a modal, when toggle hamburger-menu */
+	.inbox-sidebar {
+		display: none;
+	}
+	
+	.sidebar-modal-backdrop {
+		position: fixed;
+		z-index: 1000;
+		inset: 0;
+		background: rgba(0,0,0,0.12);
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
+	.sidebar-modal {
+		margin: 2rem auto;
+		background: #fff;
+		border-radius: 24px;
+		box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+		width: 90vw;
+		max-width: 350px;
+		animation: sidebarIn 0.2s;
+	}
+	@keyframes sidebarIn {
+		from { opacity: 0; transform: translateY(-16px);}
+		to   { opacity: 1; transform: translateY(0);}
+	}
 
+	.inbox-header {
+		& .inbox-hamburger {
+			display: flex !important;
+			background: var(--card-background);
+			border-radius: 50%;
+			padding: 0.5rem;
+			align-items: center;
+			justify-content: center;
+			border: none;
+			color: var(--grey-100);
+			cursor: pointer;
+
+			& img {
+				width: 1.3rem;
+			}
+		}
+	}
+	
+	
 	/* Footer */
 	.footer {
 		flex-direction: column;
 	}
+
 }
 
-@media screen and (width <= 500px) {
+/*mobile*/
+@media screen and (width <= 550px) {
+	
 	.portal-layout {
 		column-gap: 0;
+	}
+	
+	/* no padding on main on mobile */
+	.show-detail main {
+		padding: 0 !important; 
+	}
+	main {
+		padding: 1rem !important;
 	}
 
 	/* Header */
@@ -101,6 +222,7 @@
 		align-items: center;
 		justify-content: center;
 		background-color: var(--blue-light);
+		padding: 0.6rem;
 
 		& .header-logo {
 			display: flex;
@@ -108,7 +230,7 @@
 		}
 
 		& .header-logo img {
-			width: 1.4rem;
+			width: 1.5rem;
 			height: auto;
 		}
 
@@ -124,16 +246,23 @@
 			flex: 1;
 			padding-left: 3rem;
 			text-align: center;
+			
+			& .breadcrumb {
+				display: none !important;
+			}
 		}
+
 		& .header-title h2 {
 			font-size: 1rem;
 		}
+
 		/* when breadcrumb is set, we can unhide and style this */
+
 		& .header-title p {
 			display: none;
 		}
 
-		/* maybe we should show profile pic ?*/
+		/* maybe we should show profile pic on mobile? */
 		& .profile-section .profile-pic {
 			display: flex;
 			background-color: rgba(255, 255, 255, 0.5);
@@ -166,9 +295,11 @@
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		z-index: 12;
 	}
+
 	.sidebar.show-sidebar {
 		transform: translateX(0);
 	}
+
 	.sidebar-overlay {
 		position: fixed;
 		inset: 0;
@@ -182,6 +313,7 @@
 			display: flex;
 		}
 	}
+
 	.nav-links {
 		& span {
 			display: flex;
@@ -213,6 +345,7 @@
 			align-items: center;
 			justify-content: center;
 		}
+
 		& .signout-button {
 			display: flex;
 			align-items: center;
@@ -221,4 +354,80 @@
 			white-space: nowrap;
 		}
 	}
+
+	/* Inbox-layout */
+	.inbox-sidebar {
+		display: none;
+	}
+	
+	.inbox-main-content {
+		padding: 0 !important;
+		
+		& .inbox-left {
+			min-width: 20rem !important;
+		}
+	
+		& .inbox-right {
+			display: none !important;
+			padding: 0 !important;
+			
+			min-width: 20rem !important;
+		}
+	
+		& .inbox-header-container {
+			padding: 0 !important;
+		}
+	
+		& .inbox-list-container {
+			padding: 0.75rem !important;
+			border-radius: var(--border-radius) !important;
+			
+		}
+	
+		& .inbox-detail-container {
+			padding: 0 !important;
+		} 
+	}
+
+	/* InboxHeader */
+	.inbox-header {
+		padding: 0 0 1rem 0 !important;
+		border-radius: 0 !important;
+	
+		& .inbox-header-btn--filter {
+			display: none !important;
+		}
+	}
+
+	/* InboxList */
+	.inbox-list {
+		
+		& .inbox-list-sender {
+			font-size: 0.75rem;
+		}
+	
+		& .inbox-list-type {
+			font-size: 0.65rem;
+			margin-left: 0;
+		}
+	
+		& .inbox-list-time {
+			font-size: 0.75rem;
+		}
+	
+		& .inbox-list-subject {
+			font-size: 0.88rem;
+			overflow: hidden;
+		}
+	
+		& .inbox-list-preview {
+			font-size: 0.72rem;
+		}
+	}
+	
+	/* InboxDetail */
+	.inbox-detail {
+		padding: 1rem !important;
+	}
 }
+

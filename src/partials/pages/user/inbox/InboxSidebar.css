@@ -1,0 +1,123 @@
+.inbox-sidebar {
+    
+}
+
+.inbox-card {
+    background: var(--card-background);
+    padding: 0.75rem;
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-1);
+    margin-bottom: 1.5rem;
+    min-width: 11rem;
+    /*height: 30rem;*/
+    /*min-height: 25rem;*/
+
+    /* Remove margin from last card in inbox.labels */
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Nav Card */
+.inbox-folders {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inbox-folder {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 2rem 0.9rem 0.9rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    transition: background 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.inbox-folder-icon img {
+    width: 25px;
+    height: 25px;
+    display: block;
+}
+
+.inbox-folder.active {
+    background: var(--primary-100);
+
+    & .inbox-folder-icon img,
+    .inbox-folder-name {
+        filter: brightness(0) invert(1);
+    }
+}
+
+.inbox-folder:not(.active):hover {
+    background: var(--secondary-hover);
+}
+
+.inbox-folder-name {
+}
+
+/* Labels Card */
+.inbox-labels {
+    display: flex;
+    flex-direction: column;
+    /*height: 30rem;*/
+}
+
+.inbox-labels-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    color: var(--grey-80);
+    margin: 0 0 1rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.inbox-labels-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    color: var(--grey-60);
+    border: 1px solid var(--grey-30);
+    border-radius: 50%;
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: border 0.15s;
+}
+
+.inbox-labels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.inbox-label-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.3rem 2rem 0.3rem 0.75rem;
+    border-radius: var(--border-radius);
+    transition: background 0.15s, color 0.15s;
+    cursor: pointer;
+    
+    &:last-child {
+        margin-bottom: 1rem;
+    }
+}
+
+.inbox-label-dot {
+    width: 18px;
+    height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.inbox-label-name {
+    font-size: 0.9rem;
+}
