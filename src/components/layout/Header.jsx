@@ -1,18 +1,43 @@
 import React from 'react';
 import {FiBell, FiSettings, FiMenu, FiSearch} from 'react-icons/fi';
 import VentixeLogo from '../../images/logos/ventixe-logo.svg';
+import {routes} from "../../routing/routes.config.jsx";
+import {useLocation} from "react-router-dom";
+
+// helper function to find meta based on path
+function findMeta(path, routesArr = routes) {
+    for (const route of routesArr) {
+        if (route.children) {
+            const found = findMeta(path, route.children);
+            if (found) return found;
+        }
+        if (route.path === path && route.meta) return route.meta;
+    }
+    return null;
+}
 
 const Header = ({ onToggleSidebar }) => {
+    const location = useLocation();
+    const meta = findMeta(location.pathname);
+    
     return (
         <header className="header">
             <a href="/" className="header-logo">
                 <img src={VentixeLogo} alt="Ventixe logo" />
             </a>
 
-            {/* skötas dynamiskt */}
+            {/* dynamic title and breadcrumb */}
             <div className="header-title">
-                <h2>Dashboard</h2>
-                <p>Hello Orlando, welcome back!</p>
+                {meta?.parent && (
+                    <span className="breadcrumb">
+                      <span className="breadcrumb-root">{meta.parent}</span>
+                      <span className="breadcrumb-sep"> / </span>
+                      <span className="breadcrumb-current">{meta.title}</span>
+                    </span> )}
+                <h2>{meta?.title || "Dashboard"}</h2>
+                {meta?.title === "Dashboard" && 
+                    // dynamic welcome message based on logged-in user
+                    <p>Hello Orlando, welcome back!</p>} 
             </div>
 
             <div className="header-actions">

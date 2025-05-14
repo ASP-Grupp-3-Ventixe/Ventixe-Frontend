@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import AuthLayout from "../partials/layouts/AuthLayout";
 import Unauthorized from "../partials/pages/auth/Unauthorized";
 import PortalLayout from "../partials/layouts/PortalLayout";
+import {meta} from "@eslint/js";
 
 const NotFound = lazy(() => import("../partials/pages/NotFound"))
 
@@ -11,9 +12,11 @@ const SignIn = lazy(() => import("../partials/pages/auth/SignIn"));
 
 const UserDashboard = lazy(() => import("../partials/pages/user/Dashboard"))
 const UserBookings = lazy(() => import("../partials/pages/user/Bookings"))
+const UserInbox = lazy(() => import("../partials/pages/user/inbox/Inbox"))
 
 const AdminDashboard = lazy(() => import("../partials/pages/admin/Dashboard"))
 const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"))
+// const AdminInbox = lazy(() => import("../partials/pages/admin/inbox/Inbox"))
 
 export const routes = [
   {
@@ -33,8 +36,21 @@ export const routes = [
     layout: PortalLayout,
     protected: true,
     children: [
-      { path: '/dashboard', element: <UserDashboard /> },
-      { path: '/bookings', element: <UserBookings /> },
+      { 
+        path: '/dashboard', 
+        element: <UserDashboard /> , 
+        meta: { title: 'Dashboard' } 
+      },
+      { 
+        path: '/bookings', 
+        element: <UserBookings />, 
+        meta: { title: 'Bookings', parent: 'Dashboard' }
+      },
+      { 
+        path: '/inbox', 
+        element: <UserInbox />,  
+        meta: { title: 'Inbox', parent: 'Dashboard' }
+      }, 
     ]
   },
   {
@@ -42,8 +58,12 @@ export const routes = [
     protected: true,
     adminOnly: true,
     children: [
-      { path: 'admin/dashboard', element: <AdminDashboard /> },
-      { path: 'admin/bookings', element: <AdminBookings /> },
+      { 
+        path: 'admin/dashboard', 
+        element: <AdminDashboard /> },
+      { 
+        path: 'admin/bookings', 
+        element: <AdminBookings /> },
     ]
   },
   {
