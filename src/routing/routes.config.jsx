@@ -3,6 +3,8 @@ import { Navigate } from "react-router-dom";
 import AuthLayout from "../partials/layouts/AuthLayout";
 import Unauthorized from "../partials/pages/auth/Unauthorized";
 import PortalLayout from "../partials/layouts/PortalLayout";
+const UserFeedback = lazy(() => import("../partials/pages/user/Feedback"));
+
 
 const NotFound = lazy(() => import("../partials/pages/NotFound"))
 
@@ -35,6 +37,7 @@ export const routes = [
     children: [
       { path: '/dashboard', element: <UserDashboard /> },
       { path: '/bookings', element: <UserBookings /> },
+      { path: '/feedback', element: <UserFeedback /> },
     ]
   },
   {
