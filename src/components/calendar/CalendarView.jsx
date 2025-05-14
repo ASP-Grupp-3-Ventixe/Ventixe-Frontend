@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-
 import './CalendarView.css';
 import Button from '../button/Button';
 import PlusIcon from '../icons/PlusIcon';
@@ -11,6 +10,8 @@ import '../button/Button.css';
 import { FiChevronDown, FiCalendar } from 'react-icons/fi';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FiPlus } from 'react-icons/fi';
+import EventModal from '../modal/EventModal';
+
 
 const locales = {
   'en-US': enUS,
@@ -24,27 +25,36 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [
-  {
-    title: 'Team brainstorm for marketing',
-    start: new Date(2025, 3, 1, 10, 0),
-    end: new Date(2025, 3, 1, 11, 0),
-  },
-  {
-    title: 'Testevent i april',
-    start: new Date(2025, 3, 1, 11, 30),
-    end: new Date(2025, 3, 1, 12, 30),
-  },
-  {
-    title: 'Testevent i april',
-    start: new Date(2025, 3, 2, 11, 30),
-    end: new Date(2025, 3, 2, 12, 30),
-  },
-];
+
 
 const CalendarView = () => {
+  const [events, setEvents] = useState([]);
   const [view, setView] = useState('month');
   const [date, setDate] = useState(new Date());
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  useEffect(() => {
+    // Steg 1: Hämta från ditt API
+    fetch('https://localhost:7111/api/calendar')
+      .then((response) => response.json()) // Steg 2: Konvertera svaret till JSON
+      .then((data) => {
+        // Steg 3: Konvertera datan till rätt format
+        const mappedEvents = data.map((evt) => ({
+          title: evt.title,
+          start: new Date(evt.startTime), // viktigt: gör om till Date-objekt
+          end: new Date(evt.endTime),
+          allDay: evt.isAllDay,
+        }));
+  
+        // Steg 4: Spara i state
+        setEvents(mappedEvents);
+      })
+      .catch((error) => {
+        // Steg 5: Fånga eventuella fel
+        console.error("Kunde inte hämta events:", error);
+      });
+  }, []);
+  
 
   const handleViewChange = useCallback((newView) => {
     setView(newView);
@@ -117,6 +127,7 @@ const CalendarView = () => {
          date={date}
          onView={handleViewChange}
          onNavigate={handleNavigate}
+         onSelectEvent={(event) => setSelectedEvent(event)}
          components={{ 
            toolbar: CustomToolbar, 
            event: CustomEvent 
@@ -124,6 +135,10 @@ const CalendarView = () => {
          popup
          style={{ height: '100%' }}
       />
+       <EventModal 
+      event={selectedEvent} 
+      onClose={() => setSelectedEvent(null)} 
+    />
     </div>
   );
 };

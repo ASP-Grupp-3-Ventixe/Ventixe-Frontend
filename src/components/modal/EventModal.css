@@ -1,0 +1,40 @@
+/* Bakgrund för hela skärmen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.219); /* genomskinlig mörk bakgrund */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* överst på sidan */
+  }
+  
+  /* Själva modalrutan */
+  .modal {
+    font-family: var(--font-standard); /* ✅ använd Inter */
+    font-weight: var(--font-weight-regular); /* eller medium/bold om du vill */
+    color: var(--grey-90); /* eller valfri textfärg du vill ha */
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  /* Stäng-knapp */
+  .modal button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--blue-light);
+    color: var(--blue);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+  }
+  .modal button {
+    font-weight: var(--font-standard); /* eller var(--font-weight-semibold) */
+  }
