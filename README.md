@@ -1,4 +1,5 @@
-## 🚀 Live Preview (Officiell deployment):👉 ***https://ventixe-cave.netlify.app/***
+## 🚀 Live Preview (Netlify) (Officiell deployment):👉 ***https://ventixe-cave.netlify.app/***
+## 🚀 Live Preview (Azure SWA) (Officiell deployment):👉 ***https://kind-coast-0cff2bc03.6.azurestaticapps.net*** 
 ---
 
 
