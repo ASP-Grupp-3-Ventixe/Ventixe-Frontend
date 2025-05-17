@@ -18,16 +18,18 @@ const Inbox = () => {
     
     const showDetail = selectedMailId !== null;
 
+    const [activeFolder, setActiveFolder] = useState('Inbox');
+
     return (
         <div className={`inbox-layout${showDetail ? ' show-detail' : ''}`}>
             <aside className="inbox-sidebar">
-                <InboxSidebar />
+                <InboxSidebar activeFolder={activeFolder} setActiveFolder={setActiveFolder} />
             </aside>
             {/* show sidebar as a modal on mobile view */}
             {showSidebarModal && (
                 <div className="sidebar-modal-backdrop" onClick={() => setShowSidebarModal(false)}>
                     <div className="sidebar-modal" onClick={e => e.stopPropagation()}>
-                        <InboxSidebar />
+                        <InboxSidebar activeFolder={activeFolder} setActiveFolder={setActiveFolder} />
                     </div>
                 </div>
             )}
@@ -45,7 +47,7 @@ const Inbox = () => {
 
                     {/* InboxList */}
                     <div className="inbox-list-container">
-                        <InboxList onSelectMail={setSelectedMailId} selectedMailId={selectedMailId} />
+                        <InboxList onSelectMail={setSelectedMailId} selectedMailId={selectedMailId} folder={activeFolder} />
                     </div>
                 </div>
 

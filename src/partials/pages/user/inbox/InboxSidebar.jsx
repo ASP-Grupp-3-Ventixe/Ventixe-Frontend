@@ -12,14 +12,14 @@ const folders = [
 ];
 
 const labels = [
+    { name: 'Admin', color: 'rgb(193,226,255)' },
     { name: 'Customer', color: '#EEEFFF' },
     { name: 'Sponsor', color: '#FBD4FE' },
     { name: 'Partner', color: '#E0E0E1' },
 ];
 
-const InboxSidebar = () => {
-    const [activeFolder, setActiveFolder] = useState('Inbox');
-
+const InboxSidebar = ({ activeFolder, setActiveFolder }) => {
+    
     return (
         /* sidebar cards */
         <div >
