@@ -71,10 +71,10 @@ T.ex. om du bygger Dashboard och vill visa bokningar, behöver du BookingsBacken
 > 🔁 Lägg in din länk när du har deployat ditt backend!
 
 ```bash
-| Namn          | Delsystem        | Azure-länk                                | GitHub-repo-länk                                |
+| Namn          | Delsystem        | API-länk                                | GitHub-repo-länk                                |
 |---------------|------------------|--------------------------------------------|--------------------------------------------------|
-| [Fyll i namn] | AuthBackend      | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
-| [Fyll i namn] | BookingsBackend  | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
+| [Daniel Nweze] | TokenServiceProvider      | [https://tokenserviceprovider.onrender.com/ValidateToken]            | [https://github.com/Daniel-Nweze/TokenServiceProvider.git] |
+| [Daniel Nweze] | TokenServiceProvider  | [https://tokenserviceprovider.onrender.com/Auth/token]            | [https://github.com/Daniel-Nweze/TokenServiceProvider.git] |
 | [Fyll i namn] | EventsBackend    | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
 | [Fyll i namn] | AdminBackend     | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
 
