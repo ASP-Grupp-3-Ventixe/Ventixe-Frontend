@@ -1,17 +1,18 @@
 /* Desktop larger */
 @media screen and (width >= 1301px) {
-	
 	/* Inbox-main */
 	.inbox-main-content {
 		display: flex;
 
 		& .inbox-left {
-			border-radius: var(--border-radius) var(--border-radius) 0 var(--border-radius) !important;
+			border-radius: var(--border-radius) var(--border-radius) 0
+				var(--border-radius) !important;
 			/*min-width: 30rem !important;*/
 		}
 
 		& .inbox-right {
-			border-radius: var(--border-radius) var(--border-radius) var(--border-radius) 0 !important;
+			border-radius: var(--border-radius) var(--border-radius) var(--border-radius)
+				0 !important;
 		}
 	}
 }
@@ -24,7 +25,7 @@
 			max-width: 30rem;
 		}
 	}
-	
+
 	/* Inbox-layout */
 	.inbox-layout .inbox-right {
 		display: none !important;
@@ -39,7 +40,6 @@
 
 	/* Inbox-main */
 	.inbox-main-content {
-		
 		& .inbox-header-container {
 			border-radius: var(--border-radius) !important;
 		}
@@ -56,11 +56,10 @@
 	}
 }
 
-
 /* Tablet */
 @media screen and (width <= 1000px) {
 	/* auth */
-	
+
 	/* Header */
 	.header {
 		.header-actions {
@@ -116,13 +115,12 @@
 			padding: 0 1rem;
 		}
 	}
-	
 }
 
 /*tablet*/
 @media screen and (width <= 799px) {
 	/* auth */
-	
+
 	/* Header */
 	.header {
 		display: flex;
@@ -145,19 +143,18 @@
 			padding-right: 0;
 		}
 	}
-	
 
 	/*.inbox-sidebar {*/
 	/* hide sidebar & show as a modal, when toggle hamburger-menu */
 	.inbox-sidebar {
 		display: none !important;
 	}
-	
+
 	.sidebar-modal-backdrop {
 		position: fixed;
 		z-index: 1000;
 		inset: 0;
-		background: rgba(0,0,0,0.12);
+		background: rgba(0, 0, 0, 0.12);
 		display: flex;
 		justify-content: flex-start;
 		align-items: flex-start;
@@ -167,8 +164,14 @@
 		animation: sidebarIn 0.2s;
 	}
 	@keyframes sidebarIn {
-		from { opacity: 0; transform: translateY(-16px);}
-		to   { opacity: 1; transform: translateY(0);}
+		from {
+			opacity: 0;
+			transform: translateY(-16px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.inbox-header {
@@ -188,25 +191,22 @@
 			}
 		}
 	}
-	
-	
+
 	/* Footer */
 	.footer {
 		flex-direction: column;
 	}
-
 }
 
 /*mobile*/
 @media screen and (width <= 550px) {
-	
 	.portal-layout {
 		column-gap: 0;
 	}
-	
+
 	/* no padding on main on mobile */
 	.show-detail main {
-		padding: 0 !important; 
+		padding: 0 !important;
 	}
 	main {
 		padding: 1rem !important;
@@ -242,7 +242,7 @@
 			flex: 1;
 			padding-left: 3rem;
 			text-align: center;
-			
+
 			& .breadcrumb {
 				display: none !important;
 			}
@@ -277,6 +277,13 @@
 		cursor: pointer;
 	}
 
+	.sidebar-overlay {
+		position: fixed;
+		inset: 0;
+		background: var(--overlay-modals);
+		z-index: 1;
+		display: block;
+	}
 	/* Sidebar */
 	.sidebar {
 		position: fixed;
@@ -296,6 +303,13 @@
 		transform: translateX(0);
 	}
 
+	.sidebar-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1;
+		display: block;
+	}
 	.sidebar-overlay {
 		position: fixed;
 		inset: 0;
@@ -358,41 +372,40 @@
 	.sidebar-modal {
 		margin: 5.5rem 1rem auto;
 	}
-	
+
 	.inbox-main-content {
 		padding: 0 !important;
-		
+
 		& .inbox-left {
 			min-width: 20rem !important;
 		}
-	
+
 		& .inbox-right {
 			display: none !important;
 			padding: 0 !important;
-			
+
 			min-width: 20rem !important;
 		}
-	
+
 		& .inbox-header-container {
 			padding: 0 !important;
 		}
-	
+
 		& .inbox-list-container {
 			padding: 0.75rem !important;
 			border-radius: var(--border-radius) !important;
-			
 		}
-	
+
 		& .inbox-detail-container {
 			padding: 0 !important;
-		} 
+		}
 	}
 
 	/* InboxHeader */
 	.inbox-header {
 		padding: 0 0 1rem 0 !important;
 		border-radius: 0 !important;
-	
+
 		& .inbox-header-btn--filter {
 			display: none !important;
 		}
@@ -400,33 +413,67 @@
 
 	/* InboxList */
 	.inbox-list {
-		
 		& .inbox-list-sender {
 			font-size: 0.75rem;
 		}
-	
+
 		& .inbox-list-type {
 			font-size: 0.65rem;
 			margin-left: 0;
 		}
-	
+
 		& .inbox-list-time {
 			font-size: 0.75rem;
 		}
-	
+
 		& .inbox-list-subject {
 			font-size: 0.88rem;
 			overflow: hidden;
 		}
-	
+
 		& .inbox-list-preview {
 			font-size: 0.72rem;
 		}
 	}
-	
+
 	/* InboxDetail */
 	.inbox-detail {
 		padding: 1rem !important;
 	}
 }
 
+/* ==== EVENTS PAGE SPECIFIC ==== */
+
+@media screen and (max-width: 1000px) {
+	.event-grid {
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 1rem;
+	}
+
+	.event-card.grid {
+		padding: 0.75rem;
+	}
+
+	.event-thumbnail {
+		height: 160px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.event-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.event-card.grid {
+		max-width: 100%;
+		border-radius: 16px;
+	}
+
+	.event-thumbnail {
+		height: 140px;
+	}
+
+	.event-title {
+		font-size: 14px;
+	}
+}
