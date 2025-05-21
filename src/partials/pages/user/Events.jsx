@@ -3,6 +3,9 @@ import EventCard from "../../../components/EventCard"
 import EventForm from "../../../components/EventForm"
 import DeleteConfirmModal from "../../../components/DeleteConfirmModal"
 import { AiFillFilter } from "react-icons/ai"
+import config from "../../../config"; // justera vägen om filstrukturen skiljer sig
+const BASE_URL = config.apiBase_
+
 
 const Events = () => {
     const [events, setEvents] = useState([])
@@ -23,7 +26,7 @@ const Events = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const res = await fetch("https://localhost:7101/api/events")
+                const res = await fetch(`${BASE_URL}/api/events`);
                 const data = await res.json()
                 setEvents(data);
             } catch (error) {
@@ -39,20 +42,20 @@ const Events = () => {
     const handleFormSubmit = async (formData) => {
 
         if (formData.id && formData.id !== 0) {
-            await fetch("https://localhost:7101/api/events", {
+            await fetch(`${BASE_URL}/api/events`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
             })
-            const updated = await (await fetch("https://localhost:7101/api/events")).json()
+            const updated = await (await fetch(`${BASE_URL}/api/events`)).json()
             setEvents(updated)
         } else {
-            await fetch("https://localhost:7101/api/events", {
+            await fetch(`${BASE_URL}/api/events`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
             })
-            const all = await (await fetch("https://localhost:7101/api/events")).json()
+            const all = await (await fetch(`${BASE_URL}/api/events`)).json()
             setEvents(all)
         }
         setIsFormOpen(false)
@@ -70,7 +73,7 @@ const Events = () => {
     }
 
     const handleConfirmDelete = async () => {
-        await fetch(`https://localhost:711/api/events/${eventToDelete}`,
+        await fetch(`${BASE_URL}/api/events/${eventToDelete}`,
             { method: "DELETE" })
         setShowDeleteModal(false)
         setEventToDelete(null)
@@ -127,7 +130,7 @@ const Events = () => {
             for (let [key, value] of formData.entries()) {
                 console.log(key, value)
             }
-            const res = await fetch(`https://localhost:7101/api/events/upload-image/${eventId}`, {
+            const res = await fetch(`${BASE_URL}/api/events/upload-image/${eventId}`, {
                 method: "POST",
                 body: formData,
             })
