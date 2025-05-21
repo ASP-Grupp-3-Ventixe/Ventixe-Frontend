@@ -2,8 +2,6 @@ import React from "react";
 import icons from "../../../../images/icons/icons.js";
 import "./InboxHeader.css";
 
-
-
 const InboxHeader = ({ search, onSearch, onToggleSidebar, onAddMail }) => (
     <div className="inbox-header">
         

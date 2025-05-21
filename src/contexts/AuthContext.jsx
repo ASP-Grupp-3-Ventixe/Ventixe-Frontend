@@ -1,11 +1,25 @@
-import { createContext, useContext, useState } from "react"
+import {createContext, useContext, useState} from "react"
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(true)
     const [isAdmin, setIsAdmin] = useState(true)
-    const [user, setUser] = useState(null)
+    // const [user, setUser] = useState(null)
+    const defaultName = "Orlando Laurentius";
+    const defaultEmail = "orlandolaurentius@example.com";
+    const initials = defaultName
+        ? defaultName.split(' ').map(n => n[0]).join('').toUpperCase()
+        : "";
+
+    const [currentUser, setCurrentUser] = useState({
+        id: "00000000-0000-0000-0000-000000000001",
+        name: defaultName,
+        email: defaultEmail,
+        initials: initials,
+        avatarUrl: "",
+        senderType: "Admin"
+    });
 
     const signIn = async (email, password, isPersistent) => {
 
@@ -17,13 +31,12 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, isAdmin, user, signUp, signIn }}>
+        <AuthContext.Provider value={{ isAuthenticated, isAdmin, user: currentUser, signUp, signIn }}>
             {children}
         </AuthContext.Provider>
     )
 }
 
 export const useAuth = () => {
-    const context = useContext(AuthContext)
-    return context
+    return useContext(AuthContext)
 }

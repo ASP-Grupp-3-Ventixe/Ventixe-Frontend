@@ -1,48 +1,51 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import InboxHeader from './InboxHeader';
 import InboxSidebar from './InboxSidebar';
 import InboxList from './InboxList';
 import InboxDetail from './InboxDetail';
 import NewEmailModal from './NewEmailModal';
-import {useOutletContext} from "react-router-dom";
-import './Inbox.css';
 import {createEmail} from "../../../../Services/MailHandlingService.jsx";
+import {useAuth} from "../../../../contexts/AuthContext.jsx";
+import {useEmails} from "./Hooks/useEmails.js";
+import {useModal} from "./Hooks/useModal.js";
+import './Inbox.css';
 
 
 const Inbox = () => {
+    const { user } = useAuth();
     const [selectedMailId, setSelectedMailId] = useState(null);
-    const [showSidebarModal, setShowSidebarModal] = useState(false);
-    const [showNewEmailModal, setShowNewEmailModal] = useState(false);
-    
     const showDetail = selectedMailId !== null;
-
     const [activeFolder, setActiveFolder] = useState('Inbox');
 
-    const handleOpenNewEmailModal = () => setShowNewEmailModal(true);
-    const handleCloseNewEmailModal = () => setShowNewEmailModal(false);
+    const { emails, loading, error, removeMail } = useEmails(activeFolder);
+
+    const newEmailModal = useModal(false);
+    const sidebarModal = useModal(false);
+
+    function getSenderFromUser(user) {
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            initials: user.initials,
+            avatarUrl: user.avatarUrl,
+            senderType: user.senderType
+        };
+    }
 
     const handleSendEmail = async (emailData) => {
-        // Ensure sender is always set to currentUser
         const dataWithSender = {
             ...emailData,
-            sender: {
-                name: currentUser.name,
-                email: currentUser.email,
-            }
+            sender: getSenderFromUser(user)
         };
         const result = await createEmail(dataWithSender);
-        if (result) {
-            handleCloseNewEmailModal();
-        }
+        if (result) newEmailModal.handleClose();
         return result;
     };
-    
-    // currentUser should come from auth context or claims
-    const currentUser = { name: "Orlando Laurentius", email: "orlandolaurentius@example.com" };
 
     const handleSetActiveFolder = (folder) => {
         setActiveFolder(folder);
-        setSelectedMailId(null); 
+        setSelectedMailId(null);
     };
 
     return (
@@ -51,18 +54,18 @@ const Inbox = () => {
                 <InboxSidebar 
                     activeFolder={activeFolder}
                     setActiveFolder={handleSetActiveFolder}
-                    onCloseSidebar={() => {}}
+                    onCloseSidebar={sidebarModal.handleClose}
                 />
             </aside>
             
             {/* show sidebar as a modal on mobile view */}
-            {showSidebarModal && (
-                <div className="sidebar-modal-backdrop" onClick={() => setShowSidebarModal(false)}>
+            {sidebarModal.open && (
+                <div className="sidebar-modal-backdrop" onClick={sidebarModal.handleClose}>
                     <div className="sidebar-modal" onClick={e => e.stopPropagation()}>
                         <InboxSidebar 
                             activeFolder={activeFolder}
                             setActiveFolder={handleSetActiveFolder}
-                            onCloseSidebar={() => setShowSidebarModal(false)}
+                            onCloseSidebar={sidebarModal.handleClose}
                         />
                     </div>
                 </div>
@@ -73,9 +76,9 @@ const Inbox = () => {
                 <div className="inbox-left">
                     {/* InboxHeader */}
                     <div className="inbox-header-container">
-                        <InboxHeader 
-                            onToggleSidebar={() => setShowSidebarModal(true)}
-                            onAddMail={handleOpenNewEmailModal} 
+                        <InboxHeader
+                            onToggleSidebar={sidebarModal.handleOpen}
+                            onAddMail={newEmailModal.handleOpen} 
                         />
                     </div>
                     
@@ -83,11 +86,11 @@ const Inbox = () => {
                     {/* showing a small icon with the related folder name */}
 
 
-                    {showNewEmailModal && (
+                    {newEmailModal.open && (
                         <NewEmailModal
-                            onClose={handleCloseNewEmailModal}
+                            onClose={newEmailModal.handleClose}
                             onSend={handleSendEmail}
-                            currentUser={currentUser}
+                            currentUser={user}
                         />
                     )}
 
@@ -96,7 +99,12 @@ const Inbox = () => {
                         <InboxList 
                             onSelectMail={setSelectedMailId} 
                             selectedMailId={selectedMailId} 
-                            folder={activeFolder} />
+                            folder={activeFolder}
+                            emails={emails}
+                            loading={loading}
+                            error={error}
+                        />
+                        
                     </div>
                 </div>
 
@@ -106,6 +114,8 @@ const Inbox = () => {
                         <InboxDetail
                             mailId={selectedMailId}
                             onBack={() => setSelectedMailId(null)}
+                            folder={activeFolder}
+                            onRemoveMail={removeMail}
                         />
                     </aside>
                 </div>

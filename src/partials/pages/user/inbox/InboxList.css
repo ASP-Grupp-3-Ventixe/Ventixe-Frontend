@@ -92,6 +92,7 @@
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 	white-space: normal;
+	overflow: hidden;
 }
 
 .inbox-list-preview {

@@ -1,11 +1,13 @@
 import React from 'react';
 import icons from "../../../../images/icons/icons.js";
-import {getEmail} from "../../../../Services/MailHandlingService.jsx";
-import useFetchResource from "./Hooks/useFetchResource.js";
+import {getEmail, softDeleteEmail} from "../../../../Services/MailHandlingService.jsx";
+import useResource from "./Hooks/useResource.js";
 import "./InboxDetail.css";
+import {useAuth} from "../../../../contexts/AuthContext.jsx";
 
-const InboxDetail = ({ mailId, onBack }) => {
-    const { data: mail, loading } = useFetchResource(getEmail, mailId, { keepPreviousData: true });
+const InboxDetail = ({ mailId, onBack, folder, onRemoveMail }) => {
+    const { user: currentUser } = useAuth();
+    const { data: mail, loading } = useResource(getEmail, mailId, { keepPreviousData: true });
 
     if (loading && !mail) {
         return <div className="inbox-detail-loading">Loading mail...</div>;
@@ -16,6 +18,12 @@ const InboxDetail = ({ mailId, onBack }) => {
             <img src={icons.EnvelopeClosed} alt={'EnvelopeClosed'} />
         </div>
     );
+
+    const handleTrash = async (id) => {
+        await softDeleteEmail(id);
+        if (onRemoveMail) onRemoveMail(id)
+        if (onBack) onBack();
+    };
 
     return (
         <div className="inbox-detail">
@@ -31,7 +39,7 @@ const InboxDetail = ({ mailId, onBack }) => {
                         />
                     )}
                     <img className="toolbar-icon" src={icons.ArchiveTray} alt={'ArchiveTray'} />
-                    <img className="toolbar-icon" src={icons.Trash} alt={'Trash'} />
+                    <img className="toolbar-icon" src={icons.Trash} alt={'Trash'} onClick={() => handleTrash(mail.id)} />
                 </div>
                 <div className="toolbar-icons">
                     <div className="toolbar-icon background-icon">
@@ -64,23 +72,46 @@ const InboxDetail = ({ mailId, onBack }) => {
                         {mail.senderInitials || mail.senderName?.charAt(0).toUpperCase() || '?'}
                     </div>
                     <div className="detail-meta">
-                        <div>
-                            <div className="detail-name">{mail.senderName}</div>
-                            <div className="detail-email">{mail.senderEmail};</div>
-                        </div>
+                        
+                        {folder?.toLowerCase() === "sent" ? (
+                            <div> {/* SENT: From: current user, To: recipients */}
+                                <div className="detail-name">{mail.senderName}</div>
+                                <div className="detail-email">
+                                    To: {mail.recipients && mail.recipients.length > 0
+                                    ? mail.recipients.map((r, idx) => (
+                                        <span key={r.id || idx}>
+                                                        {r.name} &lt;{r.email}&gt;{idx < mail.recipients.length - 1 ? ", " : ""}
+                                                    </span>
+                                    ))
+                                    : "Ingen mottagare"}
+                                </div>
+                            </div>
+                        ) : (
+                            <div> {/* INBOX: From: recipients, To: (current user) */}
+                                <div className="detail-name">{mail.senderName}</div>
+                                <div className="detail-email">
+                                    To: {mail.recipients && mail.recipients.length > 0
+                                    ? mail.recipients
+                                        .filter(r => r.email === currentUser.email)
+                                        .map((r, idx, arr) => (
+                                            <span key={r.id || idx}>
+                                                            {r.name} &lt;{r.email}&gt;{idx < arr.length - 1 ? ", " : ""}
+                                                        </span>
+                                        ))
+                                    : currentUser.name + " <" + currentUser.email + ">"}
+                                </div>
+                            </div>
+                        )}
+                        
                         <div>
                             <div className="detail-date">{mail.date}</div>
                             <div className="detail-time">{mail.time}</div>
                         </div>
+                        
                     </div>
                 </div>
                 <div className="inbox-detail-body">
-                    {mail.body && typeof mail.body === 'string'
-                        ? mail.body.split('\n').map((paragraph, index) => (
-                            <p key={index}>{paragraph}</p>
-                        ))
-                        : <p>{mail.body}</p>
-                    }
+                    <p>{mail.body}</p>
                 </div>
             </div>
 

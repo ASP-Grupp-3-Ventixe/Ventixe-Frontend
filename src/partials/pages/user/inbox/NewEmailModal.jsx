@@ -3,7 +3,8 @@ import icons from "../../../../images/icons/icons.js";
 import "./NewEmailModal.css";
 
 const NewEmailModal = ({ onClose, onSend, currentUser }) => {
-    const [to, setTo] = useState("");
+    const [toName, setToName] = useState("");
+    const [toEmail, setToEmail] = useState("");
     const [cc, setCc] = useState("");
     const [bcc, setBcc] = useState("");
     const [subject, setSubject] = useState("");
@@ -18,8 +19,20 @@ const NewEmailModal = ({ onClose, onSend, currentUser }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Skicka med cc och bcc även om de är tomma för konsekvens
-        onSend({ to, cc, bcc, subject, body, attachments });
+        
+        const recipients = [];
+        if (toName && toEmail) { recipients.push({ name: toName, email: toEmail, recipientType: "To" });
+        }
+
+        if (cc) recipients.push({ name: cc, email: cc, recipientType: "Cc" });
+        if (bcc) recipients.push({ name: bcc, email: bcc, recipientType: "Bcc" });
+        
+        onSend({
+            subject,
+            body,
+            recipients,
+            attachments
+        });
         onClose();
     };
 
@@ -46,16 +59,26 @@ const NewEmailModal = ({ onClose, onSend, currentUser }) => {
                 <form onSubmit={handleSubmit} className="email-form">
                     <div className="email-field">
                         <label>To:</label>
+                        {/* Implement a function to handle multiple recipients, in a new component maybe*/}
+
                         <input
-                            type="email" 
-                            value={to}
-                            onChange={(e) => setTo(e.target.value)}
+                            type="text"
+                            value={toName}
+                            placeholder="Name" 
+                            onChange={(e) => setToName(e.target.value)}
                             autoFocus
                         />
+                        <input
+                            type="email"
+                            value={toEmail}
+                            placeholder="Email"
+                            onChange={(e) => setToEmail(e.target.value)}
+                        />
+                        
                         <div className="optional-fields">
                             {/* implement funktion to show/hide Cc/Bcc fields when clicked */}
-                            <span className="cc-label" onClick={() => console.log('Toggle CC field')}>Cc:</span>
-                            <span className="bcc-label" onClick={() => console.log('Toggle BCC field')}>Bcc:</span>
+                            <span className="cc-label" onClick={() => ('Toggle CC field')}>Cc:</span>
+                            <span className="bcc-label" onClick={() => ('Toggle BCC field')}>Bcc:</span>
                         </div>
                     </div>
 
@@ -88,11 +111,11 @@ const NewEmailModal = ({ onClose, onSend, currentUser }) => {
                     </div>
 
                     <div className="email-footer">
-                        <button type="submit" className="send-button">
-                            Send
-                        </button>
+                        
+                        <button type="submit" className="send-button">Send</button>
+                        
                         <div className="toolbar">
-                            <label htmlFor="file-upload-hidden" className="tool-button" title="Attach files"> {/* Använd label för filuppladdning */}
+                            <label htmlFor="file-upload-hidden" className="tool-button" title="Attach files">
                                 <img src={icons.Paperclip} alt={'Paperclip'}/>
                             </label>
                             <input

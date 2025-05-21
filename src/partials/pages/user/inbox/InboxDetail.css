@@ -91,7 +91,7 @@
 	& .inbox-detail-top {
 		display: flex;
 		flex-direction: row;
-		align-items: center;
+		align-items: baseline;
 		justify-content: space-between;
 		margin-bottom: 1.5rem;
 
@@ -107,6 +107,7 @@
 			align-items: center;
 			justify-content: space-between;
 			gap: 1rem;
+			padding: 1rem;
 
 			& img {
 				width: 1.1rem;

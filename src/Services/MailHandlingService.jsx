@@ -74,6 +74,11 @@ const emailMapper = (mail) => ({
     senderEmail: mail.sender?.email || "",
     senderAvatar: mail.sender?.avatarUrl || "",
     senderType: mail.sender?.senderType || "",
+    recipients: mail.recipients?.map(r => ({
+        id: r.id,
+        name: r.name,
+        email: r.email
+    })) || [],
     labels: mail.labels || [],
     subject: mail.subject,
     preview: mail.preview,

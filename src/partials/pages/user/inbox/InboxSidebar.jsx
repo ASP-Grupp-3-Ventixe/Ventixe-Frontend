@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import icons from '../../../../images/icons/icons';
 import "./InboxSidebar.css";
 
@@ -13,6 +13,7 @@ const folders = [
 
 const labels = [
     { name: 'Admin', color: 'rgb(193,226,255)' },
+    { name: 'User', color: 'rgb(201,255,193)' },
     { name: 'Customer', color: '#EEEFFF' },
     { name: 'Sponsor', color: '#FBD4FE' },
     { name: 'Partner', color: '#E0E0E1' },

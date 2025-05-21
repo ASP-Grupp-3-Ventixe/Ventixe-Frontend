@@ -37,7 +37,7 @@ const Header = ({ onToggleSidebar }) => {
                 <h2>{meta?.title || "Dashboard"}</h2>
                 {meta?.title === "Dashboard" && 
                     // dynamic welcome message based on logged-in user
-                    <p>Hello Orlando, welcome back!</p>} 
+                    <p>Hello {currentUser} welcome back!</p>} 
             </div>
 
             <div className="header-actions">
