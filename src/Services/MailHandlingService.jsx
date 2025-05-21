@@ -21,7 +21,7 @@ export const getEmails = async (folder = "inbox", unreadOnly = false, searchQuer
         const response = await axios.get(`${api}/api/emails`, {
             params: { folder, unreadOnly, searchQuery }
         });
-        return (response.data.items || []).map(emailMapper);  // use mapper
+        return (response.data.items || []).map(emailMapper); 
     } catch (error) {
         handleError(error);
         return [];
@@ -32,7 +32,7 @@ export const getEmails = async (folder = "inbox", unreadOnly = false, searchQuer
 export const getEmail = async (id) => {
     try {
         const response = await axios.get(`${api}/api/emails/${id}`);
-        return emailMapper(response.data.item);  // use mapper
+        return emailMapper(response.data.item); 
     } catch (error) {
         handleError(error);
         return null;

@@ -5,7 +5,6 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(true)
     const [isAdmin, setIsAdmin] = useState(true)
-    // const [user, setUser] = useState(null)
     const defaultName = "Orlando Laurentius";
     const defaultEmail = "orlandolaurentius@example.com";
     const initials = defaultName
