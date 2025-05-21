@@ -13,11 +13,11 @@ const SignIn = lazy(() => import("../partials/pages/auth/SignIn"));
 const UserDashboard = lazy(() => import("../partials/pages/user/Dashboard"));
 const UserBookings = lazy(() => import("../partials/pages/user/Bookings"));
 const UserInbox = lazy(() => import("../partials/pages/user/inbox/Inbox"));
+const UserFeedback = lazy(() => import("../partials/pages/user/Feedback")); // Din feedback-länk
+const UserEvents = lazy(() => import("../partials/pages/user/Events"));
 
 const AdminDashboard = lazy(() => import("../partials/pages/admin/Dashboard"));
 const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"));
-
-const UserFeedback = lazy(() => import("../partials/pages/user/Feedback")); // Din feedback-länk
 
 export const routes = [
   {
@@ -56,6 +56,11 @@ export const routes = [
         path: '/feedback',
         element: <UserFeedback />,
         meta: { title: 'Feedback', parent: 'Dashboard' }
+      },
+      {
+        path: '/events',
+        element: <UserEvents />,
+        meta: { title: 'Events', parent: 'Dashboard' }
       }
     ]
   },
