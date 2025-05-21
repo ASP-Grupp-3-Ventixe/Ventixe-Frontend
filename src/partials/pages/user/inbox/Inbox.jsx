@@ -39,6 +39,9 @@ const Inbox = () => {
                     <div className="inbox-header-container">
                         <InboxHeader onToggleSidebar={() => setShowSidebarModal(true)}/>
                     </div>
+                    
+                    {/* small space between InboxHeader and InboxList that dynamically shows/enhances the selected folder */}
+                    {/* showing a small icon with the related folder name */}
 
                     {/* InboxList */}
                     <div className="inbox-list-container">
