@@ -299,7 +299,7 @@
 	.sidebar-overlay {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.2);
+		background: var(--overlay-modals);
 		z-index: 1;
 		display: block;
 	}

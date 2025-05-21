@@ -25,7 +25,7 @@
 	--pink-light: #fcd3fe;
 	--pink-transparent: #fde3fe;
 	--pink-superlight: #fdedfe;
-	--primary-100: #f36cf9;
+	--primary-100: rgb(243, 108, 249);
 	--primary-90: #f589fa;
 	--primary-50: #fcd3fe;
 	--primary-40: #fde3fe;
@@ -90,7 +90,7 @@
 	--tertiary-text: var(--grey-70);
 	--quaternary-text: var(--grey-50);
 	--primary-text-invert: var(--grey-10);
-
+	
 	--main-background: var(--grey-10);
 	--surface-background: var(--grey-20);
 	--sidebar-background: var(--blue-light);
@@ -116,7 +116,9 @@
 	--box-shadow-2: 0 4px 20px rgba(0, 0, 0, 0.08);
 	--box-shadow-3: 0 4px 40px rgba(0, 0, 0, 0.2);
 	
-	--devider: var(--grey-30);
+	--overlay-modals: rgba(0, 0, 0, 0.3);
+	
+	--divider: var(--grey-40);
 	
 	--border-radius: 0.7rem;
 
@@ -129,7 +131,6 @@
 	--tertiary-hover: var(--secondary-90);
 	
 	--icon-background-hover: var(--grey-40);
-	
 
 	--primary-active: var(--primary-100);
 	--secondary-active: var(--cool-grey-10);

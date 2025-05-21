@@ -4,7 +4,7 @@ import "./InboxHeader.css";
 
 
 
-const InboxHeader = ({ search, onSearch, onToggleSidebar }) => (
+const InboxHeader = ({ search, onSearch, onToggleSidebar, onAddMail }) => (
     <div className="inbox-header">
         
         {/* only on mobile view */}
@@ -26,7 +26,7 @@ const InboxHeader = ({ search, onSearch, onToggleSidebar }) => (
                 <img src={icons.FadersHorizontal} alt={'FadersHorizontal'} />
         </button>
         
-        <button className="inbox-header-btn" title="Add">
+        <button className="inbox-header-btn" title="Add" onClick={onAddMail}>
                 <img src={icons.Plus} alt={'Plus'} />
         </button>
         

@@ -25,6 +25,7 @@ import LinkedinLogo from './LinkedinLogo.svg';
 import List from './List.svg';
 import ListStar from './ListStar.svg';
 import MagnifyingGlass from './MagnifyingGlass.svg';
+import Paperclip from './Paperclip.svg';
 import PaperPlaneRight from './PaperPlaneRight.svg';
 import Plus from './Plus.svg';
 import Printer from './Printer.svg';
@@ -68,6 +69,7 @@ const icons = {
     LinkedinLogo,
     ListStar,
     MagnifyingGlass,
+    Paperclip,
     PaperPlaneRight,
     Plus,
     Printer, 
