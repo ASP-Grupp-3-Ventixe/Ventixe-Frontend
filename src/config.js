@@ -1,5 +1,9 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:7101";
+const isDev = window.location.hostname === "localhost";
 
-export default {
-  apiBaseUrl: API_BASE_URL
+const config = {
+  apiBaseUrl: isDev
+    ? "http://localhost:7101"
+    : "https://eventservice-rk6f.onrender.com",
 };
+
+export default config;
