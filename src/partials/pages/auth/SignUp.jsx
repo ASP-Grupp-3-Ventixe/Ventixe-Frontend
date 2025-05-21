@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../../../contexts/AuthContext'
-import './Signup.css';
+import './SignUp.css';
 import Logo from '../../../images/Logo.svg';
 import { useNavigate } from 'react-router-dom';
 
