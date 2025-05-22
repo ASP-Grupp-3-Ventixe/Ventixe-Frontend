@@ -31,7 +31,7 @@ const Events = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const res = await fetch(`${BASE_URL}/api/events`);
+                const res = await fetch(`${BASE_URL}/api/events`, { method: "GET", mode: "cors" });
                 const data = await res.json();
                 setEvents(data);
             } catch (error) {
@@ -51,8 +51,9 @@ const Events = () => {
             method,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
+               mode: "cors"
         });
-        const all = await (await fetch(url)).json();
+         const all = await (await fetch(url, { method: "GET", mode: "cors" })).json();
         setEvents(all);
         setIsFormOpen(false);
         setEditEvent(null);
@@ -69,7 +70,8 @@ const Events = () => {
     };
 
     const handleConfirmDelete = async () => {
-        await fetch(`${BASE_URL}/api/events/${eventToDelete}`, { method: "DELETE" });
+       await fetch(`${BASE_URL}/api/events/${eventToDelete}`, { method: "DELETE", mode: "cors" });
+
         setShowDeleteModal(false);
         setEventToDelete(null);
     };
@@ -115,6 +117,7 @@ const Events = () => {
             const res = await fetch(`${BASE_URL}/api/events/upload-image/${eventId}`, {
                 method: "POST",
                 body: formData,
+                mode: "cors"
             });
 
             if (res.ok) {
