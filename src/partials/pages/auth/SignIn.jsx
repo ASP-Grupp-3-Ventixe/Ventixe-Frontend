@@ -1,30 +1,94 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useAuth } from '../../../contexts/AuthContext'
-import './SignIn.css';
+import {Link, useNavigate} from "react-router-dom";
 import Logo from '../../../images/Logo.svg';
+import './SignIn.css';
 
 const SignIn = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false
+  })
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  try{
-    const { signIn } = useAuth
+  const { signIn } = useAuth()
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }))
   }
-  catch { }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+
+    const result = await signIn(formData.email, formData.password, formData.rememberMe)
+
+    if (result.success) {
+      navigate('/dashboard')
+    } else {
+      setError(result.error)
+    }
+
+    setLoading(false)
+  }
 
   return (
     <div className="signin-container">
     <div className="signin-box">
     <img src={Logo} alt="Ventixe Logo" className="signin-logo" />
-      <form className="signin-form">
+
+      {error && <div className="error-message">{error}</div>}
+
+      <form className="signin-form" onSubmit={handleSubmit}>
         <label>Email</label>
-        <input type="email" placeholder="Enter your email address" required />
+        <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email address"
+            required
+        />
 
         <label>Password</label>
-        <input type="password" placeholder="Enter your password" required />
+        <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Enter your password"
+            required
+        />
 
-        <button type="submit" className="login-button">Log In</button>
+        {/*<label>*/}
+        {/*  <input*/}
+        {/*      type="checkbox"*/}
+        {/*      name="rememberMe"*/}
+        {/*      checked={formData.rememberMe}*/}
+        {/*      onChange={handleChange}*/}
+        {/*  />*/}
+        {/*  Remember me*/}
+        {/*</label>*/}
+
+        <button
+            type="submit"
+            className="login-button"
+            disabled={loading}
+        >
+          {loading ? 'Logging in...' : 'Log In'}
+        </button>
       </form>
+
       <p className="signup-text">
-        Don’t have an account? <a href="/signup">Sign Up</a>
+        Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
     </div>
   </div>

@@ -15,12 +15,8 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword ] = useState('');
 
   const navigate = useNavigate();
-
-  try{
-    const { signUp } = useAuth()
-  }
-  catch { }
-
+  const { signUp } = useAuth()
+  
   const handleSubmit = (e) => {
   e.preventDefault();
 
