@@ -85,7 +85,8 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       location: form.location.trim(),
       description: form.description.trim(),
       progress: Number(form.progress),
-      price: Number(form.price)
+      price: Number(form.price),
+      date: new Date(form.date).toISOString()
     };
 
     if (!initialData) {
