@@ -12,9 +12,9 @@ import {
     FiFileText,
     FiBook
 } from 'react-icons/fi';
-import Logo from '../../images/Logo.svg';
+import VentixeLogo from '../../images/logos/ventixe-logo.svg';
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = ({ isOpen, onClose }) => {
     const navItems = [
         { to: "/dashboard", label: "Dashboard", icon: <FiHome /> },
         { to: "/bookings", label: "Bookings", icon: <FiBook /> },
@@ -27,10 +27,20 @@ const Sidebar = ({ isOpen }) => {
         { to: "/feedback", label: "Feedback", icon: <FiMessageSquare /> },
     ];
 
+    // function to close sidebar on mobile when a link is clicked
+    const handleNavClick = () => {
+        if (typeof onClose === 'function') {
+            onClose();
+        }
+    };
+
     return (
-        <aside className={`sidebar ${isOpen ? 'show-sidebar' : ''}`}>
-            <div className="logo">
-                <img src={Logo} alt="Ventixe logo" className="logo-icon" />
+        <aside className={`sidebar ${isOpen ? 'show-sidebar' : ''}`}>            
+            <div className="link-logotype">
+                <NavLink to="/dashboard" className="logo" onClick={handleNavClick}>
+                    <img src={VentixeLogo} alt="Ventixe logo" className="logo-icon" />
+                    <span>Ventixe</span>
+                </NavLink>
             </div>
 
             <nav className="nav-links">
@@ -39,6 +49,7 @@ const Sidebar = ({ isOpen }) => {
                         key={index}
                         to={item.to}
                         className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                        onClick={handleNavClick}
                     >
                         <span className="nav-icon">{item.icon}</span>
                         <span>{item.label}</span>
@@ -47,11 +58,12 @@ const Sidebar = ({ isOpen }) => {
             </nav>
 
             <div className="sidebar-footer">
-                <button className="signout-button">
+                <button className="signout-button" onClick={handleNavClick}>
                     <span className="icon"><FiLogOut /></span>
                     <span>Sign Out</span>
                 </button>
             </div>
+            
         </aside>
     );
 };

@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   try {
 
     const { isAuthenticated } = useAuth()
-    console.log("Is Authenticated:", isAuthenticated)
+    // console.log("Is Authenticated:", isAuthenticated)
 
 
     if (isAuthenticated && isAuthenticated !== undefined) {

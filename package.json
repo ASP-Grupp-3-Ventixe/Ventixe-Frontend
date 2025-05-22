@@ -4,15 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "date-fns": "^2.30.0",
     "express": "^5.1.0",
+=======
+>>>>>>> origin/main
     "react": "^19.0.0",
     "react-big-calendar": "^1.18.0",
     "react-dom": "^19.0.0",
@@ -31,6 +33,7 @@
     "vite": "^6.3.4"
   },
   "engines": {
-    "node": "18.x"
-  }
+  "node": "18.x"
+}
+
 }
