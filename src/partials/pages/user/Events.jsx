@@ -71,7 +71,7 @@ const Events = () => {
 
     const handleConfirmDelete = async () => {
        await fetch(`${BASE_URL}/api/events/${eventToDelete}`, { method: "DELETE", mode: "cors" });
-
+        setEvents(prev => prev.filter(e => e.id !== eventToDelete));
         setShowDeleteModal(false);
         setEventToDelete(null);
     };
