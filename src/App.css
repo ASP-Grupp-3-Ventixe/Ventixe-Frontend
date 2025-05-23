@@ -371,3 +371,50 @@ body {
 
 .portal-layout {
 }
+
+.bookings-page {
+  padding: 24px;
+}
+
+.cards-container {
+  display: flex;
+  align-items: flex-start; /* toppinriktning */
+  gap: 24px; /* mellanrum mellan korten */
+  margin-bottom: 32px; /* avstånd ner mot tabellen */
+}
+/* Responsiv – stapla på smalare skärm */
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+  }
+  .cards-container .card-item {
+    flex: 1 1 auto;
+  }
+}
+
+.bookings-table-container {
+  overflow-x: auto;
+}
+
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.bookings-table th,
+.bookings-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 13px;
+  text-align: left;
+}
+.bookings-table th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+/* Ingen data-rad */
+.no-data {
+  text-align: center;
+  padding: 24px;
+  color: #666;
+}

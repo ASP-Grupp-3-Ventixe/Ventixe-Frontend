@@ -1,4 +1,4 @@
-.stat-card {
+.total-card {
   background-color: var(--event-background-color);
   border: 1px solid var(--grey-30);
   border-radius: var(--border-radius);
@@ -12,26 +12,26 @@
   flex: 1 1 0;
 }
 
-.stat-card__icon {
+.total-card__icon {
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 
-.stat-card__value {
+.total-card__value {
   color: var(--event-header-color);
   font-weight: var(--font-weight-bold);
   font-size: 24px;
   margin-bottom: 0.25rem;
 }
 
-.stat-card__label {
+.total-card__label {
   color: var(--event-text-color);
   font-size: 14px;
   font-weight: var(--font-weight-medium);
   margin-bottom: 0.5rem;
 }
 
-.stat-card__percentage {
+.total-card__percentage {
   font-size: 12px;
   font-weight: var(--font-weight-medium);
   display: inline-block;
@@ -39,12 +39,12 @@
   border-radius: 9999px;
 }
 
-.stat-card__percentage.positive {
+.total-card__percentage.positive {
   background-color: var(--pink-superlight);
   color: var(--primary-100);
 }
 
-.stat-card__percentage.negative {
+.total-card__percentage.negative {
   background-color: var(--blue-light);
   color: var(--secondary-100);
 }
