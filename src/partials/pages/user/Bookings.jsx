@@ -55,7 +55,6 @@ export default function Bookings() {
   const [data] = useState(MOCK_DATA);
   const [filtered, setFiltered] = useState(MOCK_DATA);
 
-  const [status, setStatus] = useState("All");
   const [category, setCategory] = useState("All Categories");
   const [dateRange, setDateRange] = useState("This Month");
   const [search, setSearch] = useState("");
@@ -66,10 +65,6 @@ export default function Bookings() {
 
   useEffect(() => {
     let temp = [...data];
-
-    if (status !== "All") {
-      temp = temp.filter((r) => r.status === status);
-    }
 
     if (category !== "All Categories") {
       temp = temp.filter((r) => r.category === category);
@@ -85,7 +80,7 @@ export default function Bookings() {
 
     setFiltered(temp);
     setCurrentPage(1);
-  }, [status, search, category, data]);
+  }, [search, category, data]);
 
   const paged = filtered.slice(
     (currentPage - 1) * pageSize,
@@ -131,6 +126,13 @@ export default function Bookings() {
                 count: 12617,
                 color: "#dcdcf7",
               },
+
+              {
+                name: "Art & Design",
+                percent: 12,
+                count: 5300,
+                color: "#ff5cf0",
+              },
             ]}
           />
         </div>
@@ -141,8 +143,6 @@ export default function Bookings() {
       </div>
       <div className="bookings-table-container">
         <BookingsTableHeader
-          activeStatus={status}
-          onStatusChange={setStatus}
           searchValue={search}
           onSearchChange={setSearch}
           activeCategory={category}
