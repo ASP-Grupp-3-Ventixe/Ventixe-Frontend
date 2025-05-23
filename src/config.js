@@ -6,5 +6,6 @@ const config = {
   tokenServiceUrl: import.meta.env.VITE_TOKEN_SERVICE_URL,
   mailHandlingServiceUrl: import.meta.env.VITE_MAIL_HANDLING_SERVICE_URL,
 };
+  console.log("redeploy check:", import.meta.env.VITE_AUTH_SERVICE_URL);
 
 export default config;
