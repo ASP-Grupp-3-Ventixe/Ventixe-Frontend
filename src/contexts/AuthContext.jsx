@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState} from "react"
-import config from "../config.js";
+import * as AuthService from "../Services/AuthService.jsx";
 
 const AuthContext = createContext()
 
@@ -12,8 +12,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('accessToken')
         if (token) {
-
-
+            
             setIsAuthenticated(true)
             const savedUser = localStorage.getItem('user')
             if (savedUser) {
@@ -28,98 +27,65 @@ export const AuthProvider = ({ children }) => {
     const signIn = async (email, password, isPersistent = false) => {
         setLoading(true)
 
-        console.log('🔐 Attempting login with:', { email });
-
+        console.log('Attempting login with:', { email });
         try {
-            const response = await fetch(`${config.authServiceUrl}/api/auth/signin`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            })
+            const result = await AuthService.signIn(email, password);
 
-            console.log('📡 Response status:', response.status);
+            console.log('Response status:', response.status);
+            console.log('Response data:', response.data);
+            
+            if (result.succeeded) {
+                const userData = { id: result.userId, email };
+                setUser(userData);
+                setIsAuthenticated(true);
+                setIsAdmin(email.includes('admin'));
 
-            if (response.ok) {
-                const result = await response.json()
-                console.log('📥 Response data:', result);
-
-                if (result.succeeded) {
-                    const userData = {
-                        id: result.userId,
-                        email: email,
+                if (result.accessToken) {
+                    if (isPersistent) {
+                        localStorage.setItem('accessToken', result.accessToken);
+                        localStorage.setItem('user', JSON.stringify(userData));
+                    } else {
+                        sessionStorage.setItem('accessToken', result.accessToken);
+                        sessionStorage.setItem('user', JSON.stringify(userData));
                     }
-
-                    setUser(userData)
-                    setIsAuthenticated(true)
-                    setIsAdmin(email.includes('admin'))
-
-                    // Spara access token om den finns
-                    if (result.accessToken) {
-                        if (isPersistent) {
-                            localStorage.setItem('accessToken', result.accessToken)
-                            localStorage.setItem('user', JSON.stringify(userData))
-                        } else {
-                            sessionStorage.setItem('accessToken', result.accessToken)
-                            sessionStorage.setItem('user', JSON.stringify(userData))
-                        }
-                    }
-
-                    setLoading(false)
-                    return { success: true }
-                } else {
-                    setLoading(false)
-                    return { success: false, error: result.message }
                 }
+                setLoading(false);
+                return { success: true };
             } else {
-                const errorText = await response.text()
-                console.log('❌ Error response:', errorText); 
-                setLoading(false)
-                return { success: false, error: errorText }
+                setLoading(false);
+                return { success: false, error: result.message };
             }
         } catch (error) {
-            console.error('💥 Network error:', error)
-            setLoading(false)
-            return { success: false, error: 'Cannot connect to auth service' }
+            setLoading(false);
+            return { success: false, error: error.response?.data?.message || 'Cannot connect to auth service' };
         }
-    }
+    };
 
     const signUp = async (userData) => {
-        setLoading(true)
-
+        setLoading(true);
         try {
-            const response = await fetch(`${config.authServiceUrl}/api/auth/signup`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: userData.email,
-                    password: userData.password
-                })
-            })
-
-            const result = await response.json()
-            setLoading(false)
-
-            if (response.ok && result.succeeded) {
-                return { success: true, message: result.message }
+            const result = await AuthService.signUp(userData);
+            setLoading(false);
+            if (result.succeeded) {
+                return { success: true, message: result.message };
             } else {
-                return { success: false, error: result.message || 'Registration failed' }
+                return { success: false, error: result.message || 'Registration failed' };
             }
         } catch (error) {
-            console.error('Registration error:', error)
-            setLoading(false)
-            return { success: false, error: 'Cannot connect to auth service' }
+            setLoading(false);
+            return { success: false, error: error.response?.data?.message || 'Cannot connect to auth service' };
         }
-    }
+    };
 
     const signOut = () => {
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('user')
-        sessionStorage.removeItem('accessToken')
-        sessionStorage.removeItem('user')
-        setUser(null)
-        setIsAuthenticated(false)
-        setIsAdmin(false)
-    }
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('user');
+        setUser(null);
+        setIsAuthenticated(false);
+        setIsAdmin(false);
+    };
 
     return (
         <AuthContext.Provider value={{
