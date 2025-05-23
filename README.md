@@ -74,7 +74,7 @@ T.ex. om du bygger Dashboard och vill visa bokningar, behöver du BookingsBacken
 | Namn          | Delsystem        | API-länk                                | GitHub-repo-länk                                |
 |---------------|------------------|--------------------------------------------|--------------------------------------------------|
 | [Daniel Nweze] |TokenServiceProvider|[https://tokenserviceprovider.onrender.com/ValidateToken]|[https://github.com/Daniel-Nweze/TokenServiceProvider.git]|
-| [Daniel Nweze] | TokenServiceProvider|[https://tokenserviceprovider.onrender.com/Auth/token]| [https://github.com/Daniel-Nweze/TokenServiceProvider.git]|
+| [Daniel Nweze] |TokenServiceProvider|[https://tokenserviceprovider.onrender.com/Auth/token]| [https://github.com/Daniel-Nweze/TokenServiceProvider.git]|
 | [Fyll i namn] | EventsBackend    | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
 | [Fyll i namn] | AdminBackend     | [klistra in din Azure-länk här]            | [klistra in din GitHub-länk här]                 |
 
