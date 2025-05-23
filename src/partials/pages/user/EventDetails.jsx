@@ -12,7 +12,7 @@ const EventDetails = () => {
     useEffect(() => {
         const fetchEvent = async () => {
             try {
-                const res = await fetch(`${Base_URL}/api/events/${id}`, { method: "GET", mode: "cors" })
+                const res = await fetch(`${BASE_URL}/api/events/${id}`, { method: "GET", mode: "cors" })
                 if (!res.ok) throw new Error("Event not found")
                 const data = await res.json()
                 setEvent(data)
