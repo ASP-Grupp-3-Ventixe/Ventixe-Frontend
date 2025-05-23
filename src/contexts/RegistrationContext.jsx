@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from 'react';
 
-const RegistraionContext = createContext();
+const RegistrationContext = createContext();
 
-export const RegistrationContext = () => {
-    const context = useContext(RegistraionContext);
+export const useRegistration = () => {
+    const context = useContext(RegistrationContext);
     if (!context) throw new Error("useRegistration must be used within RegistrationProvider")
     return context;
 };
@@ -23,7 +23,7 @@ export const RegistrationProvider = ({children}) => {
     });
 
     return (
-        <RegistraionContext.Provider value={{
+        <RegistrationContext.Provider value={{
             step, setStep,
             email, setEmail,
             verificationCode, setVerificationCode,
@@ -33,6 +33,6 @@ export const RegistrationProvider = ({children}) => {
             profile, setProfile
         }}>
             {children}
-        </RegistraionContext.Provider>
+        </RegistrationContext.Provider>
     );
 };
