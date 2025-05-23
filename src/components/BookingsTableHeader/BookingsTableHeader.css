@@ -5,31 +5,6 @@
   margin-bottom: 24px;
 }
 
-/* Status-tabs */
-.bth-status-tabs {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-.bth-status-tabs li {
-  cursor: pointer;
-  padding: 8px 20px;
-  margin-right: 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #5f5f7a;
-  background-color: #f0f0ff;
-  transition: background-color 0.2s;
-}
-.bth-status-tabs li.active {
-  background-color: #e8e0ff;
-  color: #7e3ff2;
-}
-.bth-status-tabs li:last-child {
-  margin-right: 0;
-}
-
 /* Controls till höger */
 .bth-controls {
   display: flex;
@@ -59,12 +34,12 @@
 }
 
 /* Selects */
-.bth-select {
-  padding: 8px 12px;
+.btn-select {
+  background-color: var(--cool-grey-10);
+  border: none;
+  color: var(--secondary-100);
+  padding: 8px 16px;
   border-radius: 20px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  background: white;
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  appearance: none;
 }

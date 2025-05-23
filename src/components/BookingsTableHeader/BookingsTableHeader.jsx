@@ -1,7 +1,6 @@
 import React from "react";
 import "./BookingsTableHeader.css";
 
-const STATUSES = ["All", "Confirmed", "Pending", "Cancelled"];
 const CATEGORIES = [
   "All Categories",
   "Music & Theater",
@@ -12,8 +11,6 @@ const CATEGORIES = [
 const DATE_RANGES = ["This Month", "This Week", "Last 30 Days"];
 
 export default function BookingsTableHeader({
-  activeStatus,
-  onStatusChange,
   searchValue,
   onSearchChange,
   activeCategory,
@@ -23,18 +20,6 @@ export default function BookingsTableHeader({
 }) {
   return (
     <div className="bth-toolbar">
-      <ul className="bth-status-tabs">
-        {STATUSES.map((st) => (
-          <li
-            key={st}
-            className={st === activeStatus ? "active" : ""}
-            onClick={() => onStatusChange(st)}
-          >
-            {st}
-          </li>
-        ))}
-      </ul>
-
       <div className="bth-controls">
         <div className="bth-search">
           <span className="bth-search-icon">🔍</span>
@@ -47,7 +32,7 @@ export default function BookingsTableHeader({
         </div>
 
         <select
-          className="bth-select"
+          className="btn-select"
           value={activeCategory}
           onChange={(e) => onCategoryChange(e.target.value)}
         >
@@ -59,7 +44,7 @@ export default function BookingsTableHeader({
         </select>
 
         <select
-          className="bth-select"
+          className="btn-select"
           value={activeDateRange}
           onChange={(e) => onDateRangeChange(e.target.value)}
         >

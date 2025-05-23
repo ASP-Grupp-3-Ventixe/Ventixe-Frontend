@@ -5,7 +5,10 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   max-width: 600px;
   font-family: var(--font-standard);
-  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
 }
 
 .category-header {

@@ -1,0 +1,190 @@
+.email-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--overlay-modals);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    
+    & .email-modal {
+        width: 35rem;
+        height: 45rem;
+        max-width: 95vw;
+        max-height: 90vh;
+        background-color: Var(--card-background);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow-3);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        
+        & .email-modal-header {
+            background-color: var(--surface-background);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e1e1e1;
+            
+            & .modal-icon, .modal-close {
+                & img {
+                    width: 1.8rem;
+                }
+            }
+            
+            & .modal-title {
+                font-size: 0.85rem;
+                margin: 0;
+                font-weight: normal;
+            }
+
+            & .modal-close {
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                margin: 0;
+                padding: 0;
+                opacity: 0.7;
+                transition: opacity 0.1s ease-in-out;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    
+    & .email-field {
+        display: flex;
+        padding: 0.5rem 1.5rem;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: var(--surface-background);
+        
+        & input::placeholder {
+            opacity: 0.5;
+        }
+    
+        & label {
+            color: var(--tertiary-text);
+            font-size: 0.85rem;
+        }
+    
+        & input {
+            flex: 1;
+            border: none;
+            font-size: 0.85rem;
+            outline: none;
+            padding: 5px 0;
+            background-color: var(--surface-background);
+        }
+    }
+
+    & .optional-fields {
+        display: flex;
+        margin-left: auto;
+        gap: 15px;
+    }
+
+    & .cc-label, .bcc-label {
+        color: var(--primary-100);
+        font-size: 0.85rem;
+        cursor: pointer;
+    }
+
+    & .divider {
+        height: 0.05rem;
+        background-color: var(--divider);
+        margin: 0 1.5rem;
+        
+        &:nth-child(3n) {
+        margin: 0;
+        }
+    }
+
+    & .sender-info {
+        color: var(--primary-100);
+        font-size: 0.85rem;
+    }
+
+    & .email-body {
+        flex: 1;
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+
+        & textarea {
+            flex: 1;
+            border: none;
+            outline: none;
+            resize: none;
+            font-size: 0.85rem;
+            font-family: sans-serif;
+        }
+    }
+    
+    & .email-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        border-top: 1px solid #e1e1e1;
+        background-color: var(--surface-background);
+        
+        & .send-button {
+            background: var(--primary-100);
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: var(--font-weight-lighter);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease-in-out;
+            padding: 0.5rem 1.5rem;
+            color: var(--primary-text-invert);
+            
+            &:hover {
+                background: var(--primary-90);
+                
+            }
+        }
+    }
+    
+    & .toolbar {
+        display: flex;
+        gap: 10px;
+    
+        & .tool-button {
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--tertiary-text);
+            transition: opacity 0.1s ease-in-out;
+            opacity: 0.5;
+            
+            & img {
+                width: 1.5rem;
+            }
+            
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+}
+
+
+
