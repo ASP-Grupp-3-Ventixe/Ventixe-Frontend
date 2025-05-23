@@ -1325,3 +1325,60 @@ footer {
   align-items: center;
   gap: 8px;
 }
+
+.event-details-wrapper-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.event-details-card,
+.event-packages-card {
+  background: var(--grey-10);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow-1);
+}
+
+.event-details-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--secondary-110);
+}
+
+.packages-heading {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--blue);
+}
+
+.packages-list {
+  list-style: disc;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.package-item {
+  font-size: 0.95rem;
+  color: var(--grey-90);
+}
+.back-button {
+  background-color: var(--blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: var(--secondary-hover);
+}
