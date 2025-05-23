@@ -12,8 +12,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('accessToken')
         if (token) {
-            // För nu - anta att token är giltigt om det finns
-            // Du kan lägga till token-validering senare
+
+
             setIsAuthenticated(true)
             const savedUser = localStorage.getItem('user')
             if (savedUser) {
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     const signIn = async (email, password, isPersistent = false) => {
         setLoading(true)
 
-        console.log('🔐 Attempting login with:', { email }); // Debug log
+        console.log('🔐 Attempting login with:', { email });
 
         try {
             const response = await fetch(`${config.authServiceUrl}/api/auth/signin`, {
@@ -37,11 +37,11 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password })
             })
 
-            console.log('📡 Response status:', response.status); // Debug log
+            console.log('📡 Response status:', response.status);
 
             if (response.ok) {
                 const result = await response.json()
-                console.log('📥 Response data:', result); // Debug log
+                console.log('📥 Response data:', result);
 
                 if (result.succeeded) {
                     const userData = {
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
                 }
             } else {
                 const errorText = await response.text()
-                console.log('❌ Error response:', errorText); // Debug log
+                console.log('❌ Error response:', errorText); 
                 setLoading(false)
                 return { success: false, error: errorText }
             }

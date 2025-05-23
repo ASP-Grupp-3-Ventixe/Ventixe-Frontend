@@ -18,8 +18,13 @@ export const createEmail = async (emailDto) => {
 // get emails
 export const getEmails = async (folder = "inbox", unreadOnly = false, searchQuery = "") => {
     try {
+        const token = sessionStorage.getItem('accessToken') || localStorage.getItem('accessToken');
+        console.log('Token used for emails:', token);
         const response = await axios.get(`${api}/api/emails`, {
-            params: { folder, unreadOnly, searchQuery }
+            params: { folder, unreadOnly, searchQuery },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         });
         return (response.data.items || []).map(emailMapper); 
     } catch (error) {
