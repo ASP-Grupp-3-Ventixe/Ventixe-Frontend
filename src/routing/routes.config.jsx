@@ -52,7 +52,6 @@ export const routes = [
         meta: { title: 'Calendar', parent: 'Dashboard' }
       },
       {
-        path: '/inbox',
         path: "/inbox",
         element: <UserInbox />,
         meta: { title: "Inbox", parent: "Dashboard" },
