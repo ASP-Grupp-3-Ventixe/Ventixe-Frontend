@@ -1,0 +1,45 @@
+.bth-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Controls till höger */
+.bth-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Search */
+.bth-search {
+  position: relative;
+}
+.bth-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 16px;
+  color: #999;
+}
+.bth-search input {
+  padding: 8px 12px 8px 36px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  width: 220px;
+}
+
+/* Selects */
+.btn-select {
+  background-color: var(--cool-grey-10);
+  border: none;
+  color: var(--secondary-100);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
