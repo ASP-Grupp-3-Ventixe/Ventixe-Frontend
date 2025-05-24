@@ -1,1 +1,0 @@
-import{j as s}from"./index-BATPYeiu.js";const r=()=>s.jsxs("div",{className:"dashboard-wrapper",children:[s.jsx("h1",{children:"Dashboard"}),s.jsx("div",{className:"dashboard-grid"})]});export{r as default};

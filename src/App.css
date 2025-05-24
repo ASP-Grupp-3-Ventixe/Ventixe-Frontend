@@ -135,91 +135,8 @@
   --secondary-active: var(--cool-grey-10);
 
   --icon-background-active: var(--grey-30);
-
-  /* Reset & Global */
-  --font-standard: "Inter", sans-serif;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-  --border-radius: 16px;
-
-  /* Blå */
-  --blue: #37437d;
-  --blue-light: #eeefff;
-  --secondary-110: #1c2346;
-  --secondary-100: #37437d;
-  --secondary-90: #5562a2;
-  --secondary-70: #707dbf;
-  --secondary-60: #abb4dd;
-  --secondary-50: #0d3af9;
-
-  /* Rosa */
-  --pink: #f26cf9;
-  --pink-light: #fcd3fe;
-  --pink-transparent: #fde3fe;
-  --pink-superlight: #fdedfe;
-  --primary-100: #f28cf9;
-  --primary-90: #f589fa;
-  --primary-50: #fcd3fe;
-  --primary-40: #fde3fe;
-  --primary-30: #fdedfe;
-
-  /* Gul */
-  --yellow-100: #ffca39;
-  --yellow-90: #fffec3;
-
-  /* Grå */
-  --grey-10: #ffffff;
-  --grey-20: #f7f7f7;
-  --grey-30: #ededed;
-  --grey-40: #e0e0e1;
-  --grey-50: #c3c3c4;
-  --grey-60: #9f9fa1;
-  --grey-70: #777779;
-  --grey-80: #636365;
-  --grey-90: #434345;
-  --grey-100: #1e1e20;
-
-  /* Cool Greys */
-  --cool-grey-10: #eeefff;
-  --cool-grey-20: #e4e5f5;
-  --cool-grey-30: #dddeed;
-  --cool-grey-40: #d1d2e0;
-  --cool-grey-50: #b0b1bd;
-  --cool-grey-60: #8f8f99;
-  --cool-grey-70: #72737a;
-  --cool-grey-80: #56565c;
-  --cool-grey-90: #39393d;
-  --cool-grey-100: #131314;
-
-  /* färdiga klasser??  */
-  --dashboard-header-color-dark: var(--grey-100);
-  --dashboard-header-color-blue: var(--blue);
-
-  --dropdown-text-color: var(--blue);
-  --dropdown-background-color: var(--blue-light);
-
-  --event-background-color: var(--grey-10);
-  --event-header-color: var(--grey-100);
-  --event-text-color: var(--grey-80);
-
-  --graph-color-blue: var(--pink);
-  --graph-color-pink: var(--blue);
-  --graph-background-color-light: var(--blue-light);
-  --graph-background-color-dark: var(--grey-90);
-
-  --searchbar-background-color: var(--grey-10);
-  --searchbar-text-color: var(--grey-60);
-
-  --settings-background-color: var(--blue);
-  --settings-logo-color: var(--grey-10);
-
-  --notification-background-color: var(--blue);
-  --notification-logo-color: var(--grey-10);
-  --notification-detail-color: var(--pink);
 }
+
 
 /* Headings */
 .h1-semibold {
@@ -891,6 +808,13 @@ footer {
   display: flex !important;
 }
 
+
+/* 
+----------------------------------------------------------------------------------------------
+ allt detta ska bort, flytta ut till din component den som har dessa, ha inte component CSS i App.css
+----------------------------------------------------------------------------------------------
+*/ 
+  
 .feedback-list {
   display: flex;
   flex-direction: column;
@@ -1683,4 +1607,11 @@ footer {
   display: flex;
   align-items: center;
   gap: 8px;
-}
+} 
+
+/* 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+----------------------------------------------------------------------------------------------
+ allt detta ska bort, flytta ut till din component den som har denna, ha inte component CSS i App.css
+----------------------------------------------------------------------------------------------
+*/ 
