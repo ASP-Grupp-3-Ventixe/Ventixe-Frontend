@@ -11,6 +11,7 @@
   font-family: var(--font-standard);
   height: 43%;
   margin-top: 0;
+  width: 20%;
 }
 
 .total-card__icon {
@@ -30,22 +31,4 @@
   font-size: 14px;
   font-weight: var(--font-weight-medium);
   margin-bottom: 0.5rem;
-}
-
-.total-card__percentage {
-  font-size: 12px;
-  font-weight: var(--font-weight-medium);
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-}
-
-.total-card__percentage.positive {
-  background-color: var(--pink-superlight);
-  color: var(--primary-100);
-}
-
-.total-card__percentage.negative {
-  background-color: var(--blue-light);
-  color: var(--secondary-100);
 }

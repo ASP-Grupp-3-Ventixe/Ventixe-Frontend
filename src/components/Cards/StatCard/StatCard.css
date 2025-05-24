@@ -10,6 +10,7 @@
   text-align: center;
   font-family: var(--font-standard);
   height: 43%;
+  width: 20%;
   margin-top: 0;
 }
 
@@ -30,22 +31,4 @@
   font-size: 14px;
   font-weight: var(--font-weight-medium);
   margin-bottom: 0.5rem;
-}
-
-.stat-card__percentage {
-  font-size: 12px;
-  font-weight: var(--font-weight-medium);
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-}
-
-.stat-card__percentage.positive {
-  background-color: var(--pink-superlight);
-  color: var(--primary-100);
-}
-
-.stat-card__percentage.negative {
-  background-color: var(--blue-light);
-  color: var(--secondary-100);
 }
