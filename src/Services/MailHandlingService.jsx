@@ -1,13 +1,10 @@
-import axios from "axios";
 import {handleError} from "../Helpers/ErrorHandler.jsx";
-
-
-const api = import.meta.env.VITE_APP_API_URL || 'http://localhost:5241';
+import mailClient from "../api/mailClient.js";
 
 // create email
 export const createEmail = async (emailDto) => {
     try {
-        const response = await axios.post(`${api}/api/emails`, emailDto);
+        const response = await mailClient.post("emails", emailDto);
         return emailMapper(response.data.result);  // use mapper
     } catch (error) {
         handleError(error);
@@ -18,15 +15,10 @@ export const createEmail = async (emailDto) => {
 // get emails
 export const getEmails = async (folder = "inbox", unreadOnly = false, searchQuery = "") => {
     try {
-        const token = sessionStorage.getItem('accessToken') || localStorage.getItem('accessToken');
-        console.log('Token used for emails:', token);
-        const response = await axios.get(`${api}/api/emails`, {
-            params: { folder, unreadOnly, searchQuery },
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+        const response = await mailClient.get("emails", {
+            params: { folder, unreadOnly, searchQuery }
         });
-        return (response.data.items || []).map(emailMapper); 
+        return (response.data.items || []).map(emailMapper);
     } catch (error) {
         handleError(error);
         return [];
@@ -36,7 +28,7 @@ export const getEmails = async (folder = "inbox", unreadOnly = false, searchQuer
 // get email
 export const getEmail = async (id) => {
     try {
-        const response = await axios.get(`${api}/api/emails/${id}`);
+        const response = await mailClient.get(`emails/${id}`);
         return emailMapper(response.data.item); 
     } catch (error) {
         handleError(error);
@@ -47,16 +39,16 @@ export const getEmail = async (id) => {
 // soft delete / move to trash folder
 export const softDeleteEmail = async (id) => {
     try {
-        await axios.delete(`${api}/api/emails/${id}`);
+        await mailClient.delete(`emails/${id}`);
     } catch (error) {
         handleError(error);
     }
 };
 
 // hard delete
-export const hardDeleteEmail = async () => {
+export const hardDeleteEmail = async (emailId) => {
     try {
-        await axios.delete(`${api}/api/emails/${emailId}/permanent`);
+        await mailClient.delete(`emails/${emailId}/permanent`);
     } catch (error) {
         handleError(error);
     }
@@ -65,7 +57,7 @@ export const hardDeleteEmail = async () => {
 // empty trash
 export const emptyTrash = async () => {
     try {
-        await axios.delete(`${api}/api/emails/trash/empty`);
+        await mailClient.delete("emails/trash/empty");
     } catch (error) {
         handleError(error);
     }

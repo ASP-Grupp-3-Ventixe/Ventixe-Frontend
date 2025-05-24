@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import config from "../config.js";
+import * as AuthService from "../Services/AuthService.jsx";
 
 const AuthContext = createContext();
 
@@ -27,76 +27,47 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
 
     console.log("Attempting login with:", { email });
-
     try {
-      const response = await fetch(`${config.authServiceUrl}/api/auth/signin`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const result = await AuthService.signIn(email, password);
+      console.log("SignIn result:", result);
 
-      console.log("Response status:", response.status);
+      if (result.succeeded) {
+        const userData = { id: result.userId, email };
+        setUser(userData);
+        setIsAuthenticated(true);
+        setIsAdmin(email.includes("admin"));
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("📥 Response data:", result);
-
-        if (result.succeeded) {
-          const userData = {
-            id: result.userId,
-            email: email,
-          };
-
-          setUser(userData);
-          setIsAuthenticated(true);
-          setIsAdmin(email.includes("admin"));
-
-          if (result.accessToken) {
-            if (isPersistent) {
-              localStorage.setItem("accessToken", result.accessToken);
-              localStorage.setItem("user", JSON.stringify(userData));
-            } else {
-              sessionStorage.setItem("accessToken", result.accessToken);
-              sessionStorage.setItem("user", JSON.stringify(userData));
-            }
+        if (result.accessToken) {
+          if (isPersistent) {
+            localStorage.setItem("accessToken", result.accessToken);
+            localStorage.setItem("user", JSON.stringify(userData));
+          } else {
+            sessionStorage.setItem("accessToken", result.accessToken);
+            sessionStorage.setItem("user", JSON.stringify(userData));
           }
-
-          setLoading(false);
-          return { success: true };
-        } else {
-          setLoading(false);
-          return { success: false, error: result.message };
         }
-      } else {
-        const errorText = await response.text();
-        console.log("Error response:", errorText);
         setLoading(false);
-        return { success: false, error: errorText };
+        return { success: true };
+      } else {
+        setLoading(false);
+        return { success: false, error: result.message };
       }
     } catch (error) {
-      console.error("Network error:", error);
       setLoading(false);
-      return { success: false, error: "Cannot connect to auth service" };
+      return {
+        success: false,
+        error:
+          error.response?.data?.message || "Cannot connect to auth service",
+      };
     }
   };
 
   const signUp = async (userData) => {
     setLoading(true);
-
     try {
-      const response = await fetch(`${config.authServiceUrl}/api/auth/signin`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: userData.email,
-          password: userData.password,
-        }),
-      });
-
-      const result = await response.json();
+      const result = await AuthService.signUp(userData);
       setLoading(false);
-
-      if (response.ok && result.succeeded) {
+      if (result.succeeded) {
         return { success: true, message: result.message };
       } else {
         return {
@@ -105,9 +76,12 @@ export const AuthProvider = ({ children }) => {
         };
       }
     } catch (error) {
-      console.error("Registration error:", error);
       setLoading(false);
-      return { success: false, error: "Cannot connect to auth service" };
+      return {
+        success: false,
+        error:
+          error.response?.data?.message || "Cannot connect to auth service",
+      };
     }
   };
 
@@ -140,8 +114,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
-  }
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
   return context;
 };
