@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authClient = axios.create({
-    baseURL: import.meta.env.VITE_AUTH_SERVICE_URL + "/api/",
+    baseURL: "https://kappeauthserviceprovider-avevcya4hrd2ahb2.swedencentral-01.azurewebsites.net/api/",
 });
 
 authClient.interceptors.request.use(config => {
