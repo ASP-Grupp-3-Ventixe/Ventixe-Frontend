@@ -25,15 +25,13 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     const signIn = async (email, password, isPersistent = false) => {
-        setLoading(true)
+        setLoading(true);
 
         console.log('Attempting login with:', { email });
         try {
             const result = await AuthService.signIn(email, password);
+            console.log('SignIn result:', result);
 
-            console.log('Response status:', response.status);
-            console.log('Response data:', response.data);
-            
             if (result.succeeded) {
                 const userData = { id: result.userId, email };
                 setUser(userData);
@@ -103,9 +101,7 @@ export const AuthProvider = ({ children }) => {
 }
 
 export const useAuth = () => {
-    const context = useContext(AuthContext)
-    if (!context) {
-        throw new Error('useAuth must be used within AuthProvider')
-    }
-    return context
-}
+    const context = useContext(AuthContext);
+    if (!context) throw new Error("useAuth must be used within AuthProvider");
+    return context;
+};
