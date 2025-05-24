@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import EventCard from "../../../components/EventCard";
 import EventForm from "../../../components/EventForm";
 import DeleteConfirmModal from "../../../components/DeleteConfirmModal";
-import config from "../../../config";
-
 import caretDownIcon from "../../../images/icons/CaretDown.svg";
 import gridIcon from "../../../images/icons/Button Picker.svg";
 import listIcon from "../../../images/icons/Button Picker (1).svg";
