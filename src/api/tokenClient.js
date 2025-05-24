@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const tokenClient = axios.create({
-    baseURL: import.meta.env.VITE_TOKEN_SERVICE_URL + "/",
+    baseURL: "https://tokenserviceprovider.onrender.com/api/Auth/token/",
 });
 
 tokenClient.interceptors.request.use(config => {
