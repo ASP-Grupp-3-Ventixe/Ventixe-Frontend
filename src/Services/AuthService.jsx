@@ -2,13 +2,13 @@ import authClient from "../api/authClient";
 
 // signIn: POST /auth/signin
 export const signIn = async (email, password) => {
-    const response = await authClient.post("auth/signin", { email, password });
+    const response = await authClient.post("Auth/signin", { email, password });
     return response.data;
 };
 
 // register: POST /auth/signup
 export const signUp = async (userData) => {
-    const response = await authClient.post("auth/signup", {
+    const response = await authClient.post("Auth/signup", {
         email: userData.email,
         password: userData.password
     });
