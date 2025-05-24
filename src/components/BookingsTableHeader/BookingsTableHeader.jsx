@@ -22,7 +22,6 @@ export default function BookingsTableHeader({
     <div className="bth-toolbar">
       <div className="bth-controls">
         <div className="bth-search">
-          <span className="bth-search-icon">🔍</span>
           <input
             type="text"
             placeholder="Search name, event, etc"
