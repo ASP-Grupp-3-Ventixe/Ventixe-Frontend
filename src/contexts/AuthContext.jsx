@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (email, password, isPersistent = false) => {
     setLoading(true);
 
-    console.log("🔐 Attempting login with:", { email });
+    console.log("Attempting login with:", { email });
 
     try {
       const response = await fetch(`${config.authServiceUrl}/api/auth/signin`, {
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("📡 Response status:", response.status);
+      console.log("Response status:", response.status);
 
       if (response.ok) {
         const result = await response.json();
@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
           setIsAuthenticated(true);
           setIsAdmin(email.includes("admin"));
 
-          // Spara access token om den finns
           if (result.accessToken) {
             if (isPersistent) {
               localStorage.setItem("accessToken", result.accessToken);
@@ -70,12 +69,12 @@ export const AuthProvider = ({ children }) => {
         }
       } else {
         const errorText = await response.text();
-        console.log("❌ Error response:", errorText);
+        console.log("Error response:", errorText);
         setLoading(false);
         return { success: false, error: errorText };
       }
     } catch (error) {
-      console.error("💥 Network error:", error);
+      console.error("Network error:", error);
       setLoading(false);
       return { success: false, error: "Cannot connect to auth service" };
     }
