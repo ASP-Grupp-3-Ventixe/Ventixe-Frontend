@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const mailClient = axios.create({
-    baseURL: import.meta.env.VITE_MAIL_HANDLING_SERVICE_URL + "/api/",
+    baseURL: "https://vpm-webapp-h7bzbgfyardcfje3.swedencentral-01.azurewebsites.net/api/",
 });
 
 mailClient.interceptors.request.use(config => {
