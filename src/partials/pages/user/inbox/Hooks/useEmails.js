@@ -12,7 +12,7 @@ export function useEmails(activeFolder) {
         setError(null);
         getEmails(activeFolder.toLowerCase(), false, "")
             .then(data => setEmails(data))
-            .catch(() => setError("Kunde inte hämta mail"))
+            .catch(() => setError("Failed to fetch emails"))
             .finally(() => setLoading(false));
     }, [activeFolder]);
     

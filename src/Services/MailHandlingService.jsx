@@ -1,9 +1,6 @@
 import {handleError} from "../Helpers/ErrorHandler.jsx";
 import mailClient from "../api/mailClient.js";
 
-
-const api = import.meta.env.VITE_APP_API_URL;
-
 // create email
 export const createEmail = async (emailDto) => {
     try {
