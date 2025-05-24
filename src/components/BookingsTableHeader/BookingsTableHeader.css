@@ -1,0 +1,45 @@
+.bth-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Controls till höger */
+.bth-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Search */
+.bth-search {
+  position: relative;
+}
+.bth-search input {
+  width: 100%;
+  min-width: 10rem;
+  max-width: 100%;
+  height: 2.5rem;
+  padding: 0 1rem;
+  background-color: var(--grey-10);
+  border-radius: 1.875rem;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  font-family: var(--font-standard);
+  transition: width 0.2s;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+}
+
+/* Selects */
+.btn-select {
+  background-color: var(--cool-grey-10);
+  border: none;
+  color: var(--secondary-100);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}

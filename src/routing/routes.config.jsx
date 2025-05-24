@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import AuthLayout from "../partials/layouts/AuthLayout";
 import Unauthorized from "../partials/pages/auth/Unauthorized";
 import PortalLayout from "../partials/layouts/PortalLayout";
-import Feedback from '../partials/pages/user/Feedback'; // Din feedback-komponent
+import Feedback from "../partials/pages/user/Feedback"; // Din feedback-komponent
 
 const NotFound = lazy(() => import("../partials/pages/NotFound"));
 
@@ -22,31 +22,29 @@ const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"));
 
 export const routes = [
   {
-    children: [
-      { path: "/", element: <Navigate to="/dashboard" replace /> }
-    ]
+    children: [{ path: "/", element: <Navigate to="/dashboard" replace /> }],
   },
   {
     layout: AuthLayout,
     children: [
-      { path: '/signup', element: <SignUp /> },
-      { path: '/login', element: <SignIn /> },
-      { path: '/denied', element: <Unauthorized /> },
-    ]
+      { path: "/signup", element: <SignUp /> },
+      { path: "/login", element: <SignIn /> },
+      { path: "/denied", element: <Unauthorized /> },
+    ],
   },
   {
     layout: PortalLayout,
     protected: true,
     children: [
       {
-        path: '/dashboard',
+        path: "/dashboard",
         element: <UserDashboard />,
-        meta: { title: 'Dashboard' }
+        meta: { title: "Dashboard" },
       },
       {
-        path: '/bookings',
+        path: "/bookings",
         element: <UserBookings />,
-        meta: { title: 'Bookings', parent: 'Dashboard' }
+        meta: { title: "Bookings", parent: "Dashboard" },
       },
       {
         path: '/calendar',
@@ -55,20 +53,21 @@ export const routes = [
       },
       {
         path: '/inbox',
+        path: "/inbox",
         element: <UserInbox />,
-        meta: { title: 'Inbox', parent: 'Dashboard' }
+        meta: { title: "Inbox", parent: "Dashboard" },
       },
       {
-        path: '/feedback',
+        path: "/feedback",
         element: <UserFeedback />,
-        meta: { title: 'Feedback', parent: 'Dashboard' }
+        meta: { title: "Feedback", parent: "Dashboard" },
       },
       {
-        path: '/events',
+        path: "/events",
         element: <UserEvents />,
-        meta: { title: 'Events', parent: 'Dashboard' }
-      }
-    ]
+        meta: { title: "Events", parent: "Dashboard" },
+      },
+    ],
   },
   {
     layout: PortalLayout,
@@ -76,23 +75,21 @@ export const routes = [
     adminOnly: true,
     children: [
       {
-        path: 'admin/dashboard',
-        element: <AdminDashboard />
+        path: "admin/dashboard",
+        element: <AdminDashboard />,
       },
       {
-        path: 'admin/bookings',
-        element: <AdminBookings />
+        path: "admin/bookings",
+        element: <AdminBookings />,
       },
       {
-        path: 'admin/feedback',
+        path: "admin/feedback",
         element: <UserFeedback />,
-        meta: { title: 'Feedback', parent: 'Admin' }
-      }
-    ]
+        meta: { title: "Feedback", parent: "Admin" },
+      },
+    ],
   },
   {
-    children: [
-      { path: '*', element: <NotFound /> }
-    ]
-  }
+    children: [{ path: "*", element: <NotFound /> }],
+  },
 ];
