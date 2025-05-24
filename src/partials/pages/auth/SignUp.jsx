@@ -1,10 +1,9 @@
-import ReCAPTCHA from 'react-google-recaptcha';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRegistration } from '../../../contexts/RegistrationContext.jsx'; 
-import React from 'react'
+import Logo from '../../../images/Logo.svg';
+import './SignUp.css';
 
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 export default function SignUp() {
   const {
@@ -21,9 +20,11 @@ export default function SignUp() {
 
   const handleEmailSubmit = async e => {
     e.preventDefault();
+    console.log("Submitting email:", email);
     const res = await fetch('https://ventixe-verificationserviceprovider.azurewebsites.net/api/verify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({ Email: email })
     });
     res.ok ? setStep(2) : alert('Unable to send verification code');
   };
@@ -50,29 +51,62 @@ export default function SignUp() {
   };
 
   const verifyCode = async fullCode => {
-    const res = await fetch('https://ventixe-verificationserviceprovider.azurewebsites.net/api/verify', {
+    const res = await fetch('https://ventixe-verificationserviceprovider.azurewebsites.net/api/verify-code', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, code: fullCode })
+      body: JSON.stringify({ Email: email, code: fullCode })
     });
     res.ok ? setStep(3) : alert('Invalid code.');
   };
 
-  const handlePassordSubmit = e => {
+  const handlePasswordSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) return alert('Passwords do not match.');
-    if (!captchaToken) return alert('Please confirm that you are not a robot.');
-    setStep(4);
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match.');
+      return;
+  }
+    const payload = {
+      email,
+      password
+    };
+
+    try {
+    const res = await fetch('https://kappeauthserviceprovider-avevcya4hrd2ahb2.swedencentral-01.azurewebsites.net/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      setStep(4);
+    } else {
+      const error = await res.text();
+      alert('Failed to create account:\n' + error);
+    }
+    } catch (err) {
+      console.error("Signup failed:", err);
+      alert("Unexpected error occurred.");
+    }
   };
 
   const handleProfileSubmit = async e => {
     e.preventDefault();
-    const res = await fetch('/api/auth/signup', {
+
+    const payload = {
+      firstName,
+      lastName,
+      phone
+    };
+
+    const res = await fetch('/api/profile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, profile })
+      body: JSON.stringify({ payload })
     });
-    res.ok ? navigate('/login') : alert('Failed to comple registration.');
+    res.ok ? navigate('/login') : alert('Failed to add info.');
   };
 
   return (
@@ -86,7 +120,7 @@ export default function SignUp() {
           onSubmit={
             step === 1 ? handleEmailSubmit :
               step === 2 ? handleEmailSubmit :
-                step === 3 ? handlePassordSubmit : 
+                step === 3 ? handlePasswordSubmit : 
                   handleProfileSubmit
           }
         >
@@ -113,7 +147,7 @@ export default function SignUp() {
           {step === 4 && (
             <ProfileStep
               profile={profile}
-              setProflie={setProfile}
+              setProfile={setProfile}
               handleBack={handleBack}
             />
           )}
@@ -128,7 +162,7 @@ function EmailStep({ email, onChange }) {
     <div className='card'>
       <div className='card-header'>
         <h2>Create Account</h2>
-        <p>To access this page, you need to have an account.</p>
+        <p>To create an account, please enter your email address. A verification code will be sent to this email.</p>
       </div>
       <div className='card-body form-group'>
         <input type='email' placeholder='Email' value={email} onChange={onChange} required className='form-input' />
@@ -136,13 +170,28 @@ function EmailStep({ email, onChange }) {
       </div>
       <div className='card-footer info'>
         <span>Already have an account?</span>
-        <Link to="/login">Log in</Link>
+        <Link to="/login"> Log in</Link>
       </div>
     </div>
   );
 }
 
 function CodeStep({ email, code, onChange, inputsRef, handleBack }) {
+  const handlePaste = (e) => {
+  e.preventDefault();
+  const pasted = e.clipboardData.getData('text').trim();
+
+  if (!/^\d{6}$/.test(pasted)) return;
+
+  const chars = pasted.split('');
+  setVerificationCode(chars);
+
+  inputsRef.current[5]?.focus();
+
+  verifyCode(pasted);
+};
+
+
   return (
     <div className='card'>
       <div className='card-header'>
@@ -152,22 +201,31 @@ function CodeStep({ email, code, onChange, inputsRef, handleBack }) {
       <div className='card-body'>
         <div className='verification-code-wrapper'>
           {code.map((digit, idx) => (
-            <input key={idx} ref={el => inputsRef.current[idx] = el} type='text' maxLength={1} value={digit} onChange={e => onChange(idx, e.target.value)} />
+            <input
+              key={idx}
+              ref={(el) => (inputsRef.current[idx] = el)}
+              type='text'
+              maxLength={1}
+              value={digit}
+              onChange={(e) => onChange(idx, e.target.value)}
+              onPaste={idx === 0 ? handlePaste : undefined}
+            />
           ))}
         </div>
         <div className='resend'>
-          Didn't recieve a verification code? <Link to="/resend-verificationcode">Resend email</Link>
+          Didn't receive a verification code? <Link to="/resend-verificationcode">Resend email</Link>
         </div>
         <button type="submit" className='btn-primary'>Confirm</button>
       </div>
       <div className='card-footer'>
-          <button type='button' className='btn-link' onClick={handleBack}>Back</button>
+        <button type='button' className='btn-link' onClick={handleBack}>Back</button>
       </div>
     </div>
   );
 }
 
-function PassWordStep({ password, onPasswordChange, confirmPassword, onConfirmChange, onCaptchaChange, handleBack }) {
+
+function PasswordStep({ password, onPasswordChange, confirmPassword, onConfirmChange, onCaptchaChange, handleBack }) {
   return (
     <div className='card'>
       <div className='card-header'>
@@ -175,13 +233,11 @@ function PassWordStep({ password, onPasswordChange, confirmPassword, onConfirmCh
         <p>You need to set a strong and secure password</p>
       </div>
       <div className='card-body'>
-        <div className='form-hroup'>
+        <div className='form-group'>
           <input type='password' placeholder='Password' value={password} onChange={onPasswordChange} required className='form-input' />
           <input type='password' placeholder='Confirm Password' value={confirmPassword} onChange={onConfirmChange} required className='form-input' />
         </div>
-        <div className='recaptcha'>
-          <ReCAPTCHA sitekey={RECAPTCHA_SITE_KEY} onChange={onCaptchaChange} onExpired={() => onCaptchaChange(null)} />
-        </div>
+
         <button type='submit' className='btn-primary'>Continue</button>
       </div>
       <div>
@@ -198,9 +254,14 @@ function ProfileStep({ profile, setProfile, handleBack }) {
     { key: 'phone', placeholder: 'Phone Number' },
   ];
 
-  const toggle = key => e => {
+  const handleChange = (key) => (e) => {
+    const value = e.target.value;
+    setProfile(prev => ({ ...prev, [key]: value }));
+  };
+
+  const toggle = (key) => (e) => {
     setProfile(prev => ({ ...prev, [key]: e.target.checked }));
-  }
+  };
 
   return (
     <div className='card'>
@@ -208,19 +269,31 @@ function ProfileStep({ profile, setProfile, handleBack }) {
         <h2>Complete Profile</h2>
       </div>
       <div className='card-body form-group'>
-        {fields.map(f => {
-          <input key={f.key} type='text' placeholder={f.placeholder} value={profile[f.key]} onChange={e => setProfile(prev => ({ ...prev}))} />
-        })}
+        {fields.map(f => (
+          <input
+            key={f.key}
+            type='text'
+            placeholder={f.placeholder}
+            value={profile[f.key]}
+            onChange={handleChange(f.key)}
+            className='form-input mb-3'
+          />
+        ))}
 
-        <div className='checkbox-group'>
-          <div className='checkbox'>
-            <label className='custom-checkbox'>
-              <input type='checkbox' checked={profile.acceptedTerms} onChange={toggle('acceptedTerms')} required />
-                <span className='checkmark'></span>
-            </label>
-          </div>
+        <div className='checkbox-group mb-4'>
+          <label className='custom-checkbox'>
+            <input
+              type='checkbox'
+              checked={profile.acceptedTerms}
+              onChange={toggle('acceptedTerms')}
+              required
+            />
+            <span className='checkmark'></span>
+            I accept the terms and conditions
+          </label>
         </div>
-        <button type='submit' className='btn-primaru'>Save & Finish</button>
+
+        <button type='submit' className='btn-primary'>Save & Finish</button>
       </div>
       <div className='card-footer'>
         <button type='button' className='btn-link' onClick={handleBack}>Back</button>
@@ -228,4 +301,5 @@ function ProfileStep({ profile, setProfile, handleBack }) {
     </div>
   );
 }
+
 

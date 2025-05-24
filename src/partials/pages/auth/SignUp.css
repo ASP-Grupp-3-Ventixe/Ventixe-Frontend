@@ -60,11 +60,17 @@ body {
   gap: 12px;
 }
 
+.form-input + .form-input {
+  margin-top: 12px;
+}
+
+
 .card-footer {
   display: flex;
   justify-content: center;
   font-size: 14px;
   margin-top: 10px;
+  gap: 0.5rem;
 }
 
 /* === Inputs === */
@@ -139,6 +145,8 @@ body {
   font-size: 14px;
   display: flex;
   align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .custom-checkbox input {
