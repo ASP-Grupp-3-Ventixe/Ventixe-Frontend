@@ -1,6 +1,6 @@
 .bth-toolbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 24px;
 }
@@ -16,21 +16,21 @@
 .bth-search {
   position: relative;
 }
-.bth-search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  font-size: 16px;
-  color: #999;
-}
 .bth-search input {
-  padding: 8px 12px 8px 36px;
+  width: 100%;
+  min-width: 10rem;
+  max-width: 100%;
+  height: 2.5rem;
+  padding: 0 1rem;
+  background-color: var(--grey-10);
+  border-radius: 1.875rem;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  font-family: var(--font-standard);
+  transition: width 0.2s;
   border-radius: 20px;
   border: 1px solid #ddd;
-  font-size: 14px;
-  width: 220px;
 }
 
 /* Selects */
