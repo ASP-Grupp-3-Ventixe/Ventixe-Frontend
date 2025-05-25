@@ -10,7 +10,6 @@ import {useEmails} from "./Hooks/useEmails.js";
 import {useModal} from "./Hooks/useModal.js";
 import './Inbox.css';
 
-
 const Inbox = () => {
     const { user } = useAuth();
     const [selectedMailId, setSelectedMailId] = useState(null);

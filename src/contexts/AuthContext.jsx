@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import * as AuthService from "../Services/AuthService.jsx";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,8 +29,8 @@ export const AuthProvider = ({ children }) => {
     console.log("Attempting login with:", { email });
     try {
       const result = await AuthService.signIn(email, password);
-      console.log("SignIn result:", result);
-
+      console.log("SignIn result:", result); // getting from backend
+      
       if (result.succeeded) {
         const userData = { id: result.userId, email };
         setUser(userData);
@@ -38,13 +38,8 @@ export const AuthProvider = ({ children }) => {
         setIsAdmin(email.includes("admin"));
 
         if (result.accessToken) {
-          if (isPersistent) {
-            localStorage.setItem("accessToken", result.accessToken);
-            localStorage.setItem("user", JSON.stringify(userData));
-          } else {
-            sessionStorage.setItem("accessToken", result.accessToken);
-            sessionStorage.setItem("user", JSON.stringify(userData));
-          }
+          localStorage.setItem("accessToken", result.accessToken);
+          localStorage.setItem("user", JSON.stringify(userData));
         }
         setLoading(false);
         return { success: true };
@@ -88,8 +83,6 @@ export const AuthProvider = ({ children }) => {
   const signOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("user");
     setUser(null);
     setIsAuthenticated(false);
     setIsAdmin(false);

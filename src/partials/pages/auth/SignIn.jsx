@@ -29,7 +29,7 @@ const SignIn = () => {
     setLoading(true)
     setError('')
 
-    const result = await signIn(formData.email, formData.password, formData.rememberMe)
+    const result = await signIn (formData.email, formData.password, formData.rememberMe)
 
     if (result.success) {
       navigate('/dashboard')
