@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BookingsTableHeader from "../../../components/BookingsTableHeader/BookingsTableHeader";
 import StatCard from "../../../components/Cards/StatCard/StatCard";
-import BookingOverviewCard from "../../../components/Cards/BookingOverviewCard/BookingOverviewCard";
-import BookingCategoryCard from "../../../components/Cards/BookingCategoryCard/BookingCategoryCard";
 import TotalTicketsSoldCard from "../../../components/Cards/TotalTicketsSoldCard/TotalTicketsSoldCard";
 import Pagination from "../../../components/Pagination/Pagination";
 import "./Bookings.css";
 
 export default function Bookings() {
-  useEffect(() => {
+  const [data, setData] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [category, setCategory] = useState("All Categories");
+  const [dateRange, setDateRange] = useState("This Month");
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  const pageSize = 6;
+  const totalPages = Math.ceil(filtered.length / pageSize);
+  const totalBookings = data.length;
+
+  const totalTicketsSold = data.reduce((sum, b) => {
+    return sum + (b.ticketsQuantity ?? 0);
+  }, 0);
+  const navigate = useNavigate();
+  const loadBookings = () => {
+    setLoading(true);
     fetch(
       "https://ventixe-bookingprovider-hgadhcexa5fpfday.swedencentral-01.azurewebsites.net/api/bookings"
     )
@@ -18,45 +34,18 @@ export default function Bookings() {
         return res.json();
       })
       .then(setData)
-      .catch((err) => console.error("Fel vid fetch:", err));
+      .catch((err) => console.error("Fel vid fetch:", err))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    loadBookings();
   }, []);
-
-  const [data, setData] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-
-  const [category, setCategory] = useState("All Categories");
-  const [dateRange, setDateRange] = useState("This Month");
-  const [search, setSearch] = useState("");
-
-  const totalBookings = data.length;
-
-  const totalTicketsSold = data.reduce((sum, b) => {
-    return sum + (b.event.ticketsSold ?? 0);
-  }, 0);
-
-  const categoryMap = {};
-  data.forEach((b) => {
-    const cat = b.event.category;
-    const sold = b.event.ticketsSold ?? 0;
-    if (!categoryMap[cat]) {
-      categoryMap[cat] = { name: cat, count: 0 };
-    }
-    categoryMap[cat].count += sold;
-  });
-
-  const categories = Object.values(categoryMap).map((c) => ({
-    ...c,
-    percent:
-      totalTicketsSold > 0 ? Math.round((c.count / totalTicketsSold) * 100) : 0,
-    color: "#ff5cf0",
-  }));
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
-  const totalPages = Math.ceil(filtered.length / pageSize);
 
   useEffect(() => {
     let temp = [...data];
+
+    temp.sort((a, b) => new Date(a.event.date) - new Date(b.event.date));
 
     if (category !== "All Categories") {
       temp = temp.filter((r) => r.event.category === category);
@@ -116,23 +105,43 @@ export default function Bookings() {
           </thead>
           <tbody>
             {paged.map((r) => (
-              <tr key={r.bookingId}>
-                <td>{new Date(r.bookingDate).toLocaleString()}</td>
+              <tr
+                key={r.bookingId}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/events/${r.event.eventId}`)}
+              >
+                <td>{new Date(r.event.date).toLocaleDateString()}</td>
                 <td>{r.customerName}</td>
                 <td>{r.event.title}</td>
-                <td>{r.event.priceFrom ?? "-"}</td>
-                <td>{r.event.ticketsSold ?? "-"}</td>
-                <td>{r.event.maxTickets ?? "-"}</td>
+                <td>
+                  {r.event.priceFrom != null
+                    ? `${r.event.priceFrom.toLocaleString("sv-SE")} SEK`
+                    : "-"}
+                </td>
+                <td>{r.ticketsQuantity ?? "-"}</td>
+                <td>
+                  {r.event?.priceFrom && r.ticketsQuantity
+                    ? `${(r.event.priceFrom * r.ticketsQuantity).toLocaleString(
+                        "sv-SE"
+                      )} SEK`
+                    : "-"}
+                </td>
                 <td>{r.event.category}</td>
               </tr>
             ))}
-            {paged.length === 0 && (
+            {loading ? (
+              <tr>
+                <td colSpan="7" className="no-data">
+                  Bokningar laddas...
+                </td>
+              </tr>
+            ) : paged.length === 0 ? (
               <tr>
                 <td colSpan="7" className="no-data">
                   Inga bokningar hittades.
                 </td>
               </tr>
-            )}
+            ) : null}
           </tbody>
         </table>
       </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { FiEdit, FiDelete, } from "react-icons/fi"
 import { CiLocationOn } from "react-icons/ci"
+import { useNavigate } from "react-router-dom"
 
 const EventCard = ({ event, onEdit, onDelete, viewMode, onImageUpload }) => {
     const fileInputRef = useRef()
@@ -26,7 +27,9 @@ const EventCard = ({ event, onEdit, onDelete, viewMode, onImageUpload }) => {
         }
     }, [])
 
-    /* Endast omstrukturerad av ChatGpt */
+    const navigate = useNavigate()
+
+    /* Omstrukturerad av ChatGpt */
     return (
         <div className={`event-card ${viewMode}`}>
             <div className="card-menu" ref={menuRef}>
@@ -77,7 +80,7 @@ const EventCard = ({ event, onEdit, onDelete, viewMode, onImageUpload }) => {
             </div>
 
             {/* Info */}
-            <div className="event-card-body">
+            <div className="event-card-body" onClick={() => navigate(`/events/${event.id}`)}>
                 <p className="event-date">
                     {new Date(event.date).toLocaleDateString("en-US", {
                         month: "long",
