@@ -16,6 +16,7 @@ const UserCalendar = lazy(() => import("../partials/pages/user/Calendar"));
 const UserInbox = lazy(() => import("../partials/pages/user/inbox/Inbox"));
 const UserFeedback = lazy(() => import("../partials/pages/user/Feedback")); // Din feedback-länk
 const UserEvents = lazy(() => import("../partials/pages/user/Events"));
+const UserEventDetails = lazy(() => import("../partials/pages/user/EventDetails"))
 
 const AdminDashboard = lazy(() => import("../partials/pages/admin/Dashboard"));
 const AdminBookings = lazy(() => import("../partials/pages/admin/Bookings"));
@@ -64,9 +65,19 @@ export const routes = [
       {
         path: "/events",
         element: <UserEvents />,
-        meta: { title: "Events", parent: "Dashboard" },
+        meta: { title: 'Events', parent: 'Dashboard' }
       },
-    ],
+      {
+        path: '/events/:id',
+        element: <UserEventDetails />,
+        meta: { title: 'Event Details', parent: 'Events' }
+      },
+      {
+        path: '/events/:id',
+        element: <UserEventDetails />,
+        meta: { title: 'Event Details', parent: 'Bookings' }
+      }
+    ]
   },
   {
     layout: PortalLayout,
