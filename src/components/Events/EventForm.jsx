@@ -114,6 +114,7 @@ useEffect(() => {
       price: "",
       description: "",
       maxTickets: 0,
+      imageFileName: "",
       packages: []
     });
     return;
@@ -130,6 +131,7 @@ useEffect(() => {
     price: initialData.price ?? "",
     description: initialData.description ?? "",
     maxTickets: initialData.maxTickets ?? 0,
+    imageFileName: initialData.imageFileName ?? "",
     packages: initialData.packages?.map(p => ({
       name: p.name ?? "",
       price: p.price ?? 0
@@ -142,21 +144,22 @@ useEffect(() => {
     setSubmitted(true)
     if (!validate(form)) return
 
-    const cleanedForm = {
-      ...form,
-      title: form.title.trim(),
-      category: form.category.trim(),
-      location: form.location.trim(),
-      description: form.description.trim(),
-      progress: Number(form.progress),
-      price: Number(form.price),
-      date: new Date(form.date).toISOString(),
-      maxTickets: Number(form.maxTickets),
-      packages: form.packages.map(p => ({
-        name: p.name,
-        price: Number(p.price)
-      }))
-    };
+   const cleanedForm = {
+  ...form,
+  title: form.title.trim(),
+  category: form.category.trim(),
+  location: form.location.trim(),
+  description: form.description.trim(),
+  progress: Number(form.progress),
+  price: Number(form.price),
+  date: new Date(form.date).toISOString(),
+  maxTickets: Number(form.maxTickets),
+  packages: form.packages.map(p => ({
+    name: p.name,
+    price: Number(p.price)
+  })),
+  imageFileName: form.imageFileName  
+};
 
     if (!initialData) delete cleanedForm.id;
 
