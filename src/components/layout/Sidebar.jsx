@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     FiLogOut,
@@ -13,8 +12,10 @@ import {
     FiBook
 } from 'react-icons/fi';
 import VentixeLogo from '../../images/logos/ventixe-logo.svg';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = ({ isOpen, onClose }) => {
+    const { signOut } = useAuth();
     const navItems = [
         { to: "/dashboard", label: "Dashboard", icon: <FiHome /> },
         { to: "/bookings", label: "Bookings", icon: <FiBook /> },
@@ -58,7 +59,13 @@ const Sidebar = ({ isOpen, onClose }) => {
             </nav>
 
             <div className="sidebar-footer">
-                <button className="signout-button" onClick={handleNavClick}>
+                <button
+                    className="signout-button"
+                    onClick={() => {
+                        signOut();
+                        handleNavClick();
+                    }}
+                >
                     <span className="icon"><FiLogOut /></span>
                     <span>Sign Out</span>
                 </button>

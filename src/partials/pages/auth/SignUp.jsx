@@ -101,12 +101,25 @@ export default function SignUp() {
       phone
     };
 
-    const res = await fetch('/api/profile', {
+    try {
+    const res = await fetch('', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ payload })
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
     });
-    res.ok ? navigate('/login') : alert('Failed to add info.');
+
+    if (res.ok) {
+      navigate('/dashboard');
+    } else {
+      const error = await res.text();
+      alert('Failed to submit info' + error);
+    }
+    } catch (err) {
+      console.error("Submit failed:", err);
+      alert("Unexpected error occurred.");
+    }
   };
 
   return (
