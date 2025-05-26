@@ -65,8 +65,13 @@ export const routes = [
       },
       {
         path: '/events/:id',
-        element: <UserEventDetails/>,
-        meta: {title: 'Event Details', parent: 'Events'}
+        element: <UserEventDetails />,
+        meta: { title: 'Event Details', parent: 'Events' }
+      },
+      {
+        path: '/events/:id',
+        element: <UserEventDetails />,
+        meta: { title: 'Event Details', parent: 'Bookings' }
       }
     ]
   },

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import EventCard from "../../../components/EventCard";
-import EventForm from "../../../components/EventForm";
-import DeleteConfirmModal from "../../../components/DeleteConfirmModal";
+import EventCard from "../../../components/Events/EventCard";
+import EventForm from "../../../components/Events/EventForm";
+import DeleteConfirmModal from "../../../components/Events/DeleteConfirmModal";
 import config from "../../../config";
 
 import caretDownIcon from "../../../images/icons/CaretDown.svg";
@@ -9,6 +9,7 @@ import gridIcon from "../../../images/icons/Button Picker.svg";
 import listIcon from "../../../images/icons/Button Picker (1).svg";
 import leftArrowIcon from "../../../images/icons/Pagination Left.svg";
 import rightArrowIcon from "../../../images/icons/Pagination Right.svg";
+import { Outlet } from "react-router-dom";
 
 const BASE_URL = config.apiBaseUrl;
 

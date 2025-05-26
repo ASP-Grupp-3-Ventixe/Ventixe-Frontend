@@ -3,7 +3,7 @@ export const EventCategory = {
   Sport: "Sport",
   Film: "Film",
   Food: "Food",
-  Hogwarts: "Hogwarts",
+  Meetings: "Meetings",
   Other: "Other",
 };
 

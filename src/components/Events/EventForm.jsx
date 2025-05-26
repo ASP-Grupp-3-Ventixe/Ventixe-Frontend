@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EventCategoryList } from "../constants/EventCategory";
+import { EventCategoryList } from "./EventCategory";
 
 const fieldPattern = /^[a-öA-Ö0-9\s,.:;'`-]{2,100}$/
 const packagePattern = /^[a-zA-Z0-9\s-]{2,30}$/
@@ -15,7 +15,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
     progress: "",
     price: "",
     description: "",
-    packages: []
+    packages: [{ name: "", price: "" }]
   });
 
   const [errors, setErrors] = useState({})
@@ -88,6 +88,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
         progress: initialData.progress.toString(),
         price: initialData.price.toString(),
         description: initialData.description,
+        maxTickets: initialData.maxTickets,
         packages: initialData.packages ?? []
       })
     }
@@ -106,6 +107,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       progress: Number(form.progress),
       price: Number(form.price),
       date: new Date(form.date).toISOString(),
+      maxTickets: Number(form.maxTickets)
     };
 
     if (!initialData) delete cleanedForm.id;
@@ -200,10 +202,66 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
           onChange={(e) => change("description", e.target.value)}
         />
 
-        <input type="text" placeholder="Add packages comma-separated (e.g. VIP, Diamond)"
-          onChange={(e) => {
-            change("packages", e.target.value.split(",").map(p => p.trim()).filter(Boolean))
-          }} />
+
+        <input
+          placeholder="Total tickets"
+          type="number"
+          id="maxTickets"
+          value={form.maxTickets}
+          onChange={(e) => setForm({ ...form, maxTickets: Number(e.target.value) })} />
+
+        <h4>Packages</h4>
+        {form.packages.map((pkg, index) => (
+          <div key={index} className="package-row">
+
+            <input type="text"
+              placeholder="Package name"
+              value={pkg.name}
+              onChange={(e) => {
+                const updated = [...form.packages];
+                updated[index].name = e.target.value;
+                change("packages", updated);
+              }}
+              className="package-input"
+
+            />
+
+            <input
+              type="number"
+              placeholder="Price"
+              value={pkg.price}
+              onChange={(e) => {
+                const updated = [...form.packages];
+                updated[index].price = parseFloat(e.target.value);
+                change("packages", updated);
+              }}
+              className="package-price" 
+              />
+              
+            <button
+              type="button"
+              className="remove-package"
+              onClick={() => {
+                const updated = [...form.packages];
+                updated.splice(index, 1);
+                change("packages", updated);
+              }}
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+
+        <button
+          type="button"
+          className="add-package"
+          onClick={() =>
+            change("packages", [...form.packages, { name: "", price: 0 }])
+          }
+
+        >
+          + Add Package
+        </button>
         {errors.packages && <p className="error-message">{errors.packages}</p>}
 
         <div className="modal-actions">

@@ -6,15 +6,29 @@ import {useLocation} from "react-router-dom";
 
 // helper function to find meta based on path
 function findMeta(path, routesArr = routes) {
-    for (const route of routesArr) {
-        if (route.children) {
-            const found = findMeta(path, route.children);
-            if (found) return found;
-        }
-        if (route.path === path && route.meta) return route.meta;
+  for (const route of routesArr) {
+    if (route.children) {
+      const found = findMeta(path, route.children);
+      if (found) return found;
     }
-    return null;
+
+    if (!route.path || !route.meta) continue;
+
+    const routeSegments = route.path.split("/");
+    const pathSegments = path.split("/");
+
+    if (routeSegments.length !== pathSegments.length) continue;
+
+    const match = routeSegments.every((seg, i) =>
+      seg.startsWith(":") || seg === pathSegments[i]
+    );
+
+    if (match) return route.meta;
+  }
+
+  return null;
 }
+
 
 const Header = ({ onToggleSidebar }) => {
     const location = useLocation();
