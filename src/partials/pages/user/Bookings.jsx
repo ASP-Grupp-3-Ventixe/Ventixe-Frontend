@@ -102,7 +102,11 @@ export default function Bookings() {
           </thead>
           <tbody>
             {paged.map((r) => (
-              <tr key={r.bookingId}>
+              <tr
+                key={r.bookingId}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/events/${r.event.eventId}`)}
+              >
                 <td>{new Date(r.bookingDate).toLocaleString()}</td>
                 <td>{r.customerName}</td>
                 <td>{r.event.title}</td>

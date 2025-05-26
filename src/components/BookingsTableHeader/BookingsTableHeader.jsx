@@ -7,7 +7,7 @@ const CATEGORIES = [
   "Sport",
   "Film",
   "Food",
-  "Hogwarts",
+  "Meeting",
   "Other",
 ];
 const DATE_RANGES = ["This Month", "This Week", "Last 30 Days"];
