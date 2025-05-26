@@ -20,13 +20,13 @@ export const signIn = async (email, password) => {
 };
 
 // register: 
-export const signUp = async (userData) => {
-    const response = await authClient.post("Auth/signup", {
-        email: userData.email,
-        password: userData.password
-    });
-    return response.data;
-};
+// export const signUp = async (userData) => {
+//     const response = await authClient.post("Auth/signup", {
+//         email: userData.email,
+//         password: userData.password
+//     });
+//     return response.data;
+// };
 
 // signOut: 
 export const signOut = async () => {

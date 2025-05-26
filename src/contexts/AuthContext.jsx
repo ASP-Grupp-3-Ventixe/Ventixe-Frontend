@@ -80,7 +80,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signOut = () => {
+  const signOut = async () => {
+    try {
+      await AuthService.signOut();
+    } catch (e) {
+        console.error("Sign out failed:", e);
+        // maybe show notification ?
+    }
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
     setUser(null);

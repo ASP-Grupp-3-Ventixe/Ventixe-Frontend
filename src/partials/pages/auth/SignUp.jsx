@@ -1,8 +1,6 @@
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { sendVerificationEmail, verifyCode} from "../../../Services/VerificationService.jsx";
 import { useRegistration } from '../../../contexts/RegistrationContext.jsx'; 
-import { signUp } from "../../../Services/AuthService.jsx";
 import Logo from '../../../images/Logo.svg';
 import './SignUp.css';
 
@@ -22,12 +20,13 @@ export default function SignUp() {
 
   const handleEmailSubmit = async e => {
     e.preventDefault();
-    try {
-      await sendVerificationEmail(email);
-      setStep(2);
-    } catch (err) {
-      alert('Unable to send verification code');
-    }
+    console.log("Submitting email:", email);
+    const res = await fetch('https://ventixe-verificationserviceprovider.azurewebsites.net/api/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({ Email: email })
+    });
+    res.ok ? setStep(2) : alert('Unable to send verification code');
   };
 
   const handleBack = () => {
@@ -48,16 +47,16 @@ export default function SignUp() {
     newCode[idx] = val;
     setVerificationCode(newCode);
     if (val && idx <5) inputsRef.current[idx + 1]?.focus();
-    if (newCode.every(c => c)) handleVerifyCode(newCode.join(''));
+    if (newCode.every(c => c)) verifyCode(newCode.join(''));
   };
 
-  const handleVerifyCode = async (fullCode) => {
-    try {
-      await verifyCode(email, fullCode);
-      setStep(3);
-    } catch (err) {
-      alert('Invalid code.');
-    }
+  const verifyCode = async fullCode => {
+    const res = await fetch('https://ventixe-verificationserviceprovider.azurewebsites.net/api/verify-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ Email: email, code: fullCode })
+    });
+    res.ok ? setStep(3) : alert('Invalid code.');
   };
 
   const handlePasswordSubmit = async (e) => {
@@ -66,15 +65,27 @@ export default function SignUp() {
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
       return;
-    }
+  }
+    const payload = {
+      email,
+      password
+    };
 
     try {
-      const result = await signUp({ email, password });
-      if (result.succeeded) {
-        setStep(4);
-      } else {
-        alert('Failed to create account:\n' + (result.message || 'Unknown error'));
-      }
+    const res = await fetch('https://kappeauthserviceprovider-avevcya4hrd2ahb2.swedencentral-01.azurewebsites.net/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      setStep(4);
+    } else {
+      const error = await res.text();
+      alert('Failed to create account:\n' + error);
+    }
     } catch (err) {
       console.error("Signup failed:", err);
       alert("Unexpected error occurred.");
@@ -121,7 +132,6 @@ export default function SignUp() {
               onChange={handleCodeChange}
               inputsRef={inputsRef}
               handleBack={handleBack}
-              setVerificationCode={setVerificationCode}
             />
           )}  
           {step === 3 && (
@@ -166,20 +176,20 @@ function EmailStep({ email, onChange }) {
   );
 }
 
-function CodeStep({ email, code, onChange, setVerificationCode, inputsRef, handleBack, handleVerifyCode }) {
+function CodeStep({ email, code, onChange, inputsRef, handleBack }) {
   const handlePaste = (e) => {
-    e.preventDefault();
-    const pasted = e.clipboardData.getData('text').trim();
+  e.preventDefault();
+  const pasted = e.clipboardData.getData('text').trim();
 
-    if (!/^\d{6}$/.test(pasted)) return;
+  if (!/^\d{6}$/.test(pasted)) return;
 
-    const chars = pasted.split('');
-    setVerificationCode(chars);
+  const chars = pasted.split('');
+  setVerificationCode(chars);
 
-    inputsRef.current[5]?.focus();
+  inputsRef.current[5]?.focus();
 
-    handleVerifyCode(pasted);
-  };
+  verifyCode(pasted);
+};
 
 
   return (

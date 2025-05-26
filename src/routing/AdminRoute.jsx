@@ -3,24 +3,17 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 const AdminRoute = ({ children }) => {
+  const { isAuthenticated, isAdmin, loading } = useAuth();
 
-  try {
+  if (loading) return <div>Loading...</div>;
 
-    const { isAuthenticated, isAdmin } = useAuth()
-    console.log("🛡️ [AdminRoute] isAuthenticated:", isAuthenticated, "| isAdmin:", isAdmin)
-
-    if (isAuthenticated && isAuthenticated !== undefined) {
-      if (isAdmin) {
-        return children
-      }
-
-      return <Navigate to="/denied" replace />;
-    }
+  if (isAuthenticated) {
+    if (isAdmin) return children;
+    return <Navigate to="/denied" replace />;
   }
-  catch { }
 
-  return <Navigate to="/login" replace />
-
-}
+    // if not logged in, redirect to login
+  return <Navigate to="/login" replace />;
+};
 
 export default AdminRoute

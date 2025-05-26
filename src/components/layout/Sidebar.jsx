@@ -13,8 +13,10 @@ import {
     FiBook
 } from 'react-icons/fi';
 import VentixeLogo from '../../images/logos/ventixe-logo.svg';
+import {useAuth} from "../../contexts/AuthContext.jsx";
 
 const Sidebar = ({ isOpen, onClose }) => {
+    const { signOut } = useAuth();
     const navItems = [
         { to: "/dashboard", label: "Dashboard", icon: <FiHome /> },
         { to: "/bookings", label: "Bookings", icon: <FiBook /> },
@@ -26,6 +28,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         { to: "/gallery", label: "Gallery", icon: <FiImage /> },
         { to: "/feedback", label: "Feedback", icon: <FiMessageSquare /> },
     ];
+    
 
     // function to close sidebar on mobile when a link is clicked
     const handleNavClick = () => {
@@ -58,7 +61,13 @@ const Sidebar = ({ isOpen, onClose }) => {
             </nav>
 
             <div className="sidebar-footer">
-                <button className="signout-button" onClick={handleNavClick}>
+                <button
+                    className="signout-button"
+                    onClick={() => {
+                        signOut();
+                        handleNavClick();
+                    }}
+                >
                     <span className="icon"><FiLogOut /></span>
                     <span>Sign Out</span>
                 </button>

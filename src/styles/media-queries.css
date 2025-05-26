@@ -5,8 +5,7 @@
 		display: flex;
 
 		& .inbox-left {
-			border-radius: var(--border-radius) var(--border-radius) 0
-				var(--border-radius) !important;
+			border-radius: var(--border-radius) var(--border-radius) 0 var(--border-radius) !important;
 			/*min-width: 30rem !important;*/
 		}
 
@@ -236,6 +235,11 @@
 
 		.header-actions {
 			flex: 0 1 3rem;
+			
+			& .profile-dropdown {
+				right: -3rem;
+				
+			}
 		}
 
 		& .header-title {
@@ -377,7 +381,7 @@
 		padding: 0 !important;
 
 		& .inbox-left {
-			min-width: 20rem !important;
+			min-width: calc(100% - 40rem) !important;
 		}
 
 		& .inbox-right {
@@ -403,8 +407,8 @@
 
 	/* InboxHeader */
 	.inbox-header {
-		padding: 0 0 1rem 0 !important;
-		border-radius: 0 !important;
+		/*padding: 0 0 1rem 0 !important;*/
+		border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
 
 		& .inbox-header-btn--filter {
 			display: none !important;
