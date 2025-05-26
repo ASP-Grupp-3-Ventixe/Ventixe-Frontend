@@ -88,7 +88,12 @@ const EventDetails = () => {
                 {/* === VÄNSTER === */}
                 <div className="left">
 
-                    <div className="event-image" style={{ backgroundImage: `url(${imageUrl})` }} />
+                    {event && (
+                        <div
+                            className="event-image"
+                            style={{ backgroundImage: `url(${event.imageUrl || "/default-event.jpg"})` }}
+                        />
+                    )}
 
                     <div className="event-info-card">
                         <h1 className="event-details-title">{event.title}</h1>
