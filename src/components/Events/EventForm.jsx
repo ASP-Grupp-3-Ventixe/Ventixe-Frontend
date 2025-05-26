@@ -101,44 +101,42 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
 
 
 
-  useEffect(() => {
+useEffect(() => {
+  if (!initialData) {
+    setForm({
+      id: 0,
+      title: "",
+      category: "",
+      date: "",
+      location: "",
+      status: "Active",
+      progress: "",
+      price: "",
+      description: "",
+      maxTickets: 0,
+      packages: []
+    });
+    return;
+  }
 
-    if (!initialData) {
-      setForm({
-        id: 0,
-        title: "",
-        category: "",
-        date: "",
-        location: "",
-        status: "Active",
-        progress: "",
-        price: "",
-        description: "",
-        maxTickets: 0,
-        packages: []
-      });
-      return;
-    }
+  setForm({
+    id: initialData.id,
+    title: initialData.title ?? "",
+    category: initialData.category ?? "",
+    date: initialData.date?.slice(0, 16) ?? "",
+    location: initialData.location ?? "",
+    status: initialData.status ?? "Active",
+    progress: initialData.progress ?? "",
+    price: initialData.price ?? "",
+    description: initialData.description ?? "",
+    maxTickets: initialData.maxTickets ?? 0,
+    packages: initialData.packages?.map(p => ({
+      name: p.name ?? "",
+      price: p.price ?? 0
+    })) ?? []
+  });
+}, [initialData]);
 
-    if (initialData) {
-      setForm({
-        id: initialData.id,
-        title: initialData.title,
-        category: initialData.category,
-        date: initialData.date.slice(0, 16),
-        location: initialData.location,
-        status: initialData.status,
-        progress: initialData.progress,
-        price: initialData.price,
-        description: initialData.description,
-        maxTickets: initialData.maxTickets,
-        packages: initialData.packages?.map(p => ({
-          name: p.name,
-          price: p.price
-        })) ?? []
-      })
-    }
-  }, [initialData]);
 
   const handleSubmit = () => {
     setSubmitted(true)
