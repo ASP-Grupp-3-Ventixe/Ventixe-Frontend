@@ -14,7 +14,7 @@ export default function Bookings() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const pageSize = 8;
+  const pageSize = 6;
   const totalPages = Math.ceil(filtered.length / pageSize);
   const totalBookings = data.length;
 
@@ -56,6 +56,7 @@ export default function Bookings() {
           r.event.title.toLowerCase().includes(q)
       );
     }
+    temp.sort((a, b) => new Date(b.event.date) - new Date(a.event.date));
 
     setFiltered(temp);
     setCurrentPage(1);
