@@ -57,7 +57,6 @@ const EventDetails = () => {
 
         if (!res.ok) throw new Error("Booking failed");
 
-        // ✅ Här kommer det du glömde
         await fetch(`${BASE_URL}/api/events/increase-tickets?eventId=${event.eventId}&quantity=${ticketCount}`, {
             method: "POST"
         });

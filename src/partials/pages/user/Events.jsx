@@ -48,22 +48,32 @@ const Events = () => {
     const handleFormSubmit = async (formData) => {
         const url = `${BASE_URL}/api/events`;
         const method = formData.id && formData.id !== 0 ? "PUT" : "POST";
+
         await fetch(url, {
             method,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
-               mode: "cors"
+            mode: "cors"
         });
-         const all = await (await fetch(url, { method: "GET", mode: "cors" })).json();
+        const all = await (await fetch(url, { method: "GET", mode: "cors" })).json();
         setEvents(all);
         setIsFormOpen(false);
         setEditEvent(null);
     };
 
-    const handleEdit = (event) => {
-        setEditEvent(event);
-        setIsFormOpen(true);
+    const handleEdit = async (event) => {
+        try {
+               const res = await fetch(`${BASE_URL}/api/events/edit/${event.id}`);
+            if (!res.ok) throw new Error("Failed to fetch full event data");
+            const fullEventData = await res.json();
+
+            setEditEvent(fullEventData);
+            setIsFormOpen(true);
+        } catch (error) {
+            console.error("Edit fetch error:", error);
+        }
     };
+
 
     const confirmDelete = async (eventId) => {
         setEventToDelete(eventId);
@@ -71,7 +81,7 @@ const Events = () => {
     };
 
     const handleConfirmDelete = async () => {
-       await fetch(`${BASE_URL}/api/events/${eventToDelete}`, { method: "DELETE", mode: "cors" });
+        await fetch(`${BASE_URL}/api/events/${eventToDelete}`, { method: "DELETE", mode: "cors" });
         setEvents(prev => prev.filter(e => e.id !== eventToDelete));
         setShowDeleteModal(false);
         setEventToDelete(null);
@@ -228,6 +238,7 @@ const Events = () => {
 
                 {isFormOpen && (
                     <EventForm
+                        key={editEvent?.id || "new"}
                         initialData={editEvent}
                         onSubmit={handleFormSubmit}
                         onClose={() => setIsFormOpen(false)}
