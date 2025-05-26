@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import EventCard from "../../../components/EventCard";
-import EventForm from "../../../components/EventForm";
-import DeleteConfirmModal from "../../../components/DeleteConfirmModal";
+import EventCard from "../../../components/Events/EventCard";
+import EventForm from "../../../components/Events/EventForm";
+import DeleteConfirmModal from "../../../components/Events/DeleteConfirmModal";
+import config from "../../../config";
+
 import caretDownIcon from "../../../images/icons/CaretDown.svg";
 import gridIcon from "../../../images/icons/Button Picker.svg";
 import listIcon from "../../../images/icons/Button Picker (1).svg";
 import leftArrowIcon from "../../../images/icons/Pagination Left.svg";
 import rightArrowIcon from "../../../images/icons/Pagination Right.svg";
+import { Outlet } from "react-router-dom";
 
 const BASE_URL = config.apiBaseUrl;
 
@@ -29,7 +32,7 @@ const Events = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const res = await fetch(`${BASE_URL}/api/events`);
+                const res = await fetch(`${BASE_URL}/api/events`, { method: "GET", mode: "cors" });
                 const data = await res.json();
                 setEvents(data);
             } catch (error) {
@@ -49,8 +52,9 @@ const Events = () => {
             method,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
+               mode: "cors"
         });
-        const all = await (await fetch(url)).json();
+         const all = await (await fetch(url, { method: "GET", mode: "cors" })).json();
         setEvents(all);
         setIsFormOpen(false);
         setEditEvent(null);
@@ -67,7 +71,8 @@ const Events = () => {
     };
 
     const handleConfirmDelete = async () => {
-        await fetch(`${BASE_URL}/api/events/${eventToDelete}`, { method: "DELETE" });
+       await fetch(`${BASE_URL}/api/events/${eventToDelete}`, { method: "DELETE", mode: "cors" });
+        setEvents(prev => prev.filter(e => e.id !== eventToDelete));
         setShowDeleteModal(false);
         setEventToDelete(null);
     };
@@ -113,6 +118,7 @@ const Events = () => {
             const res = await fetch(`${BASE_URL}/api/events/upload-image/${eventId}`, {
                 method: "POST",
                 body: formData,
+                mode: "cors"
             });
 
             if (res.ok) {

@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { EventCategoryList } from "./EventCategory";
+
+const fieldPattern = /^[a-öA-Ö0-9\s,.:;'`-]{2,100}$/
+const packagePattern = /^[a-zA-Z0-9\s-]{2,30}$/
 
 const EventForm = ({ initialData, onSubmit, onClose }) => {
   const [form, setForm] = useState({
@@ -11,17 +15,37 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
     progress: "",
     price: "",
     description: "",
+    packages: [{ name: "", price: "" }]
   });
 
   const [errors, setErrors] = useState({})
+  const [submitted, setSubmitted] = useState(false)
+
+
 
   const validate = (values) => {
     const newErrors = {}
 
-    if (!values.title.trim()) newErrors.title = "Title is required."
-    if (!values.category.trim()) newErrors.category = "Category is required."
+    if (!fieldPattern.test(values.title.trim()))
+      newErrors.title = "Only letters, numbers, spaces, and - allowed (2-50 chars.)"
+    if (!EventCategoryList.includes(values.category)) {
+      newErrors.category = "Invalid category."
+    }
+
     if (!values.date) newErrors.date = "Date is required."
-    if (!values.location.trim()) newErrors.location = "Location is required."
+
+    const eventDate = new Date(values.date)
+    const now = new Date()
+
+    if (isNaN(eventDate.getTime()))
+      newErrors.date = "Invalid date format."
+    else if (eventDate < now) {
+      newErrors.date = "Date must be in the future."
+    }
+
+    if (!fieldPattern.test(values.location.trim()))
+      newErrors.location = "Only letters, numbers, spaces, and - allowed (2-50 chars.)"
+
     if (!values.status) newErrors.status = "Status is required."
 
     const progress = Number(values.progress)
@@ -32,20 +56,35 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
     if (isNaN(price) || price < 0)
       newErrors.price = "Price must be a positive number."
 
+    if (values.packages && Array.isArray(values.packages)) {
+      const packageErrors = []
+
+      values.packages.forEach((p, index) => {
+        if (!packagePattern.test(p.name)) {
+          packageErrors[index] = `Package name "${p.name}" is invalid.`
+        } else if (typeof p.price !== 'number' || isNaN(p.price) || p.price < 0) {
+          packageErrors[index] = `Package price for "${p.name}" must be a positive number.`
+        } else packageErrors[index] = null
+
+      })
+
+      if (packageErrors.some(Boolean)) {
+        newErrors.packages = packageErrors
+      }
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const change = (key, value) => {
-    setForm(prev => {
-      const updated = { ...prev, [key]: value }
+    const updated = { ...form, [key]: value }
+    setForm(updated)
 
-      const errors = validate(updated)
-      setErrors(errors)
-
-      return updated
-    })
+    if (submitted) validate(updated)
   }
+
+
 
   useEffect(() => {
     if (initialData) {
@@ -53,29 +92,20 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
         id: initialData.id,
         title: initialData.title,
         category: initialData.category,
-        date: initialData.date.slice(0, 10),
+        date: initialData.date.slice(0, 16),
         location: initialData.location,
         status: initialData.status,
         progress: initialData.progress.toString(),
         price: initialData.price.toString(),
         description: initialData.description,
-      })
-    } else {
-      setForm({
-        id: 0,
-        title: "",
-        category: "",
-        date: "",
-        location: "",
-        status: "Active",
-        progress: "",
-        price: "",
-        description: "",
+        maxTickets: initialData.maxTickets,
+        packages: initialData.packages ?? []
       })
     }
   }, [initialData]);
 
   const handleSubmit = () => {
+    setSubmitted(true)
     if (!validate(form)) return
 
     const cleanedForm = {
@@ -85,12 +115,17 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       location: form.location.trim(),
       description: form.description.trim(),
       progress: Number(form.progress),
-      price: Number(form.price)
+      price: Number(form.price),
+      date: new Date(form.date).toISOString(),
+      maxTickets: Number(form.maxTickets),
+      packages: form.packages.map(p => ({
+    name: p.name,
+    price: Number(p.price)
+  }))
     };
 
-    if (!initialData) {
-      delete cleanedForm.id;
-    }
+    if (!initialData) delete cleanedForm.id;
+
     onSubmit(cleanedForm);
   };
 
@@ -110,17 +145,23 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
 
         />
         {errors.title && <p className="error-message">{errors.title}</p>}
-        <input
-          type="text"
-          placeholder="Category"
+        <select
           value={form.category}
           onChange={(e) => change("category", e.target.value)}
           className={errors.category ? "input-error" : ""}
-        />
+        >
+          <option value="">Select a category</option>
+          {EventCategoryList.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
         {errors.category && <p className="error-message">{errors.category}</p>}
+
         <input
-          type="date"
-          value={form.date}
+          type="datetime-local"
+          value={form.date || ""}
           onChange={(e) => change("date", e.target.value)}
           className={errors.date ? "input-error" : ""}
         />
@@ -174,6 +215,71 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
           value={form.description}
           onChange={(e) => change("description", e.target.value)}
         />
+
+
+        <input
+          placeholder="Total tickets"
+          type="number"
+          id="maxTickets"
+          value={form.maxTickets}
+          onChange={(e) => setForm({ ...form, maxTickets: Number(e.target.value) })} />
+
+        <h4>Packages</h4>
+        {form.packages.map((pkg, index) => (
+          <div key={pkg.id} className="package-row">
+
+            <input type="text"
+              placeholder="Package name"
+              value={pkg.name}
+              onChange={(e) => {
+                const updated = form.packages.map((p) =>
+                  p.id === pkg.id ? { ...p, name: e.target.value } : p)
+                change("packages", updated);
+              }}
+              className="package-input"
+
+            />
+
+            <input
+              type="number"
+              placeholder="Price"
+              value={pkg.price || ""}
+              onChange={(e) => {
+                const updated = [...form.packages];
+                updated[index].price = parseFloat(e.target.value);
+                change("packages", updated);
+              }}
+              className="package-price"
+            />
+
+            <button
+              type="button"
+              className="remove-package"
+              onClick={() => {
+                const updated = [...form.packages];
+                updated.splice(index, 1);
+                change("packages", form.packages.filter((p) => p.id !== pkg.id));
+              }}
+            >
+              Remove
+            </button>
+            {errors.packages && errors.packages[index] && (
+              <p className="error-message">{errors.packages[index]}</p>
+            )
+            }
+          </div>
+        ))}
+
+        <button
+          type="button"
+          className="add-package"
+          onClick={() =>
+            change("packages", [...form.packages, { id: Date.now(), name: "", price: 0 }])
+          }
+
+        >
+          + Add Package
+        </button>
 
         <div className="modal-actions">
           <button onClick={handleSubmit}>

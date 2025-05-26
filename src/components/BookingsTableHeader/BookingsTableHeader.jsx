@@ -3,10 +3,12 @@ import "./BookingsTableHeader.css";
 
 const CATEGORIES = [
   "All Categories",
-  "Music & Theater",
+  "Concert",
   "Sport",
-  "Fashion",
-  "Art & Design",
+  "Film",
+  "Food",
+  "Meeting",
+  "Other",
 ];
 const DATE_RANGES = ["This Month", "This Week", "Last 30 Days"];
 
@@ -22,7 +24,6 @@ export default function BookingsTableHeader({
     <div className="bth-toolbar">
       <div className="bth-controls">
         <div className="bth-search">
-          <span className="bth-search-icon">🔍</span>
           <input
             type="text"
             placeholder="Search name, event, etc"
