@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BookingsTableHeader from "../../../components/BookingsTableHeader/BookingsTableHeader";
 import StatCard from "../../../components/Cards/StatCard/StatCard";
 import TotalTicketsSoldCard from "../../../components/Cards/TotalTicketsSoldCard/TotalTicketsSoldCard";
@@ -21,7 +22,7 @@ export default function Bookings() {
   const totalTicketsSold = data.reduce((sum, b) => {
     return sum + (b.ticketsQuantity ?? 0);
   }, 0);
-
+  const navigate = useNavigate();
   const loadBookings = () => {
     setLoading(true);
     fetch(
