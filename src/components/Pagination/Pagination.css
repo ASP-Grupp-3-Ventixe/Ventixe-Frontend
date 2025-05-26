@@ -14,9 +14,9 @@
   font-size: 14px;
 }
 .pagination button.active {
-  background: #7e3ff2;
+  background: var(--pink);
   color: white;
-  border-color: #7e3ff2;
+  border-color: var(--pink);
 }
 .pagination button:disabled {
   opacity: 0.5;
