@@ -73,13 +73,6 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       }
     }
 
-
-
-
-
-
-
-
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
