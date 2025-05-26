@@ -57,12 +57,28 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       newErrors.price = "Price must be a positive number."
 
     if (values.packages && Array.isArray(values.packages)) {
-      const invalid = values.packages.find(p =>
-        !packagePattern.test(p.name) || isNaN(p.price) || p.price < 0)
-      if (invalid) {
-        newErrors.packages = `Package "${invalid.name}" has invalid format.`
+      const packageErrors = []
+
+      values.packages.forEach((p, index) => {
+        if (!packagePattern.test(p.name)) {
+          packageErrors[index] = `Package name "${p.name}" is invalid.`
+        } else if (typeof p.price !== 'number' || isNaN(p.price) || p.price < 0) {
+          packageErrors[index] = `Package price for "${p.name}" must be a positive number.`
+        } else packageErrors[index] = null
+
+      })
+
+      if (packageErrors.some(Boolean)) {
+        newErrors.packages = packageErrors
       }
     }
+
+
+
+
+
+
+
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -148,7 +164,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
 
         <input
           type="datetime-local"
-          value={form.date}
+          value={form.date || ""}
           onChange={(e) => change("date", e.target.value)}
           className={errors.date ? "input-error" : ""}
         />
@@ -213,14 +229,14 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
 
         <h4>Packages</h4>
         {form.packages.map((pkg, index) => (
-          <div key={index} className="package-row">
+          <div key={pkg.id} className="package-row">
 
             <input type="text"
               placeholder="Package name"
               value={pkg.name}
               onChange={(e) => {
-                const updated = [...form.packages];
-                updated[index].name = e.target.value;
+                const updated = form.packages.map((p) =>
+                  p.id === pkg.id ? { ...p, name: e.target.value } : p)
                 change("packages", updated);
               }}
               className="package-input"
@@ -245,11 +261,15 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
               onClick={() => {
                 const updated = [...form.packages];
                 updated.splice(index, 1);
-                change("packages", updated);
+                change("packages", form.packages.filter((p) => p.id !== pkg.id));
               }}
             >
               Remove
             </button>
+            {errors.packages && errors.packages[index] && (
+              <p className="error-message">{errors.packages[index]}</p>
+            )
+            }
           </div>
         ))}
 
@@ -257,13 +277,12 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
           type="button"
           className="add-package"
           onClick={() =>
-            change("packages", [...form.packages, { name: "", price: 0 }])
+            change("packages", [...form.packages, { id: Date.now(), name: "", price: 0 }])
           }
 
         >
           + Add Package
         </button>
-        {errors.packages && <p className="error-message">{errors.packages}</p>}
 
         <div className="modal-actions">
           <button onClick={handleSubmit}>
