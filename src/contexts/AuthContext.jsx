@@ -85,11 +85,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signOut = () => {
+    const signOut = async () => {
+    try {
+      await AuthService.signOut();
+    } catch (e) {
+        console.error("Sign out failed:", e);
+    }
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("user");
     setUser(null);
     setIsAuthenticated(false);
     setIsAdmin(false);

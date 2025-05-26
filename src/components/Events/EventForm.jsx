@@ -44,18 +44,25 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       newErrors.date = "Date must be in the future."
     }
 
+
+
     if (!fieldPattern.test(values.location.trim()))
       newErrors.location = "Only letters, numbers, spaces, and - allowed (2-50 chars.)"
 
     if (!values.status) newErrors.status = "Status is required."
 
     const progress = Number(values.progress)
-    if (isNaN(progress) || progress < 0 || progress > 100)
-      newErrors.progress = "Progress must be between 0 and 100."
+    if (values.progress === "" || isNaN(progress) || progress < 0 || progress > 100)
+      newErrors.progress = "Progress must be between 0 and 100.";
 
     const price = Number(values.price)
-    if (isNaN(price) || price < 0)
-      newErrors.price = "Price must be a positive number."
+    if (values.price === "" || isNaN(price) || price < 0)
+      newErrors.price = "Price must be a positive number.";
+
+    if (isNaN(values.maxTickets) || values.maxTickets <= 0) {
+  newErrors.maxTickets = "Max tickets must be a positive number.";
+}
+
 
     if (values.packages && Array.isArray(values.packages)) {
       const packageErrors = []
@@ -79,11 +86,18 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
   }
 
   const change = (key, value) => {
-    const updated = { ...form, [key]: value }
-    setForm(updated)
+    const updated = {
+      ...form,
+      [key]: ["progress", "price", "maxTickets"].includes(key)
+        ? value === "" ? "" : Number(value)
+        : value
+    };
+    setForm(updated);
 
-    if (submitted) validate(updated)
-  }
+    if (submitted) validate(updated);
+  };
+
+
 
 
 
