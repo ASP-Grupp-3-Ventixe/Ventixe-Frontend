@@ -48,7 +48,6 @@ const Events = () => {
     const handleFormSubmit = async (formData) => {
         const url = `${BASE_URL}/api/events`;
         const method = formData.id && formData.id !== 0 ? "PUT" : "POST";
-        console.log("Sending to backend:", cleanedForm)
 
         await fetch(url, {
             method,
