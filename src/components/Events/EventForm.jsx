@@ -15,6 +15,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
     progress: "",
     price: "",
     description: "",
+    maxTickets: 0,
     packages: [{ name: "", price: "" }]
   });
 
@@ -99,7 +100,10 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
         price: initialData.price.toString(),
         description: initialData.description,
         maxTickets: initialData.maxTickets,
-        packages: initialData.packages ?? []
+        packages: initialData.packages?.map(p => ({
+          name: p.name,
+          price:Number(p.price)
+        })) ?? []
       })
     }
   }, [initialData]);
