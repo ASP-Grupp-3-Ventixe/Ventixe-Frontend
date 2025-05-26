@@ -121,8 +121,12 @@ export default function Bookings() {
                 <td>{r.customerName}</td>
                 <td>{r.event.title}</td>
                 <td>{r.event.priceFrom ?? "-"}</td>
-                <td>{r.event.ticketsSold ?? "-"}</td>
-                <td>{r.event.maxTickets ?? "-"}</td>
+                <td>{r.ticketsQuantity ?? "-"}</td>
+                <td>
+                  {r.event?.priceFrom && r.ticketsQuantity
+                    ? (r.event.priceFrom * r.ticketsQuantity).toLocaleString()
+                    : "-"}
+                </td>
                 <td>{r.event.category}</td>
               </tr>
             ))}
