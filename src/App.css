@@ -137,7 +137,6 @@
   --icon-background-active: var(--grey-30);
 }
 
-
 /* Headings */
 .h1-semibold {
   font-size: 32px;
@@ -768,9 +767,7 @@ footer {
   & .footer-misc-text {
     font-weight: 300;
     opacity: 50%;
-    transition:
-      opacity 0.2s,
-      filter 0.2s;
+    transition: opacity 0.2s, filter 0.2s;
   }
 
   & .footer-misc-text:hover {
@@ -785,9 +782,7 @@ footer {
 
   & .footer-icon {
     width: 1.4rem;
-    transition:
-      opacity 0.2s,
-      filter 0.2s;
+    transition: opacity 0.2s, filter 0.2s;
     cursor: pointer;
   }
   & a:hover .footer-icon {

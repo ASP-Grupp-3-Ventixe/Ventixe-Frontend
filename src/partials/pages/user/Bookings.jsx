@@ -14,12 +14,12 @@ export default function Bookings() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const pageSize = 8;
+  const pageSize = 6;
   const totalPages = Math.ceil(filtered.length / pageSize);
   const totalBookings = data.length;
 
   const totalTicketsSold = data.reduce((sum, b) => {
-    return sum + (b.event.ticketsSold ?? 0);
+    return sum + (b.ticketsQuantity ?? 0);
   }, 0);
 
   const loadBookings = () => {
@@ -43,6 +43,8 @@ export default function Bookings() {
 
   useEffect(() => {
     let temp = [...data];
+
+    temp.sort((a, b) => new Date(a.event.date) - new Date(b.event.date));
 
     if (category !== "All Categories") {
       temp = temp.filter((r) => r.event.category === category);
@@ -107,14 +109,20 @@ export default function Bookings() {
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate(`/events/${r.event.eventId}`)}
               >
-                <td>{new Date(r.bookingDate).toLocaleString()}</td>
+                <td>{new Date(r.event.date).toLocaleDateString()}</td>
                 <td>{r.customerName}</td>
                 <td>{r.event.title}</td>
-                <td>{r.event.priceFrom ?? "-"}</td>
+                <td>
+                  {r.event.priceFrom != null
+                    ? `${r.event.priceFrom.toLocaleString("sv-SE")} SEK`
+                    : "-"}
+                </td>
                 <td>{r.ticketsQuantity ?? "-"}</td>
                 <td>
                   {r.event?.priceFrom && r.ticketsQuantity
-                    ? (r.event.priceFrom * r.ticketsQuantity).toLocaleString()
+                    ? `${(r.event.priceFrom * r.ticketsQuantity).toLocaleString(
+                        "sv-SE"
+                      )} SEK`
                     : "-"}
                 </td>
                 <td>{r.event.category}</td>
