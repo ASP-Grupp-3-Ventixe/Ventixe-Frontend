@@ -117,7 +117,11 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       progress: Number(form.progress),
       price: Number(form.price),
       date: new Date(form.date).toISOString(),
-      maxTickets: Number(form.maxTickets)
+      maxTickets: Number(form.maxTickets),
+      packages: form.packages.map(p => ({
+    name: p.name,
+    price: Number(p.price)
+  }))
     };
 
     if (!initialData) delete cleanedForm.id;
