@@ -44,6 +44,8 @@ export default function Bookings() {
   useEffect(() => {
     let temp = [...data];
 
+    temp.sort((a, b) => new Date(a.event.date) - new Date(b.event.date));
+
     if (category !== "All Categories") {
       temp = temp.filter((r) => r.event.category === category);
     }
@@ -56,7 +58,6 @@ export default function Bookings() {
           r.event.title.toLowerCase().includes(q)
       );
     }
-    temp.sort((a, b) => new Date(b.event.date) - new Date(a.event.date));
 
     setFiltered(temp);
     setCurrentPage(1);
