@@ -107,14 +107,20 @@ export default function Bookings() {
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate(`/events/${r.event.eventId}`)}
               >
-                <td>{new Date(r.bookingDate).toLocaleString()}</td>
+                <td>{new Date(r.event.date).toLocaleDateString()}</td>
                 <td>{r.customerName}</td>
                 <td>{r.event.title}</td>
-                <td>{r.event.priceFrom ?? "-"}</td>
+                <td>
+                  {r.event.priceFrom != null
+                    ? `${r.event.priceFrom.toLocaleString("sv-SE")} SEK`
+                    : "-"}
+                </td>
                 <td>{r.ticketsQuantity ?? "-"}</td>
                 <td>
                   {r.event?.priceFrom && r.ticketsQuantity
-                    ? (r.event.priceFrom * r.ticketsQuantity).toLocaleString()
+                    ? `${(r.event.priceFrom * r.ticketsQuantity).toLocaleString(
+                        "sv-SE"
+                      )} SEK`
                     : "-"}
                 </td>
                 <td>{r.event.category}</td>
