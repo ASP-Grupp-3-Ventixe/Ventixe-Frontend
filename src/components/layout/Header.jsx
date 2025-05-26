@@ -3,6 +3,7 @@ import {FiBell, FiSettings, FiMenu, FiSearch} from 'react-icons/fi';
 import VentixeLogo from '../../images/logos/ventixe-logo.svg';
 import {routes} from "../../routing/routes.config.jsx";
 import {useLocation} from "react-router-dom";
+import {useAuth} from "../../contexts/AuthContext";
 
 // helper function to find meta based on path
 function findMeta(path, routesArr = routes) {
@@ -33,7 +34,9 @@ function findMeta(path, routesArr = routes) {
 const Header = ({ onToggleSidebar }) => {
     const location = useLocation();
     const meta = findMeta(location.pathname);
-    
+    const { user } = useAuth();
+
+
     return (
         <header className="header">
             <a href="/" className="header-logo">
@@ -49,9 +52,9 @@ const Header = ({ onToggleSidebar }) => {
                       <span className="breadcrumb-current">{meta.title}</span>
                     </span> )}
                 <h2>{meta?.title || "Dashboard"}</h2>
-                {meta?.title === "Dashboard" && 
-                    // dynamic welcome message based on logged-in user
-                    <p>Hello Orlando, welcome back!</p>} 
+                {meta?.title === "Dashboard" && user && (
+                    <p>Hello {user.email?.split('@')[0] || 'User'}, welcome back!</p>
+                )}
             </div>
 
             <div className="header-actions">
@@ -73,12 +76,12 @@ const Header = ({ onToggleSidebar }) => {
                         <FiSettings />
                     </div>
                 </div>
-                
+
                 <div className="profile-section">
                     <div className="profile-pic"></div>
                     <div className="profile-info">
-                        <span className="profile-name">Orlando Laurentius</span>
-                        <span className="profile-role">Admin</span>
+                        <span className="profile-name">{user?.email?.split('@')[0] || 'User'}</span>
+                        <span className="profile-role">{user?.role || 'User'}</span>
                     </div>
                 </div>
             </div>

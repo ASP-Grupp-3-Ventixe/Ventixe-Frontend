@@ -1,0 +1,120 @@
+/* === Base Styles === */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Avstånd mellan ikon och text */
+    padding: 0 1rem;
+    height: 30px; /* t.ex. för sm */
+    font-family: var(--font-standard);
+    font-weight: var(--font-weight-medium);
+    border-radius: 36px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-sm {
+    width: 56px;
+    height: 30px;
+    padding: 0 6px 0 10px;
+    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    border-radius: 30px;
+    gap: 0;
+  }
+    
+  .btn-md {
+    width: 70px;
+    height: 30px;
+    padding: 0 6px 0 10px;
+    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    border-radius: 30px;
+    gap: 4px;
+  }
+  
+  .btn-lg {
+    width: 90px;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    border-radius: 30px;
+    gap: 2px;
+  }
+  
+
+  .btn-pink {
+    background-color: var(--pink);
+    color: var(--grey-10);
+    font-size: 10px; font-weight: var(--font-weight-semibold); font-family: var(--font-standard);
+  }
+  
+  .btn-blue {
+    background-color: var(--cool-grey-10);
+    color: var(--secondary-100);
+    font-size: 10px; font-weight: var(--font-weight-semibold); font-family: var(--font-standard);
+  }
+  .btn-grey {
+    background-color: var(--grey-10);
+    border: 1px solid var(--grey-30);
+    color: var(--grey-90);
+    font-size: 10px; font-weight: var(--font-weight-semibold); font-family: var(--font-standard);
+  }
+  .btn-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 2px solid var(--yellow-400); /* valfri färg */
+    background-color:  var(--pink);
+    color: var(--grey-90); /* textfärg eller ikonfärg */
+    cursor: pointer;
+  }
+  .btn-circle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-circle.btn-pink {
+    background-color: var(--pink);
+    color: var(--grey-10); /* vit ikon */
+    border: none;
+  }
+  
+  .btn-circle.btn-blue {
+    background-color: var(--cool-grey-10);
+    color: var(--secondary-100); /* blå ikon */
+    border: none;
+  }
+  
+  .btn-circle.btn-grey {
+    background-color: var(--grey-10);
+    color: var(--grey-90);
+    border: 1px solid var(--grey-30);
+  }
+  
+  
+  
+  .btn-icon-left,
+  .btn-icon-right {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .btn-icon-left {
+    margin-right: 0.5rem;
+  }
+  
+  .btn-icon-right {
+    margin-left: 0.5rem;
+  }
+  .btn-icon-left svg,
+.btn-icon-right svg {
+  width: 14px;
+  height: 14px;
+}
+  
