@@ -119,9 +119,9 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       date: new Date(form.date).toISOString(),
       maxTickets: Number(form.maxTickets),
       packages: form.packages.map(p => ({
-    name: p.name,
-    price: Number(p.price)
-  }))
+        name: p.name,
+        price: Number(p.price)
+      }))
     };
 
     if (!initialData) delete cleanedForm.id;
@@ -226,14 +226,14 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
 
         <h4>Packages</h4>
         {form.packages.map((pkg, index) => (
-          <div key={pkg.id} className="package-row">
+          <div key={index} className="package-row">
 
             <input type="text"
               placeholder="Package name"
               value={pkg.name}
               onChange={(e) => {
-                const updated = form.packages.map((p) =>
-                  p.id === pkg.id ? { ...p, name: e.target.value } : p)
+                const updated = form.packages.map((p, i) =>
+                  i === index ? { ...p, name: e.target.value } : p)
                 change("packages", updated);
               }}
               className="package-input"
@@ -258,7 +258,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
               onClick={() => {
                 const updated = [...form.packages];
                 updated.splice(index, 1);
-                change("packages", form.packages.filter((p) => p.id !== pkg.id));
+                change("packages", form.packages.filter((_, i) => i !== index));
               }}
             >
               Remove
@@ -274,7 +274,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
           type="button"
           className="add-package"
           onClick={() =>
-            change("packages", [...form.packages, { id: Date.now(), name: "", price: 0 }])
+            change("packages", [...form.packages, { name: "", price: 0 }])
           }
 
         >
