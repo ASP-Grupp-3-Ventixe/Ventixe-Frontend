@@ -102,7 +102,7 @@ export default function SignUp() {
     };
 
     try {
-    const res = await fetch('', {
+    const res = await fetch('https://profileservice-provider-g2edh4c9cpe3fugk.swedencentral-01.azurewebsites.net', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

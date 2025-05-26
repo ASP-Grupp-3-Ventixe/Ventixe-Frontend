@@ -63,7 +63,7 @@ const Events = () => {
 
     const handleEdit = async (event) => {
         try {
-            const res = await fetch(`${BASE_URL}/api/events/${event.id}`);
+               const res = await fetch(`${BASE_URL}/api/events/edit/${event.id}`);
             if (!res.ok) throw new Error("Failed to fetch full event data");
             const fullEventData = await res.json();
 
