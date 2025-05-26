@@ -34,37 +34,44 @@ const EventDetails = () => {
 
 
     const handleBooking = async () => {
-        if (!selectedPackage) {
-            setBookingMessage("Choose a package first.")
-            return
-        }
-
-        if ((event.ticketsSold ?? 0) + ticketCount > event.maxTickets) {
-            setBookingMessage("Not enough tickets left.")
-            return;
-        }
-
-        try {
-            const res = await fetch("https://ventixe-bookingprovider-hgadhcexa5fpfday.swedencentral-01.azurewebsites.net/api/bookings", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    eventId: event.eventId,
-                    ticketsQuantity: ticketCount,
-                    customerName
-                })
-            })
-
-            if (!res.ok) throw new Error("Booking failed")
-            setBookingMessage("Booking successful!")
-            setEvent(prev => ({
-                ...prev,
-                ticketsSold: (prev.ticketsSold ?? 0) + ticketCount
-            }))
-        } catch {
-            setBookingMessage("Booking failed. Try again.")
-        }
+    if (!selectedPackage) {
+        setBookingMessage("Choose a package first.");
+        return;
     }
+
+    if ((event.ticketsSold ?? 0) + ticketCount > event.maxTickets) {
+        setBookingMessage("Not enough tickets left.");
+        return;
+    }
+
+    try {
+        const res = await fetch("https://ventixe-bookingprovider-hgadhcexa5fpfday.swedencentral-01.azurewebsites.net/api/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                eventId: event.eventId,
+                ticketsQuantity: ticketCount,
+                customerName
+            })
+        });
+
+        if (!res.ok) throw new Error("Booking failed");
+
+        // ✅ Här kommer det du glömde
+        await fetch(`${BASE_URL}/api/events/increase-tickets?eventId=${event.eventId}&quantity=${ticketCount}`, {
+            method: "POST"
+        });
+
+        setBookingMessage("Booking successful!");
+        setEvent(prev => ({
+            ...prev,
+            ticketsSold: (prev.ticketsSold ?? 0) + ticketCount
+        }));
+    } catch {
+        setBookingMessage("Booking failed. Try again.");
+    }
+};
+
 
     if (loading) return <p>Loading...</p>
     if (!event) return <p>Event not found</p>
