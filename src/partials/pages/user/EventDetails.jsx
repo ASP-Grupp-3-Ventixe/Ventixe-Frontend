@@ -34,42 +34,48 @@ const EventDetails = () => {
 
 
     const handleBooking = async () => {
-    if (!selectedPackage) {
-        setBookingMessage("Choose a package first.");
-        return;
-    }
+        if (!selectedPackage) {
+            setBookingMessage("Choose a package first.");
+            return;
+        }
 
-    if ((event.ticketsSold ?? 0) + ticketCount > event.maxTickets) {
-        setBookingMessage("Not enough tickets left.");
-        return;
-    }
+        if ((event.ticketsSold ?? 0) + ticketCount > event.maxTickets) {
+            setBookingMessage("Not enough tickets left.");
+            return;
+        }
 
-    try {
-        const res = await fetch("https://ventixe-bookingprovider-hgadhcexa5fpfday.swedencentral-01.azurewebsites.net/api/bookings", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                eventId: event.eventId,
-                ticketsQuantity: ticketCount,
-                customerName
-            })
-        });
+        try {
+            const res = await fetch("https://ventixe-bookingprovider-hgadhcexa5fpfday.swedencentral-01.azurewebsites.net/api/bookings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    eventId: event.eventId,
+                    ticketsQuantity: ticketCount,
+                    customerName
+                })
+            });
 
-        if (!res.ok) throw new Error("Booking failed");
+            if (!res.ok) throw new Error("Booking failed");
 
-        await fetch(`${BASE_URL}/api/events/increase-tickets?eventId=${event.eventId}&quantity=${ticketCount}`, {
-            method: "POST"
-        });
+            await fetch(`${BASE_URL}/api/events/increase-tickets?eventId=${event.eventId}&quantity=${ticketCount}`, {
+                method: "POST"
+            });
 
-        setBookingMessage("Booking successful!");
-        setEvent(prev => ({
-            ...prev,
-            ticketsSold: (prev.ticketsSold ?? 0) + ticketCount
-        }));
-    } catch {
-        setBookingMessage("Booking failed. Try again.");
-    }
-};
+            setBookingMessage("Booking successful!");
+            setEvent(prev => ({
+                ...prev,
+                ticketsSold: (prev.ticketsSold ?? 0) + ticketCount
+            }));
+        } catch {
+            setBookingMessage("Booking failed. Try again.");
+        }
+
+    };
+
+    const imageUrl = event.imageUrl?.trim() ? event.imageUrl : "/default-event.jpg";
+
+
+
 
 
     if (loading) return <p>Loading...</p>
@@ -82,7 +88,7 @@ const EventDetails = () => {
                 {/* === VÄNSTER === */}
                 <div className="left">
 
-                    <div className="event-image" style={{ backgroundImage: `url(${event.imageUrl ?? "/default-event.jpg"})` }} />
+                    <div className="event-image" style={{ backgroundImage: `url(${imageUrl})` }} />
 
                     <div className="event-info-card">
                         <h1 className="event-details-title">{event.title}</h1>
