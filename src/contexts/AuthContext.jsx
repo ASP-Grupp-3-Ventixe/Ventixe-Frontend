@@ -75,15 +75,18 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const signOut = () => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('user');
-        sessionStorage.removeItem('accessToken');
-        sessionStorage.removeItem('user');
-        setUser(null);
-        setIsAuthenticated(false);
-        setIsAdmin(false);
-    };
+    const signOut = async () => {
+    try {
+      await AuthService.signOut();
+    } catch (e) {
+        console.error("Sign out failed:", e);
+    }
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    setUser(null);
+    setIsAuthenticated(false);
+    setIsAdmin(false);
+  };
 
     return (
         <AuthContext.Provider value={{
