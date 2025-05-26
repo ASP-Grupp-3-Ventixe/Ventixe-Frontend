@@ -62,27 +62,12 @@ const Events = () => {
     };
 
     const handleEdit = async (event) => {
-
-         setForm({
-        id: 0,
-        title: "",
-        category: "",
-        date: "",
-        location: "",
-        status: "Active",
-        progress: "",
-        price: "",
-        description: "",
-        maxTickets: 0,
-        packages: []
-    }); 
-
         try {
             const res = await fetch(`${BASE_URL}/api/events/${event.id}`);
             if (!res.ok) throw new Error("Failed to fetch full event data");
             const fullEventData = await res.json();
 
-            setEditEvent(fullEventData); 
+            setEditEvent(fullEventData);
             setIsFormOpen(true);
         } catch (error) {
             console.error("Edit fetch error:", error);
@@ -253,6 +238,7 @@ const Events = () => {
 
                 {isFormOpen && (
                     <EventForm
+                        key={editEvent?.id || "new"}
                         initialData={editEvent}
                         onSubmit={handleFormSubmit}
                         onClose={() => setIsFormOpen(false)}

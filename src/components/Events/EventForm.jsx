@@ -88,6 +88,24 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
 
 
   useEffect(() => {
+
+    if (!initialData) {
+      setForm({
+        id: 0,
+        title: "",
+        category: "",
+        date: "",
+        location: "",
+        status: "Active",
+        progress: "",
+        price: "",
+        description: "",
+        maxTickets: 0,
+        packages: []
+      });
+      return;
+    }
+
     if (initialData) {
       setForm({
         id: initialData.id,
@@ -102,7 +120,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
         maxTickets: initialData.maxTickets,
         packages: initialData.packages?.map(p => ({
           name: p.name,
-          price:p.price
+          price: p.price
         })) ?? []
       })
     }
