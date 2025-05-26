@@ -19,7 +19,7 @@ export default function Bookings() {
   const totalBookings = data.length;
 
   const totalTicketsSold = data.reduce((sum, b) => {
-    return sum + (b.event.ticketsSold ?? 0);
+    return sum + (b.event.ticketsQuantity ?? 0);
   }, 0);
 
   const loadBookings = () => {
