@@ -57,9 +57,10 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       newErrors.price = "Price must be a positive number."
 
     if (values.packages && Array.isArray(values.packages)) {
-      const invalid = values.packages.find(p => !packagePattern.test(p))
+      const invalid = values.packages.find(p =>
+        !packagePattern.test(p.name) || isNaN(p.price) || p.price < 0)
       if (invalid) {
-        newErrors.packages = `Package "${invalid}" has invalid format.`
+        newErrors.packages = `Package "${invalid.name}" has invalid format.`
       }
     }
 
@@ -229,15 +230,15 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
             <input
               type="number"
               placeholder="Price"
-              value={pkg.price}
+              value={pkg.price || ""}
               onChange={(e) => {
                 const updated = [...form.packages];
                 updated[index].price = parseFloat(e.target.value);
                 change("packages", updated);
               }}
-              className="package-price" 
-              />
-              
+              className="package-price"
+            />
+
             <button
               type="button"
               className="remove-package"
