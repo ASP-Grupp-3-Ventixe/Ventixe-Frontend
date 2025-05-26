@@ -3,10 +3,12 @@ import "./BookingsTableHeader.css";
 
 const CATEGORIES = [
   "All Categories",
-  "Music & Theater",
+  "Concert",
   "Sport",
-  "Fashion",
-  "Art & Design",
+  "Film",
+  "Food",
+  "Hogwarts",
+  "Other",
 ];
 const DATE_RANGES = ["This Month", "This Week", "Last 30 Days"];
 
