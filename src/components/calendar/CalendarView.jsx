@@ -86,9 +86,9 @@ const handleNavigate = useCallback((newDate) => {
   });
 
   const categoryColors = {
-  Concert: '#fcd3fe',  // rosa
+  Concert: '#eeefff',  // rosa
   Sport: '#fcd3fe',
-  Film: '#fcd3fe',
+  Film: '#eeefff',
   Food: '#fcd3fe',
   Meetings: '#eeefff', // blå
   Other: '#fcd3fe',
