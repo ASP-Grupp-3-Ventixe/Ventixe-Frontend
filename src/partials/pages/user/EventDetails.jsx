@@ -72,11 +72,6 @@ const EventDetails = () => {
 
     };
 
-    const imageUrl = event.imageUrl?.trim() ? event.imageUrl : "/default-event.jpg";
-
-
-
-
 
     if (loading) return <p>Loading...</p>
     if (!event) return <p>Event not found</p>
@@ -88,12 +83,11 @@ const EventDetails = () => {
                 {/* === VÄNSTER === */}
                 <div className="left">
 
-                    {event && (
-                        <div
-                            className="event-image"
-                            style={{ backgroundImage: `url(${event.imageUrl || "/default-event.jpg"})` }}
-                        />
-                    )}
+                    <div
+                        className="event-image"
+                        style={{ backgroundImage: `url(${event?.imageUrl || "/default-event.jpg"})` }}
+                    />
+
 
                     <div className="event-info-card">
                         <h1 className="event-details-title">{event.title}</h1>
