@@ -18,13 +18,16 @@ const FloatingDayEvents = ({ events, onClose, onEventClick }) => {
             minute: '2-digit'
           });
 
-          const statusColors = {
-            Active: '#fcd3fe',
-            Draft: '#eeefff',
-            Past: '#ededed',
-          };
+          const categoryColors = {
+  Concert: '#fcd3fe',  // rosa
+  Sport: '#fcd3fe',
+  Film: '#fcd3fe',
+  Food: '#fcd3fe',
+  Meetings: '#eeefff', // blå
+  Other: '#fcd3fe',
+};
 
-          const backgroundColor = statusColors[event.status] || '#E0E0E0';
+          const backgroundColor = categoryColors[event.category] || '#E0E0E0';
 
           return (
             <div
@@ -44,7 +47,7 @@ const FloatingDayEvents = ({ events, onClose, onEventClick }) => {
             >
               <div className="event-title">{event.title}</div>
               <div className="event-time">{time}</div>
-              <div className="event-status">{event.status}</div>
+              <div className="event-category">{event.category}</div>
             </div>
           );
         })}

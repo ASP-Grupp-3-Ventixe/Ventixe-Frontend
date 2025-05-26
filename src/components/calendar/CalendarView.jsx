@@ -64,12 +64,12 @@ const CalendarView = () => {
 
   const handleViewChange = useCallback((newView) => {
   setView(newView);
-  setFloatingPosition(null); // stäng popup vid vybyte
+  setFloatingPosition(null);
 }, []);
 
 const handleNavigate = useCallback((newDate) => {
   setDate(newDate);
-  setFloatingPosition(null); // stäng popup vid navigering
+  setFloatingPosition(null); 
 }, []);
 
  const CustomEvent = ({ event }) => {
@@ -85,13 +85,17 @@ const handleNavigate = useCallback((newDate) => {
     minute: '2-digit',
   });
 
-  const statusColors = {
-    Active: '#fcd3fe',
-    Draft: '#eeefff',
-    Past: '#ededed',
-  };
+  const categoryColors = {
+  Concert: '#fcd3fe',  // rosa
+  Sport: '#fcd3fe',
+  Film: '#fcd3fe',
+  Food: '#fcd3fe',
+  Meetings: '#eeefff', // blå
+  Other: '#fcd3fe',
+};
 
-  const backgroundColor = statusColors[event.status] || '#E0E0E0';
+
+  const backgroundColor = categoryColors[event.category] || '#E0E0E0';
 
   return (
     <>
@@ -107,7 +111,7 @@ const handleNavigate = useCallback((newDate) => {
       >
         <div className="event-title">{event.title}</div>
         <div className="event-time">{startTime}</div>
-        <div className="event-status">{event.status}</div>
+        <div className="event-category">{event.category}</div>
       </div>
 
       {/* +X more, utanför event-rutan */}
@@ -227,8 +231,8 @@ setFloatingPosition({ center: true });
     position={floatingPosition}
     onClose={() => setFloatingPosition(null)}
     onEventClick={(event) => {
-      setSelectedEvent(event);             // 🟢 öppna EventModal
-      setFloatingPosition(null);           // 🔴 stäng flytande meny
+      setSelectedEvent(event);           
+      setFloatingPosition(null);         
     }}
   />
 )}
