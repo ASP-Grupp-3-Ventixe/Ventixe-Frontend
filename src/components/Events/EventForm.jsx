@@ -96,13 +96,13 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
         date: initialData.date.slice(0, 16),
         location: initialData.location,
         status: initialData.status,
-        progress: initialData.progress.toString(),
-        price: initialData.price.toString(),
+        progress: initialData.progress,
+        price: initialData.price,
         description: initialData.description,
         maxTickets: initialData.maxTickets,
         packages: initialData.packages?.map(p => ({
           name: p.name,
-          price:Number(p.price)
+          price:p.price
         })) ?? []
       })
     }
