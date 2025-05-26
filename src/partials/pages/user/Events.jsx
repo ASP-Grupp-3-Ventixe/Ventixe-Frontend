@@ -62,6 +62,21 @@ const Events = () => {
     };
 
     const handleEdit = async (event) => {
+
+         setForm({
+        id: 0,
+        title: "",
+        category: "",
+        date: "",
+        location: "",
+        status: "Active",
+        progress: "",
+        price: "",
+        description: "",
+        maxTickets: 0,
+        packages: []
+    }); 
+
         try {
             const res = await fetch(`${BASE_URL}/api/events/${event.id}`);
             if (!res.ok) throw new Error("Failed to fetch full event data");
