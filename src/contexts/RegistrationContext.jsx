@@ -18,7 +18,7 @@ export const RegistrationProvider = ({children}) => {
     const [profile, setProfile] = useState({
         firstName:'',
         lastName:'',
-        phone:'',
+        phoneNumber:'',
         acceptedTerms: false,
     });
 

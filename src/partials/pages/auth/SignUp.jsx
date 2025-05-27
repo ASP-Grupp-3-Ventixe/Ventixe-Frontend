@@ -81,6 +81,8 @@ export default function SignUp() {
     });
 
     if (res.ok) {
+      const data = await res.json();
+      setProfile(prev => ({ ...prev, userId: data.userId }));
       setStep(4);
     } else {
       const error = await res.text();
@@ -90,21 +92,21 @@ export default function SignUp() {
       console.error("Signup failed:", err);
       alert("Unexpected error occurred.");
     }
+    
   };
 
   const handleProfileSubmit = async e => {
     e.preventDefault();
 
-    const payload = {
-      firstName,
-      lastName,
-      phone
-    };
-
-    const res = await fetch('/api/profile', {
+    const res = await fetch('https://profileservice-provider-g2edh4c9cpe3fugk.swedencentral-01.azurewebsites.net/api/profile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ payload })
+      body: JSON.stringify({
+        userId: profile.userId,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        phoneNumber: profile.phoneNumber
+      })
     });
     res.ok ? navigate('/login') : alert('Failed to add info.');
   };
