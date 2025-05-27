@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef } from 'react';
 import {FiBell, FiSettings, FiMenu, FiSearch} from 'react-icons/fi';
 import VentixeLogo from '../../images/logos/ventixe-logo.svg';
 import {routes} from "../../routing/routes.config.jsx";

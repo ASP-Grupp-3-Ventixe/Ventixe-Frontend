@@ -1,5 +1,7 @@
-import ProfileSettings from '';
 
-export const Profile = () => {
-    return <ProfileSettings />;
+const Profile = () => {
+    // return <ProfileSettings />;
+    return <div>Profile Settings Component is not yet implemented.</div>
 };
+
+export default Profile;

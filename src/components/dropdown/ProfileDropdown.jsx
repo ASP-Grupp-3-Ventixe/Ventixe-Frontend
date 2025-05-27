@@ -2,11 +2,13 @@ import React, {useState} from 'react'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.jsx'
 import {useAuth} from "../../contexts/AuthContext.jsx";
 import './ProfileDropdown.css';
+import {useNavigate} from "react-router-dom";
 
 export const ProfileDropdown = ({ user })  => {
     const [darkMode, setDarkMode] = useState(false);
     const handleThemeToggle = () => setDarkMode(v => !v);
     const { signOut } = useAuth();
+    const navigate = useNavigate();
     
     return (
         <div className="profile-dropdown">
@@ -21,7 +23,7 @@ export const ProfileDropdown = ({ user })  => {
             {/* Profile settings */}
             <div
                 className="profile-dropdown-item profile-settings"
-                onClick={() => window.location.href='/account/profile'}
+                onClick={() => navigate("/profile")}
             >
                 <span className="profile-settings-left">
                     <i className="fa-duotone fa-solid fa-user"></i>

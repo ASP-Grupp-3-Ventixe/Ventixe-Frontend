@@ -25,7 +25,8 @@ export const getEmails = async (folder = "inbox", unreadOnly = false, searchQuer
         const response = await mailClient.get("emails", {
             params: { folder, unreadOnly, searchQuery }
         });
-        return (response.data.items || []).map(emailMapper);
+        const mapped = (response.data.items || []).map(emailMapper);
+        return mapped;
     } catch (error) {
         handleError(error);
         return [];

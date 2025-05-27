@@ -11,6 +11,8 @@ const NotFound = lazy(() => import("../partials/pages/NotFound"));
 const SignUp = lazy(() => import("../partials/pages/auth/SignUp"));
 const SignIn = lazy(() => import("../partials/pages/auth/SignIn"));
 
+const UserProfile = lazy(() => import("../partials/pages/user/profile/Profile"));
+
 const UserDashboard = lazy(() => import("../partials/pages/user/Dashboard"));
 const UserBookings = lazy(() => import("../partials/pages/user/Bookings"));
 const UserCalendar = lazy(() => import("../partials/pages/user/Calendar"));
@@ -38,6 +40,11 @@ export const routes = [
     layout: PortalLayout,
     protected: true,
     children: [
+      {
+        path: "/profile",
+        element: <UserProfile />,
+        meta: { title: "Profile", parent: "Dashboard" },
+      },
       {
         path: "/dashboard",
         element: <UserDashboard />,
