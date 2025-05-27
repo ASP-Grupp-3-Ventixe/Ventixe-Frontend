@@ -1,6 +1,6 @@
 import axios from "axios";
 import {handleError} from "../Helpers/errorHandler.jsx";
-import { attachInterceptors } from "../Helpers/attachInterceptor.jsx";
+import {attachInterceptors} from "../Helpers/attachInterceptor.jsx";
 
 const mailClient = axios.create({
     baseURL: "https://mailhandlingservice-brdtfbcye5dea5cw.swedencentral-01.azurewebsites.net/api/",
@@ -25,8 +25,7 @@ export const getEmails = async (folder = "inbox", unreadOnly = false, searchQuer
         const response = await mailClient.get("emails", {
             params: { folder, unreadOnly, searchQuery }
         });
-        const mapped = (response.data.items || []).map(emailMapper);
-        return mapped;
+        return (response.data.items || []).map(emailMapper);
     } catch (error) {
         handleError(error);
         return [];
