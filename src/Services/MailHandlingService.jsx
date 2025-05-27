@@ -1,5 +1,5 @@
 import axios from "axios";
-import {handleError} from "../Helpers/ErrorHandler.jsx";
+import {handleError} from "../Helpers/errorHandler.jsx";
 import { attachInterceptors } from "../Helpers/attachInterceptor.jsx";
 
 const mailClient = axios.create({
