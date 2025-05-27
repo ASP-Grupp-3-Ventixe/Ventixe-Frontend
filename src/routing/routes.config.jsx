@@ -5,6 +5,7 @@ import Unauthorized from "../partials/pages/auth/Unauthorized";
 import PortalLayout from "../partials/layouts/PortalLayout";
 import Feedback from "../partials/pages/user/Feedback"; // Din feedback-komponent
 
+
 const NotFound = lazy(() => import("../partials/pages/NotFound"));
 
 const SignUp = lazy(() => import("../partials/pages/auth/SignUp"));

@@ -15,6 +15,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
     progress: "",
     price: "",
     description: "",
+    maxTickets: 0,
     packages: [{ name: "", price: "" }]
   });
 
@@ -43,18 +44,25 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
       newErrors.date = "Date must be in the future."
     }
 
+
+
     if (!fieldPattern.test(values.location.trim()))
       newErrors.location = "Only letters, numbers, spaces, and - allowed (2-50 chars.)"
 
     if (!values.status) newErrors.status = "Status is required."
 
     const progress = Number(values.progress)
-    if (isNaN(progress) || progress < 0 || progress > 100)
-      newErrors.progress = "Progress must be between 0 and 100."
+    if (values.progress === "" || isNaN(progress) || progress < 0 || progress > 100)
+      newErrors.progress = "Progress must be between 0 and 100.";
 
     const price = Number(values.price)
-    if (isNaN(price) || price < 0)
-      newErrors.price = "Price must be a positive number."
+    if (values.price === "" || isNaN(price) || price < 0)
+      newErrors.price = "Price must be a positive number.";
+
+    if (isNaN(values.maxTickets) || values.maxTickets <= 0) {
+  newErrors.maxTickets = "Max tickets must be a positive number.";
+}
+
 
     if (values.packages && Array.isArray(values.packages)) {
       const packageErrors = []
@@ -78,51 +86,80 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
   }
 
   const change = (key, value) => {
-    const updated = { ...form, [key]: value }
-    setForm(updated)
+    const updated = {
+      ...form,
+      [key]: ["progress", "price", "maxTickets"].includes(key)
+        ? value === "" ? "" : Number(value)
+        : value
+    };
+    setForm(updated);
 
-    if (submitted) validate(updated)
+    if (submitted) validate(updated);
+  };
+
+
+
+
+
+useEffect(() => {
+  if (!initialData) {
+    setForm({
+      id: 0,
+      title: "",
+      category: "",
+      date: "",
+      location: "",
+      status: "Active",
+      progress: "",
+      price: "",
+      description: "",
+      maxTickets: 0,
+      imageFileName: "",
+      packages: []
+    });
+    return;
   }
 
+  setForm({
+    id: initialData.id,
+    title: initialData.title ?? "",
+    category: initialData.category ?? "",
+    date: initialData.date?.slice(0, 16) ?? "",
+    location: initialData.location ?? "",
+    status: initialData.status ?? "Active",
+    progress: initialData.progress ?? "",
+    price: initialData.price ?? "",
+    description: initialData.description ?? "",
+    maxTickets: initialData.maxTickets ?? 0,
+    imageFileName: initialData.imageFileName ?? "",
+    packages: initialData.packages?.map(p => ({
+      name: p.name ?? "",
+      price: p.price ?? 0
+    })) ?? []
+  });
+}, [initialData]);
 
-
-  useEffect(() => {
-    if (initialData) {
-      setForm({
-        id: initialData.id,
-        title: initialData.title,
-        category: initialData.category,
-        date: initialData.date.slice(0, 16),
-        location: initialData.location,
-        status: initialData.status,
-        progress: initialData.progress.toString(),
-        price: initialData.price.toString(),
-        description: initialData.description,
-        maxTickets: initialData.maxTickets,
-        packages: initialData.packages ?? []
-      })
-    }
-  }, [initialData]);
 
   const handleSubmit = () => {
     setSubmitted(true)
     if (!validate(form)) return
 
-    const cleanedForm = {
-      ...form,
-      title: form.title.trim(),
-      category: form.category.trim(),
-      location: form.location.trim(),
-      description: form.description.trim(),
-      progress: Number(form.progress),
-      price: Number(form.price),
-      date: new Date(form.date).toISOString(),
-      maxTickets: Number(form.maxTickets),
-      packages: form.packages.map(p => ({
+   const cleanedForm = {
+  ...form,
+  title: form.title.trim(),
+  category: form.category.trim(),
+  location: form.location.trim(),
+  description: form.description.trim(),
+  progress: Number(form.progress),
+  price: Number(form.price),
+  date: new Date(form.date).toISOString(),
+  maxTickets: Number(form.maxTickets),
+  packages: form.packages.map(p => ({
     name: p.name,
     price: Number(p.price)
-  }))
-    };
+  })),
+  imageFileName: form.imageFileName  
+};
 
     if (!initialData) delete cleanedForm.id;
 
@@ -226,14 +263,14 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
 
         <h4>Packages</h4>
         {form.packages.map((pkg, index) => (
-          <div key={pkg.id} className="package-row">
+          <div key={index} className="package-row">
 
             <input type="text"
               placeholder="Package name"
               value={pkg.name}
               onChange={(e) => {
-                const updated = form.packages.map((p) =>
-                  p.id === pkg.id ? { ...p, name: e.target.value } : p)
+                const updated = form.packages.map((p, i) =>
+                  i === index ? { ...p, name: e.target.value } : p)
                 change("packages", updated);
               }}
               className="package-input"
@@ -258,7 +295,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
               onClick={() => {
                 const updated = [...form.packages];
                 updated.splice(index, 1);
-                change("packages", form.packages.filter((p) => p.id !== pkg.id));
+                change("packages", form.packages.filter((_, i) => i !== index));
               }}
             >
               Remove
@@ -274,7 +311,7 @@ const EventForm = ({ initialData, onSubmit, onClose }) => {
           type="button"
           className="add-package"
           onClick={() =>
-            change("packages", [...form.packages, { id: Date.now(), name: "", price: 0 }])
+            change("packages", [...form.packages, { name: "", price: 0 }])
           }
 
         >
