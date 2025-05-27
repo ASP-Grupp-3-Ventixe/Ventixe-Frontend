@@ -80,8 +80,8 @@ const InboxDetail = ({ mailId, onBack, folder, onRemoveMail }) => {
                                     To: {mail.recipients && mail.recipients.length > 0
                                     ? mail.recipients.map((r, idx) => (
                                         <span key={r.id || idx}>
-                                                        {r.name} &lt;{r.email}&gt;{idx < mail.recipients.length - 1 ? ", " : ""}
-                                                    </span>
+                                            {r.name} &lt;{r.email}&gt;{idx < mail.recipients.length - 1 ? ", " : ""}
+                                        </span>
                                     ))
                                     : "Ingen mottagare"}
                                 </div>
@@ -95,8 +95,8 @@ const InboxDetail = ({ mailId, onBack, folder, onRemoveMail }) => {
                                         .filter(r => r.email === currentUser.email)
                                         .map((r, idx, arr) => (
                                             <span key={r.id || idx}>
-                                                            {r.name} &lt;{r.email}&gt;{idx < arr.length - 1 ? ", " : ""}
-                                                        </span>
+                                                {r.name} &lt;{r.email}&gt;{idx < arr.length - 1 ? ", " : ""}
+                                            </span>
                                         ))
                                     : currentUser.name + " <" + currentUser.email + ">"}
                                 </div>

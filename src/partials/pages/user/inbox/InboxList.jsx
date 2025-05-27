@@ -26,8 +26,7 @@ const labels = [
     return (
         <div className="inbox-list">
             {emails.map(mail => {
-
-                // choose sender or recipient depending on folder
+                
                 let displayName, displayInitials, displayType;
 
                 if (folder.toLowerCase() === "sent") {

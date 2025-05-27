@@ -7,9 +7,8 @@ import NewEmailModal from './NewEmailModal';
 import {createEmail} from "../../../../Services/MailHandlingService.jsx";
 import {useAuth} from "../../../../contexts/AuthContext.jsx";
 import {useEmails} from "./Hooks/useEmails.js";
-import {useModal} from "./Hooks/useModal.js";
+import {useModal} from "../../../../Hooks/useModal.js";
 import './Inbox.css';
-
 
 const Inbox = () => {
     const { user } = useAuth();

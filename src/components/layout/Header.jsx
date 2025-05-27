@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect, useRef } from 'react';
 import {FiBell, FiSettings, FiMenu, FiSearch} from 'react-icons/fi';
 import VentixeLogo from '../../images/logos/ventixe-logo.svg';
 import {routes} from "../../routing/routes.config.jsx";
 import {useLocation} from "react-router-dom";
 import {useAuth} from "../../contexts/AuthContext";
+import {useModal} from "../../Hooks/useModal.js";
+import {ProfileDropdown} from "../dropdown/ProfileDropdown.jsx";
+import {ProfileAvatar} from "../profileAvatar/ProfileAvatar.jsx";
 
 // helper function to find meta based on path
 function findMeta(path, routesArr = routes) {
@@ -35,6 +38,22 @@ const Header = ({ onToggleSidebar }) => {
     const location = useLocation();
     const meta = findMeta(location.pathname);
     const { user } = useAuth();
+    const { open, handleOpen, handleClose } = useModal(false);
+    const dropdownRef = useRef(null);
+
+
+    // close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                handleClose();
+            }
+        }
+        if (open) {
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, [open, handleClose]);
 
 
     return (
@@ -77,12 +96,21 @@ const Header = ({ onToggleSidebar }) => {
                     </div>
                 </div>
 
-                <div className="profile-section">
-                    <div className="profile-pic"></div>
+                <div
+                    className="profile-section"
+                    ref={dropdownRef}
+                    onClick={open ? handleClose : handleOpen}
+                    style={{ cursor: "pointer", position: "relative" }}
+                >
+                    <ProfileAvatar avatarUrl={user?.avatar} nameOrEmail={user?.name || user?.email} />
                     <div className="profile-info">
                         <span className="profile-name">{user?.email?.split('@')[0] || 'User'}</span>
                         <span className="profile-role">{user?.role || 'User'}</span>
                     </div>
+                    {/* dropdown content */}
+                    {open && (
+                        <ProfileDropdown user={user}  />
+                    )}
                 </div>
             </div>
             

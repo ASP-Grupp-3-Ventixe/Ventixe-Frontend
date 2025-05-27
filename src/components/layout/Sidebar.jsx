@@ -1,3 +1,4 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     FiLogOut,
@@ -12,7 +13,7 @@ import {
     FiBook
 } from 'react-icons/fi';
 import VentixeLogo from '../../images/logos/ventixe-logo.svg';
-import { useAuth } from '../../contexts/AuthContext';
+import {useAuth} from "../../contexts/AuthContext.jsx";
 
 const Sidebar = ({ isOpen, onClose }) => {
     const { signOut } = useAuth();
@@ -27,6 +28,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         { to: "/gallery", label: "Gallery", icon: <FiImage /> },
         { to: "/feedback", label: "Feedback", icon: <FiMessageSquare /> },
     ];
+    
 
     // function to close sidebar on mobile when a link is clicked
     const handleNavClick = () => {

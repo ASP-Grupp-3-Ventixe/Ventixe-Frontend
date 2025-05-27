@@ -3,23 +3,18 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 const ProtectedRoute = ({ children }) => {
-  try {
-
-    const { isAuthenticated } = useAuth()
-    // console.log("Is Authenticated:", isAuthenticated)
-
-
-    if (isAuthenticated && isAuthenticated !== undefined) {
-      return children
-    }
-
+  const { isAuthenticated, loading } = useAuth();
+  
+  if (loading) {
+    return <div>Loading...</div>;
   }
-  catch (error) {
-    console.error("🚨 [ProtectedRoute] error:", error)
+  
+  if (isAuthenticated) {
+    return children;
   }
-
-  return <Navigate to="/login" replace />
-
+  
+  // if not logged in, redirect to login
+  return <Navigate to="/login" replace />;
 }
 
 export default ProtectedRoute

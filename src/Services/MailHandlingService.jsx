@@ -1,5 +1,12 @@
-import {handleError} from "../Helpers/ErrorHandler.jsx";
-import mailClient from "../api/mailClient.js";
+import axios from "axios";
+import {handleError} from "../Helpers/errorHandler.jsx";
+import {attachInterceptors} from "../Helpers/attachInterceptor.jsx";
+
+const mailClient = axios.create({
+    baseURL: "https://mailhandlingservice-brdtfbcye5dea5cw.swedencentral-01.azurewebsites.net/api/",
+});
+
+attachInterceptors(mailClient);
 
 // create email
 export const createEmail = async (emailDto) => {

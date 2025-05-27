@@ -1,21 +1,35 @@
-import authClient from "../api/authClient";
+import axios from "axios";
+import { attachInterceptors } from "../Helpers/attachInterceptor.jsx";
 
-// signIn: POST /auth/signin
+const authClient = axios.create({
+    baseURL: "https://kappeauthserviceprovider-avevcya4hrd2ahb2.swedencentral-01.azurewebsites.net/api/",
+});
+
+const accountClient = axios.create({
+    baseURL: "https://kappeaccountserviceprovider-fpc6habrbpckg8ha.swedencentral-01.azurewebsites.net/api/",
+});
+
+attachInterceptors(authClient);
+attachInterceptors(accountClient);
+
+
+// signIn: 
 export const signIn = async (email, password) => {
     const response = await authClient.post("Auth/signin", { email, password });
     return response.data;
 };
 
-// register: POST /auth/signup
-export const signUp = async (userData) => {
-    const response = await authClient.post("Auth/signup", {
-        email: userData.email,
-        password: userData.password
-    });
-    return response.data;
-};
+// register: 
+// export const signUp = async (userData) => {
+//     const response = await authClient.post("Auth/signup", {
+//         email: userData.email,
+//         password: userData.password
+//     });
+//     return response.data;
+// };
 
-// signOut: POST /auth/signout
+// signOut: 
 export const signOut = async () => {
-    // await authClient.post("auth/signout");
+    const response = await authClient.post("Auth/signout");
+    return response.data;
 };

@@ -78,7 +78,8 @@
   --notification-background-color: var(--blue);
   --notification-logo-color: var(--primary-100);
 
-  --red-light: #fef1ec;
+  /*--red-light: #fef1ec;*/
+  --red-light: #FEEDEC;
   --red-semilight: #ffb8a5;
   --red: #e94e3f;
   --red-semidark: #b83030;
@@ -120,6 +121,7 @@
   --divider: var(--grey-40);
 
   --border-radius: 0.7rem;
+  --border-radius-2: 0.4rem;
 
   /* shapes & others */
   --notification-detail-color: var(--pink);
