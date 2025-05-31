@@ -99,7 +99,6 @@ const handleNavigate = useCallback((newDate) => {
 
   return (
     <>
-      {/* Event-rutan */}
       <div
         className="custom-event"
         style={{
@@ -114,7 +113,7 @@ const handleNavigate = useCallback((newDate) => {
         <div className="event-category">{event.category}</div>
       </div>
 
-      {/* +X more, utanför event-rutan */}
+      {/* chatgpt som hjälper till att visa fler + more events */}
       {eventsForDay.length > 1 && (
         <div
           className="more-events"
@@ -144,7 +143,7 @@ setFloatingPosition({ center: true });
 };
 
 
-
+//fått hjälp av CHATgpt med re-styling på react-big-calendar
   const CustomToolbar = ({ label, onNavigate, onView, view }) => {
     return (
       <div className="rbc-toolbar custom-toolbar">
@@ -182,7 +181,6 @@ setFloatingPosition({ center: true });
     );
   };
 
-  // Visa bara det första eventet per dag
   const getVisibleEvents = () => {
     const grouped = {};
     for (let evt of events) {
@@ -220,7 +218,7 @@ setFloatingPosition({ center: true });
         style={{ height: '100%' }}
       />
 
-      {/* Popup för ett enskilt event */}
+      {/* fått hjälp av chatgpt meda tt visa flytande modal på rätt sätt */}
       <EventModal
         event={selectedEvent}
         onClose={() => setSelectedEvent(null)}
