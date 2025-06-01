@@ -9,7 +9,7 @@ import gridIcon from "../../../images/icons/Button Picker.svg";
 import listIcon from "../../../images/icons/Button Picker (1).svg";
 import leftArrowIcon from "../../../images/icons/Pagination Left.svg";
 import rightArrowIcon from "../../../images/icons/Pagination Right.svg";
-import { Outlet } from "react-router-dom";
+
 
 const BASE_URL = config.apiBaseUrl;
 
@@ -63,7 +63,7 @@ const Events = () => {
 
     const handleEdit = async (event) => {
         try {
-               const res = await fetch(`${BASE_URL}/api/events/edit/${event.id}`);
+            const res = await fetch(`${BASE_URL}/api/events/edit/${event.id}`);
             if (!res.ok) throw new Error("Failed to fetch full event data");
             const fullEventData = await res.json();
 

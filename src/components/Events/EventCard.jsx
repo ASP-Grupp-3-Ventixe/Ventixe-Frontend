@@ -49,8 +49,6 @@ const EventCard = ({ event, onEdit, onDelete, viewMode, onImageUpload }) => {
                 )}
             </div>
 
-
-            {/* Image */}
             <div className="event-thumbnail-wrapper">
                 <div
                     className={`event-thumbnail ${event.imageUrl ? "with-image" : ""}`}
@@ -79,7 +77,6 @@ const EventCard = ({ event, onEdit, onDelete, viewMode, onImageUpload }) => {
                 </div>
             </div>
 
-            {/* Info */}
             <div className="event-card-body" onClick={() => navigate(`/events/${event.id}`)}>
                 <p className="event-date">
                     {new Date(event.date).toLocaleDateString("en-US", {
