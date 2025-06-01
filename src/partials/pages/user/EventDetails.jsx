@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import config from "../../../config"
-import { FiArrowLeft } from 'react-icons/fi'
 const BASE_URL = config.apiBaseUrl
 
 const EventDetails = () => {
     const { id } = useParams()
-    const navigate = useNavigate()
 
     const [event, setEvent] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -80,7 +78,6 @@ const EventDetails = () => {
         <main className="event-details">
             <div className="details-grid">
 
-                {/* === VÄNSTER === */}
                 <div className="left">
 
                     <div
@@ -149,7 +146,6 @@ const EventDetails = () => {
 
                 </div>
 
-                {/* === HÖGER === */}
                 <div className="event-details-right">
 
                     {event.packages.map((pkg) => (
